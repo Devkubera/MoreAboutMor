@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/nav_color"
+    tools:context=".MenuFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/LayoutTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/textNoti"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:fontFamily="@font/mitr_regular"
+                android:text="เมนู"
+                android:textColor="@color/white"
+                android:textSize="40dp"
+                android:shadowColor="@color/dark"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="2"/>
+
+            <ImageView
+                android:id="@+id/userProfile"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/img_profile" />
+
+
+        </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/Popular_courses"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/LayoutTop"
+        android:padding="15dp">
+
+        <android.widget.Button
+            android:id="@+id/Btn_PC"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="textStart"
+            android:padding="12dp"
+            android:drawableLeft="@drawable/ic_star"
+            android:drawableTint="@color/dark_font"
+            android:background="@drawable/custom_button_white"
+            android:textColor="@color/dark_font"
+            android:text=" รายวิชายอดนิยมในสำนักวิชา"
+            android:textSize="17dp"
+            android:fontFamily="@font/mitr_regular"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:id="@+id/Subjects_skills"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/Popular_courses"
+            android:padding="15dp">
+
+            <android.widget.Button
+                android:id="@+id/Btn_SS"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="textStart"
+                android:padding="12dp"
+                android:drawableLeft="@drawable/ic_science"
+                android:drawableTint="@color/dark_font"
+                android:background="@drawable/custom_button_white"
+                android:textColor="@color/dark_font"
+                android:text=" วิชาที่ส่งเสริมทักษะศตวรรษที่ 21"
+                android:textSize="17dp"
+                android:fontFamily="@font/mitr_regular"/>
+
+        </RelativeLayout>
+
+    <RelativeLayout
+            android:id="@+id/Calendar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/Subjects_skills"
+            android:padding="15dp">
+
+            <android.widget.Button
+                android:id="@+id/Btn_C"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="textStart"
+                android:padding="12dp"
+                android:drawableLeft="@drawable/ic_calender"
+                android:drawableTint="@color/dark_font"
+                android:background="@drawable/custom_button_white"
+                android:textColor="@color/dark_font"
+                android:text=" ปฏิทินมหาวิทยาลัยระดับปริญญาตรี"
+                android:textSize="17dp"
+                android:fontFamily="@font/mitr_regular"/>
+
+        </RelativeLayout>
+
+    <RelativeLayout
+            android:id="@+id/GE"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/Calendar"
+            android:padding="15dp">
+
+            <android.widget.Button
+                android:id="@+id/Btn_GE"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="textStart"
+                android:padding="12dp"
+                android:drawableLeft="@drawable/ic_ge"
+                android:drawableTint="@color/dark_font"
+                android:background="@drawable/custom_button_white"
+                android:textColor="@color/dark_font"
+                android:text=" คำอธิบายรายวิชาเสรี"
+                android:textSize="17dp"
+                android:fontFamily="@font/mitr_regular"/>
+
+        </RelativeLayout>
+
+    <RelativeLayout
+            android:id="@+id/MJ"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/GE"
+            android:padding="15dp">
+
+            <android.widget.Button
+                android:id="@+id/Btn_MJ"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="textStart"
+                android:padding="12dp"
+                android:drawableLeft="@drawable/ic_mj"
+                android:drawableTint="@color/dark_font"
+                android:background="@drawable/custom_button_white"
+                android:textColor="@color/dark_font"
+                android:text=" คำอธิบายรายวิชาของสาขา"
+                android:textSize="17dp"
+                android:fontFamily="@font/mitr_regular"/>
+
+        </RelativeLayout>
+
+    <RelativeLayout
+            android:id="@+id/Study_plan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/MJ"
+            android:padding="15dp">
+
+            <android.widget.Button
+                android:id="@+id/Btn_SP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="textStart"
+                android:padding="12dp"
+                android:drawableLeft="@drawable/ic_plan"
+                android:drawableTint="@color/dark_font"
+                android:background="@drawable/custom_button_white"
+                android:textColor="@color/dark_font"
+                android:text=" แผนการเรียนของสาขา"
+                android:textSize="17dp"
+                android:fontFamily="@font/mitr_regular"/>
+
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
+
+</FrameLayout>

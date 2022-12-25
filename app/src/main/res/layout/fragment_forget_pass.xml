@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/nav_color"
+    tools:context=".ForgetPassFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/CV_BackMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_marginTop="20dp"
+            app:cardBackgroundColor="@color/back_color"
+            style="@style/CustomCardViewStyle_BackMenu">
+
+            <RelativeLayout
+                android:layout_width="310dp"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true">
+
+                <ImageView
+                    android:id="@+id/Btn_BackForgetPage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_baseline_arrow_white_ios_35" />
+
+                <RelativeLayout
+                    android:id="@+id/LayoutFont"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/Btn_BackForgetPage">
+
+                    <TextView
+                        android:id="@+id/textCreate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:layout_marginStart="10dp"
+                        android:textSize="30dp"
+                        android:text="Forgot Password"
+                        android:fontFamily="@font/mitr_medium"/>
+
+                    <TextView
+                        android:id="@+id/textCreateTH"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/textCreate"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:layout_marginStart="10dp"
+                        android:textSize="15dp"
+                        android:text="ลืมรหัสผ่าน"
+                        android:fontFamily="@font/mitr_light"/>
+
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Card View Input Field -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/CV_From"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="30dp"
+            android:layout_below="@+id/CV_BackMenu"
+            app:cardBackgroundColor="@color/white"
+            style="@style/CustomCardViewStyle_Field">
+
+            <RelativeLayout
+                android:id="@+id/LayoutInput"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:id="@+id/FromInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true">
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/img_forgot" />
+
+                    <TextView
+                        android:id="@+id/textInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_below="@+id/imageView"
+                        android:layout_centerHorizontal="true"
+                        android:fontFamily="@font/mitr_regular"
+                        android:text="กรุณากรอกอีเมลล์ที่คุณใช้สมัคร"
+                        android:textColor="@color/black"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/textInfo2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/textInfo"
+                        android:layout_centerHorizontal="true"
+                        android:fontFamily="@font/mitr_regular"
+                        android:text="เพื่อทำการตั้งรหัสผ่านใหม่"
+                        android:textColor="@color/black"
+                        android:textSize="20dp" />
+
+                    <ImageView
+                        android:id="@+id/imgMail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/textInfo2"
+                        android:layout_marginTop="30dp"
+                        app:srcCompat="@drawable/ic_baseline_email_24black" />
+
+                    <!--TextEmail-->
+                    <TextView
+                        android:id="@+id/textEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/textInfo2"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_toEndOf="@+id/imgMail"
+                        android:fontFamily="@font/mitr_medium"
+                        android:text="Email Address"
+                        android:textColor="@color/black" />
+
+                    <EditText
+                        android:id="@+id/putEmail"
+                        android:layout_width="300dp"
+                        android:layout_height="45dp"
+                        android:layout_below="@+id/textEmail"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/custom_input"
+                        android:fontFamily="@font/mitr_light"
+                        android:hint="Email"
+                        android:inputType="textEmailAddress"
+                        android:padding="10dp"
+                        android:textColor="@color/black" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+
+            <!-- Btn Send Mail -->
+            <RelativeLayout
+                android:id="@+id/LayoutBottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="15dp">
+
+                <android.widget.Button
+                    android:id="@+id/sendButton"
+                    android:layout_width="220dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="15dp"
+                    android:text="ส่งอีเมล"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"
+                    android:background="@drawable/custom_button_blue"
+                    android:fontFamily="@font/mitr_semibold"/>
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="30dp"
+                    android:visibility="invisible"
+                    android:fontFamily="@font/mitr_medium"/>
+
+            </RelativeLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+
+
+
+
+
+    </RelativeLayout>
+
+</FrameLayout>

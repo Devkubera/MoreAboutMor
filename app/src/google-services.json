@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "997693749678",
+    "project_id": "moreaboutmoreapp",
+    "storage_bucket": "moreaboutmoreapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:997693749678:android:041141ca13b2828272b03f",
+        "android_client_info": {
+          "package_name": "com.example.moreaboutmoreapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "997693749678-2rk16fs3hp5uhbrvp5eun9vjjp4i340a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7oNja1fZmVNsDRDbU2IXLsH0iS0cJU9A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "997693749678-2rk16fs3hp5uhbrvp5eun9vjjp4i340a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

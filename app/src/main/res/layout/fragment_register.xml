@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/nav_color"
+    tools:context=".RegisterFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Card View BackMenu -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/CV_BackMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_marginTop="20dp"
+            app:cardBackgroundColor="@color/back_color"
+            style="@style/CustomCardViewStyle_BackMenu">
+
+            <RelativeLayout
+                android:layout_width="210dp"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true">
+
+                <ImageView
+                    android:id="@+id/Btn_BackRegisPage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_baseline_arrow_white_ios_35" />
+
+                <RelativeLayout
+                    android:id="@+id/LayoutFont"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/Btn_BackRegisPage">
+
+                    <TextView
+                        android:id="@+id/textCreate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:layout_marginStart="10dp"
+                        android:textSize="30dp"
+                        android:text="Register"
+                        android:fontFamily="@font/mitr_medium"/>
+
+                    <TextView
+                        android:id="@+id/textCreateTH"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/textCreate"
+                        android:layout_centerVertical="true"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:layout_marginStart="10dp"
+                        android:textSize="15dp"
+                        android:text="สมัครสมาชิก"
+                        android:fontFamily="@font/mitr_light" />
+
+                </RelativeLayout>
+
+
+
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+       <!-- <ImageView
+            android:id="@+id/userProfile"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="45dp"
+            android:layout_toEndOf="@id/textCreate"
+            android:src="@drawable/ic_baseline_supervised_user_circle_24" />
+            -->
+        <RelativeLayout
+            android:id="@+id/LayoutImg_Cow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="10dp">
+
+            <ImageView
+                android:id="@+id/userProfile"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/img_register" />
+
+        </RelativeLayout>
+
+        <!-- Card View Input Field -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/CV_From"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="30dp"
+            android:layout_below="@+id/CV_BackMenu"
+            app:cardBackgroundColor="@color/white"
+            style="@style/CustomCardViewStyle_Field">
+
+            <RelativeLayout
+                android:id="@+id/LayoutInput"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <!-- Layout_From -->
+                <RelativeLayout
+                    android:id="@+id/layout_from"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_centerVertical="true">
+
+                    <!--Email-->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/regEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:textColorHint="@color/dark"
+                        app:startIconTint="@color/dark"
+                        app:errorEnabled="true"
+                        app:startIconDrawable="@drawable/ic_baseline_email_24black"
+                        style="@style/TextInputLayoutStyle">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="b6XXXXX@g.sut.ac.th"
+                            android:textColor="@color/black"
+                            android:textSize="14dp"
+                            android:inputType="textEmailAddress"
+                            android:fontFamily="@font/mitr_light">
+                        </com.google.android.material.textfield.TextInputEditText>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!--Pass-->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/regPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/regEmail"
+                        app:endIconMode="password_toggle"
+                        android:textColorHint="@color/dark"
+                        app:startIconTint="@color/dark"
+                        app:endIconTint="@color/dark"
+                        app:errorEnabled="true"
+                        app:startIconDrawable="@drawable/ic_baseline_lock_24black"
+                        style="@style/TextInputLayoutStyle">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="รหัสผ่าน (ความยาวมากกว่า 8 ตัวอักษร)"
+                            android:textColor="@color/black"
+                            android:textSize="14dp"
+                            android:inputType="textPassword"
+                            android:fontFamily="@font/mitr_light">
+                        </com.google.android.material.textfield.TextInputEditText>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!--PassConfirm-->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/regConfirmPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/regPassword"
+                        app:endIconMode="password_toggle"
+                        android:textColorHint="@color/dark"
+                        app:startIconTint="@color/dark"
+                        app:endIconTint="@color/dark"
+                        app:errorEnabled="true"
+                        app:startIconDrawable="@drawable/ic_baseline_lock_24black"
+                        style="@style/TextInputLayoutStyle">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="กรอกรหัสผ่านซ้ำอีกครั้ง"
+                            android:textColor="@color/black"
+                            android:textSize="14dp"
+                            android:inputType="textPassword"
+                            android:fontFamily="@font/mitr_light">
+                        </com.google.android.material.textfield.TextInputEditText>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!--คณะ-->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/regGroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/regConfirmPassword"
+                        android:hint="กรุณาเลือกคณะของคุณ"
+                        app:endIconTint="@color/dark"
+                        android:textColorHint="@color/dark"
+                        app:startIconTint="@color/dark"
+                        app:errorEnabled="true"
+                        app:startIconDrawable="@drawable/ic_study"
+                        style="@style/DropdownMenuLayoutStyle">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/selectGroup"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/mitr_light"
+                            android:textColor="@color/black"
+                            android:textSize="14dp"
+                            android:inputType="none"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!--สาขา-->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/regBranch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@+id/regGroup"
+                        android:hint="กรุณาเลือกสาขาของคุณ"
+                        app:endIconTint="@color/dark"
+                        android:textColorHint="@color/dark"
+                        app:startIconTint="@color/dark"
+                        app:errorEnabled="true"
+                        app:startIconDrawable="@drawable/ic_backpack"
+                        style="@style/DropdownMenuLayoutStyle">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/selectBranch"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/mitr_light"
+                            android:textColor="@color/black"
+                            android:textSize="14dp"
+                            android:inputType="none"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                </RelativeLayout>
+
+                <!-- Btn Register -->
+                <RelativeLayout
+                    android:id="@+id/LayoutBottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="15dp">
+
+                    <android.widget.Button
+                        android:id="@+id/regButton"
+                        android:layout_width="220dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:text="สมัคร"
+                        android:textSize="20dp"
+                        android:textColor="@color/white"
+                        android:background="@drawable/custom_button_blue"
+                        android:fontFamily="@font/mitr_semibold" />
+
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        style="?android:attr/progressBarStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:visibility="invisible" />
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+
+
+
+    </RelativeLayout>
+
+
+</FrameLayout>

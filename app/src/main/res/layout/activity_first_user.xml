@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.FirstUserActivity"
+    android:background="@drawable/bg_first">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/slideInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:id="@+id/layout_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_centerInParent="true">
+
+        <ImageView
+            android:id="@+id/info_first"
+            android:layout_width="600dp"
+            android:layout_height="600dp" />
+
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/LayoutButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true" >
+
+        <android.widget.Button
+            android:id="@+id/nextButtonInfo"
+            android:layout_width="220dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/custom_button_blue_v2"
+            android:fontFamily="@font/mitr_semibold"
+            android:text="ต่อไป"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
+        <android.widget.Button
+            android:id="@+id/startButtonInfo"
+            android:layout_width="220dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/custom_button_orange"
+            android:fontFamily="@font/mitr_semibold"
+            android:text="เริ่มต้นใช้งาน"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:visibility="invisible"/>
+
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/LayoutCountInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/LayoutButton"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true">
+
+    </LinearLayout>
+
+
+
+
+
+
+</RelativeLayout>

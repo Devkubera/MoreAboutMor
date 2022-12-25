@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/BottomSheetContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"
+    android:background="@drawable/bottom_sheet_bg">
+
+    <TextView
+        android:id="@+id/textCreatePost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"
+        android:text="แก้ไขโพสต์"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:fontFamily="@font/mitr_medium"/>
+
+    <!-- Line Top-->
+    <View
+        android:id="@+id/lineTop"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/textCreatePost"
+        android:background="@color/colorDivider" />
+
+    <!-- Add Post-->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/Edit_Post"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_below="@+id/lineTop"
+        android:layout_centerHorizontal="true"
+        android:textColorHint="@color/grey_font"
+        app:startIconTint="@color/dark"
+        app:errorEnabled="true"
+        style="@style/TextInputLayoutStyle">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:gravity="top|start"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            android:inputType="textMultiLine"
+            android:fontFamily="@font/mitr_medium">
+        </com.google.android.material.textfield.TextInputEditText>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Line Bottom-->
+    <View
+        android:id="@+id/lineBottom"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_below="@+id/Edit_Post"
+        android:background="@color/colorDivider" />
+
+    <!-- Tag -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/EditSelectTag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/lineBottom"
+        android:hint="เลือก Tag ที่เกี่ยวข้องกับโพสต์"
+        app:endIconTint="@color/dark"
+        android:textColorHint="@color/dark"
+        app:startIconTint="@color/dark"
+        app:errorEnabled="true"
+        app:startIconDrawable="@drawable/ic_tag"
+        style="@style/DropdownMenuLayoutStyle">
+
+        <AutoCompleteTextView
+            android:id="@+id/Edit_Tag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/mitr_light"
+            android:textColor="@color/black"
+            android:textSize="14dp"
+            android:inputType="none"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <android.widget.Button
+        android:id="@+id/postBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/EditSelectTag"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
+        android:text="บันทึก"
+        android:textSize="25dp"
+        android:textColor="@color/white"
+        android:background="@drawable/custom_button_blue"
+        android:fontFamily="@font/mitr_medium"/>
+
+    <ProgressBar
+        android:id="@+id/progressBarPost"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/EditSelectTag"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
+        android:visibility="invisible"/>
+
+</RelativeLayout>

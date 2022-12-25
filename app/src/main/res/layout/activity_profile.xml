@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/nav_color"
+    tools:context=".Activities.ProfileActivity">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/CV_BackMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:layout_marginTop="20dp"
+        app:cardBackgroundColor="@color/back_color"
+        style="@style/CustomCardViewStyle_BackMenuComment">
+
+        <!-- Back -->
+        <RelativeLayout
+            android:id="@+id/LayoutBack"
+            android:layout_width="145dp"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/Btn_BackProfilePage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_baseline_arrow_white_ios_35" />
+
+            <TextView
+                android:id="@+id/textCreate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/Btn_BackProfilePage"
+                android:textColor="@color/white"
+                android:layout_marginStart="5dp"
+                android:textSize="30dp"
+                android:text="กลับ"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/mitr_regular"/>
+
+        </RelativeLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- User Profile -->
+    <RelativeLayout
+        android:id="@+id/profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/CV_BackMenu">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/userProfile"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/img_profile" />
+
+        <TextView
+            android:id="@+id/touch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/userProfile"
+            android:text="แตะเพื่อเปลี่ยน"
+            android:textColor="@color/white"
+            android:fontFamily="@font/mitr_regular"/>
+
+
+
+    </RelativeLayout>
+
+    <!-- Card View Input Field -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/CV_From"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/profile"
+        app:cardBackgroundColor="@color/white"
+        style="@style/CustomCardViewStyle_Field">
+
+        <RelativeLayout
+            android:id="@+id/LayoutInput"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <!-- Layout_From -->
+            <RelativeLayout
+                android:id="@+id/layout_from"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                android:layout_centerVertical="true">
+
+                <RelativeLayout
+                    android:id="@+id/emailLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true">
+
+                    <!--Email-->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/profileEmail"
+                        android:layout_width="265dp"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="@color/dark"
+                        android:enabled="false"
+                        app:startIconTint="@color/dark"
+                        app:errorEnabled="true"
+                        app:startIconDrawable="@drawable/ic_baseline_email_24black"
+                        style="@style/TextInputLayoutStyle">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="อีเมล"
+                            android:textColor="@color/black"
+                            android:textSize="12dp"
+                            android:inputType="textEmailAddress"
+                            android:fontFamily="@font/mitr_light">
+                        </com.google.android.material.textfield.TextInputEditText>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="17dp"
+                        android:layout_toEndOf="@+id/profileEmail"
+                        android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+                        app:tint="@color/nav_color"
+                        android:visibility="invisible"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/nameLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/emailLayout">
+
+                    <!--Name-->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/editName"
+                        android:layout_width="265dp"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="@color/dark"
+                        android:enabled="false"
+                        app:startIconTint="@color/dark"
+                        app:errorEnabled="true"
+                        app:startIconDrawable="@drawable/ic_person"
+                        style="@style/TextInputLayoutStyle">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="ชื่อเล่น"
+                            android:textColor="@color/black"
+                            android:textSize="12dp"
+                            android:inputType="textPersonName"
+                            android:fontFamily="@font/mitr_light">
+                        </com.google.android.material.textfield.TextInputEditText>
+
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <ImageView
+                        android:id="@+id/editBtnName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="17dp"
+                        android:layout_toEndOf="@+id/editName"
+                        android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+                        app:tint="@color/nav_color"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/groupLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/nameLayout">
+
+                    <!--คณะ-->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/editGroup"
+                        android:layout_width="265dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:hint="สำนักวิชา"
+                        android:enabled="false"
+                        app:endIconTint="@color/dark"
+                        android:textColorHint="@color/dark"
+                        app:startIconTint="@color/dark"
+                        app:errorEnabled="true"
+                        app:startIconDrawable="@drawable/ic_study"
+                        style="@style/DropdownMenuLayoutStyle">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/selectGroup"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/mitr_light"
+                            android:textColor="@color/black"
+                            android:textSize="12dp"
+                            android:inputType="none"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <ImageView
+                        android:id="@+id/editBtnGroup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="25dp"
+                        android:layout_toEndOf="@+id/editGroup"
+                        android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+                        app:tint="@color/nav_color"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/branchLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/groupLayout">
+
+                    <!--สาขา-->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/editBranch"
+                        android:layout_width="265dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:hint="สาขาวิชา"
+                        android:enabled="false"
+                        app:endIconTint="@color/dark"
+                        android:textColorHint="@color/dark"
+                        app:startIconTint="@color/dark"
+                        app:errorEnabled="true"
+                        app:startIconDrawable="@drawable/ic_backpack"
+                        style="@style/DropdownMenuLayoutStyle">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/selectBranch"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/mitr_light"
+                            android:textColor="@color/black"
+                            android:textSize="12dp"
+                            android:inputType="none"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <ImageView
+                        android:id="@+id/editBtnBranch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="25dp"
+                        android:layout_toEndOf="@+id/editBranch"
+                        android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+                        app:tint="@color/nav_color"
+                        android:visibility="invisible"/>
+
+                </RelativeLayout>
+
+
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+</RelativeLayout>

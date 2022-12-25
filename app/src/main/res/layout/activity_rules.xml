@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/nav_color"
+    tools:context=".Activities.RulesActivity">
+    
+    <RelativeLayout
+        android:id="@+id/LayoutImgRules"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_above="@+id/LayoutCountRules">
+        
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/slideRules"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/LayoutCountRules"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/LayoutNextPage">
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/LayoutNextPage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentBottom="true">
+
+        <android.widget.Button
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="กลับ"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:background="#00000000"
+            android:fontFamily="@font/mitr_regular"
+            android:visibility="invisible"/>
+
+        <android.widget.Button
+            android:id="@+id/nextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="ถัดไป"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:background="#00000000"
+            android:fontFamily="@font/mitr_regular" />
+
+        <android.widget.Button
+            android:id="@+id/startButton"
+            android:layout_width="220dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/custom_button_white_v2"
+            android:fontFamily="@font/mitr_semibold"
+            android:text="เริ่มต้นใช้งาน"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:visibility="invisible"/>
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

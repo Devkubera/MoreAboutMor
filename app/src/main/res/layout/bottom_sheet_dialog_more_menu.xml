@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bottom_sheet_bg">
+
+    <TextView
+        android:id="@+id/textMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"
+        android:text="เมนู"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:fontFamily="@font/mitr_medium"/>
+
+    <!-- Pin -->
+    <RelativeLayout
+        android:id="@+id/layoutPin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@+id/textMenu">
+
+    <!-- Line Top-->
+    <View
+        android:id="@+id/lineTopPin"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorDivider" />
+
+        <RelativeLayout
+            android:id="@+id/TapPin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textPin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="15dp"
+                android:text="ปักหมุด"
+                android:textColor="@color/black"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/mitr_light"/>
+
+            <TextView
+                android:id="@+id/textInfoPin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_below="@+id/textPin"
+                android:text="รับการแจ้งเตือนเมื่อโพสต์นี้มีความเคลื่อนไหว"
+                android:textColor="@color/grey_font_v3"
+                android:textSize="12dp"
+                android:fontFamily="@font/mitr_light"/>
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <!-- Report -->
+    <RelativeLayout
+        android:id="@+id/layoutReport"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@+id/layoutPin">
+
+        <!-- Line Top-->
+        <View
+            android:id="@+id/lineTopReport"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorDivider" />
+
+        <RelativeLayout
+            android:id="@+id/TapReport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textReport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="15dp"
+                android:text="รายงาน"
+                android:textColor="@color/black"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/mitr_light"/>
+
+            <TextView
+                android:id="@+id/textInfoReport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_below="@+id/textReport"
+                android:text="แจ้งผู้ดูแลระบบให้ทราบถึงการทำผิดกฎของโพสต์นี้"
+                android:textColor="@color/grey_font_v3"
+                android:textSize="12dp"
+                android:fontFamily="@font/mitr_light"/>
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <!-- Edit -->
+    <RelativeLayout
+        android:id="@+id/layoutEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@+id/layoutReport"
+        android:visibility="gone">
+
+        <!-- Line Top-->
+        <View
+            android:id="@+id/lineTopEdit"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorDivider" />
+
+        <RelativeLayout
+            android:id="@+id/TapEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="15dp"
+                android:text="แก้ไขโพสต์"
+                android:textColor="@color/black"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/mitr_light"/>
+
+            <TextView
+                android:id="@+id/textInfoEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_below="@+id/textEdit"
+                android:text="แก้ไขโพสต์ของคุณ"
+                android:textColor="@color/grey_font_v3"
+                android:textSize="12dp"
+                android:fontFamily="@font/mitr_light"/>
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <!-- Delete -->
+    <RelativeLayout
+        android:id="@+id/layoutDelete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@+id/layoutEdit"
+        android:visibility="gone">
+
+        <!-- Line Top-->
+        <View
+            android:id="@+id/lineTopDelete"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorDivider" />
+
+        <RelativeLayout
+            android:id="@+id/TapDelete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="15dp"
+                android:text="ลบโพสต์"
+                android:textColor="@color/black"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/mitr_light"/>
+
+            <TextView
+                android:id="@+id/textInfoDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_below="@+id/textDelete"
+                android:text="ลบการเผยแพร่โพสต์นี้"
+                android:textColor="@color/grey_font_v3"
+                android:textSize="12dp"
+                android:fontFamily="@font/mitr_light"/>
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

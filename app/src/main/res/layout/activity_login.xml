@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_login"
+    tools:context=".Activities.LoginActivity"
+    android:id="@+id/frag">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/layout_from"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="10dp">
+
+        <!-- From LOGO  -->
+        <RelativeLayout
+            android:id="@+id/logo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
+            <!-- Layout LOGO -->
+            <RelativeLayout
+                android:id="@+id/LayoutLogo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true">
+
+                <ImageView
+                    android:id="@+id/IMG_Logo"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginEnd="5dp"
+                    app:srcCompat="@drawable/bg_logo" />
+
+                <ImageView
+                    android:id="@+id/IMG_name"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_toEndOf="@+id/IMG_Logo"
+                    app:srcCompat="@drawable/bg_name" />
+
+            </RelativeLayout>
+
+
+                <!-- Layout TextMail -->
+                <RelativeLayout
+                    android:id="@+id/fromTextMail"
+                    android:layout_width="285dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_below="@+id/LayoutLogo"
+                    android:layout_centerHorizontal="true">
+
+                    <!--IMG Mail-->
+                    <ImageView
+                        android:id="@+id/imgMail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_baseline_email_24black" />
+
+                    <!--TextEmail-->
+                    <TextView
+                        android:id="@+id/textEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/imgMail"
+                        android:layout_marginStart="5dp"
+                        android:text="Email Address"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/mitr_medium"/>
+
+                </RelativeLayout>
+
+                <!-- Layout TextPass -->
+                <RelativeLayout
+                    android:id="@+id/fromTextPass"
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/loginEmail"
+                    android:layout_marginTop="25dp">
+
+                    <ImageView
+                        android:id="@+id/imgLock"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_baseline_lock_24black" />
+
+                    <!--TextPass-->
+                    <TextView
+                        android:id="@+id/textPass"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/imgLock"
+                        android:layout_marginStart="5dp"
+                        android:text="Password"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/mitr_medium"/>
+
+                </RelativeLayout>
+
+
+                <!-- android:drawableStart="@drawable/ic_baseline_email_24" -->
+                <EditText
+                    android:id="@+id/loginEmail"
+                    android:layout_width="285dp"
+                    android:layout_height="45dp"
+                    android:padding="10dp"
+                    android:background="@drawable/custom_input"
+                    android:textColor="@color/black"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@+id/fromTextMail"
+                    android:inputType="textEmailAddress"
+                    android:hint="กรุณากรอกอีเมลของคุณ"
+                    android:textSize="13dp"
+                    android:textColorHint="@color/dark_gray"
+                    android:fontFamily="@font/mitr_light"/>
+
+
+                <!-- android:ems="15" -->
+                <EditText
+                    android:id="@+id/loginPass"
+                    android:layout_width="280dp"
+                    android:layout_height="45dp"
+                    android:padding="10dp"
+                    android:background="@drawable/custom_input"
+                    android:textColor="@color/black"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@+id/fromTextPass"
+                    android:inputType="textPassword"
+                    android:hint="กรุณากรอกรหัสผ่านของคุณ"
+                    android:textSize="13dp"
+                    android:textColorHint="@color/dark_gray"
+                    android:fontFamily="@font/mitr_light"/>
+
+                <!--TextForget-->
+                <TextView
+                    android:id="@+id/textForget"
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/loginPass"
+                    android:layout_centerHorizontal="true"
+                    android:textAlignment="viewEnd"
+                    android:layout_marginTop="15dp"
+                    android:text="ลืมรหัสผ่าน ?"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/mitr_light"/>
+
+                <android.widget.Button
+                    android:id="@+id/loginButton"
+                    android:layout_width="220dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textForget"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="40dp"
+                    android:text="ล็อคอิน"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"
+                    android:background="@drawable/custom_button_blue"
+                    android:fontFamily="@font/mitr_semibold"/>
+
+                <ProgressBar
+                    android:id="@+id/progressBarLogin"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textForget"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="45dp"
+                    android:visibility="invisible"/>
+
+                <!-- Not Have Account -->
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/loginButton">
+
+                    <TextView
+                        android:id="@+id/textHaveAcc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="ยังไม่มีบัญชี ? "
+                        android:fontFamily="@font/mitr_regular" />
+
+                    <TextView
+                        android:id="@+id/textRegister"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/textHaveAcc"
+                        android:textStyle="bold"
+                        android:textColor="@color/nav_color"
+                        android:text=" สมัครสมาชิก"
+                        android:fontFamily="@font/mitr_regular"/>
+
+                </RelativeLayout>
+
+        </RelativeLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+
+</RelativeLayout>

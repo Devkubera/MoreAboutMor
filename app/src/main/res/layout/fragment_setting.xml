@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/nav_color"
+    tools:context=".SettingFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/LayoutTop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20dp">
+
+                <TextView
+                    android:id="@+id/textSetting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:fontFamily="@font/mitr_regular"
+                    android:text="ตั้งค่า"
+                    android:textColor="@color/white"
+                    android:textSize="40dp"
+                    android:shadowColor="@color/dark"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="2"/>
+
+                <ImageView
+                    android:id="@+id/userProfile"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/img_profile" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/Subject_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/LayoutTop"
+                android:padding="15dp">
+
+                <android.widget.Button
+                    android:id="@+id/Btn_SL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="textStart"
+                    android:padding="12dp"
+                    android:drawableLeft="@drawable/ic_subject"
+                    android:drawableTint="@color/dark_font"
+                    android:background="@drawable/custom_button_white"
+                    android:textColor="@color/dark_font"
+                    android:text=" Subject list"
+                    android:textSize="17dp"
+                    android:textAllCaps="false"
+                    android:fontFamily="@font/mitr_regular"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/Edit_profile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/Subject_list"
+                android:padding="15dp">
+
+                <android.widget.Button
+                    android:id="@+id/Btn_EP"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="textStart"
+                    android:padding="12dp"
+                    android:drawableLeft="@drawable/ic_person"
+                    android:drawableTint="@color/dark_font"
+                    android:background="@drawable/custom_button_white"
+                    android:textColor="@color/dark_font"
+                    android:text=" โปรไฟล์"
+                    android:textSize="17dp"
+                    android:fontFamily="@font/mitr_regular"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/Edit_postComment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/Edit_profile"
+                android:padding="15dp">
+
+                <android.widget.Button
+                    android:id="@+id/Btn_EPC"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="textStart"
+                    android:padding="12dp"
+                    android:drawableLeft="@drawable/ic_book"
+                    android:drawableTint="@color/dark_font"
+                    android:background="@drawable/custom_button_white"
+                    android:textColor="@color/dark_font"
+                    android:text=" จัดการโพสต์และคอมเมนต์"
+                    android:textSize="17dp"
+                    android:fontFamily="@font/mitr_regular"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/About_app"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/Edit_postComment"
+                android:padding="15dp">
+
+                <android.widget.Button
+                    android:id="@+id/Btn_AA"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="textStart"
+                    android:padding="12dp"
+                    android:drawableLeft="@drawable/ic_info"
+                    android:drawableTint="@color/dark_font"
+                    android:background="@drawable/custom_button_white"
+                    android:textColor="@color/dark_font"
+                    android:text=" เกี่ยวกับแอพ"
+                    android:textSize="17dp"
+                    android:fontFamily="@font/mitr_regular"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/Rule"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/About_app"
+                android:padding="15dp">
+
+                <android.widget.Button
+                    android:id="@+id/Btn_R"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="textStart"
+                    android:padding="12dp"
+                    android:drawableLeft="@drawable/ic_rule"
+                    android:drawableTint="@color/dark_font"
+                    android:background="@drawable/custom_button_white"
+                    android:textColor="@color/dark_font"
+                    android:text=" กฎการใช้งานแอปพลิเคชัน"
+                    android:textSize="17dp"
+                    android:fontFamily="@font/mitr_regular"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/bottom_layer"
+            android:padding="15dp">
+
+            <android.widget.Button
+                android:id="@+id/Btn_Logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="textStart"
+                android:padding="12dp"
+                android:textColor="@color/red"
+                android:text=" ออกจากระบบ"
+                android:drawableLeft="@drawable/ic_log_out"
+                android:drawableTint="@color/red"
+                android:background="@drawable/custom_button_white"
+                android:textSize="17dp"
+                android:fontFamily="@font/mitr_regular"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/bottom_layer"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="5dp"/>
+
+    </RelativeLayout>
+
+
+
+</FrameLayout>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_setup"
+    tools:context=".Activities.SetupUserActivity">
+
+    <FrameLayout
+        android:id="@+id/frag_setup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+
+    <!--TEXT-->
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="20dp">
+
+        <com.shuhart.stepview.StepView
+            android:id="@+id/step_view"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            app:sv_selectedCircleColor="@color/white"
+            app:sv_selectedTextColor="@color/white"
+            app:sv_stepLineWidth="1dp"
+            app:sv_stepPadding="4dp"
+            app:sv_nextTextColor="@color/none_color"
+            app:sv_nextStepLineColor="@color/none_color"
+            app:sv_doneCircleColor="@color/white"
+            app:sv_doneStepLineColor="@color/white"
+            app:sv_doneCircleRadius="12dp"
+            app:sv_selectedCircleRadius="12dp"
+            app:sv_selectedStepNumberColor="@color/nav_color"
+            app:sv_stepViewStyle="@style/StepView"
+            app:sv_doneStepMarkColor="@color/nav_color"
+            app:sv_stepNumberTextSize="12sp"
+            app:sv_animationType="Line"
+            app:sv_typeface="@font/mitr_regular"/>
+
+
+
+    </RelativeLayout>
+
+    <!--IMG -->
+    <RelativeLayout
+        android:id="@+id/LayoutInputName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <TextView
+            android:id="@+id/textInfoSetup01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:text="กรุณากรอกชื่อเล่นของคุณ"
+            android:textColor="@color/white"
+            android:textSize="24dp"
+            android:fontFamily="@font/mitr_regular" />
+
+        <ImageView
+            android:id="@+id/imageSetup"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/textInfoSetup01"
+            android:src="@drawable/img_setup" />
+
+        <TextView
+            android:id="@+id/textInfoSetup02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageSetup"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:fontFamily="@font/mitr_regular"
+            android:text="ความยาวไม่เกิน 20 ตัวอักษร"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
+
+        <!--Name-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/setName"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textInfoSetup02"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:textColorHint="@color/dark"
+            app:errorEnabled="true"
+            app:startIconDrawable="@drawable/ic_person"
+            app:startIconTint="@color/dark"
+            app:counterEnabled="true"
+            app:counterMaxLength="20">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/mitr_light"
+                android:hint="ชื่อเล่น"
+                android:inputType="textPersonName"
+                android:textColor="@color/black"
+                android:textSize="14dp"></com.google.android.material.textfield.TextInputEditText>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Btn Save -->
+        <RelativeLayout
+            android:id="@+id/LayoutBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/setName"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp">
+
+            <android.widget.Button
+                android:id="@+id/setNameButton"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/custom_button_blue"
+                android:fontFamily="@font/mitr_semibold"
+                android:text="ตั้งชื่อ"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/mitr_medium"
+                android:visibility="invisible" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>
