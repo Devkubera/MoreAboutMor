@@ -4,4 +4,5 @@ public class ModelStudyPlan {
     String Hello;
     String Frame;
     String Hekko;
+    String time;
 }
