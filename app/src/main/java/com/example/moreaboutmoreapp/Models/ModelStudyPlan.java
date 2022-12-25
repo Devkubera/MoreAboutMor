@@ -5,4 +5,5 @@ public class ModelStudyPlan {
     String Frame;
     String Hekko;
     String time;
+    String gunzy;
 }
