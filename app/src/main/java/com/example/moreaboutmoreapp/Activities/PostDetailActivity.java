@@ -4,12 +4,16 @@ import static android.view.View.INVISIBLE;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,8 +33,10 @@ import android.widget.ToggleButton;
 
 import com.example.moreaboutmoreapp.Adapters.CommentAdapter;
 import com.example.moreaboutmoreapp.Adapters.PostAdapter;
+import com.example.moreaboutmoreapp.Adapters.StickerAdapter;
 import com.example.moreaboutmoreapp.Models.Comment;
 import com.example.moreaboutmoreapp.Models.Post;
+import com.example.moreaboutmoreapp.Models.Sticker;
 import com.example.moreaboutmoreapp.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -57,25 +63,30 @@ import java.text.SimpleDateFormat;
 public class PostDetailActivity extends AppCompatActivity {
 
     TextView textTag, textTime, textUser, textComments, likeCount, dislikeCount, commentCount;
-    ImageView userProfile, Btn_BackPost;
+    ImageView userProfile, Btn_BackPost, Btn_BackSticker;
     RelativeLayout layoutEdit, layoutDelete, layoutPin, layoutReport;
 
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference postReference, likeReference, commentReference;
+
+    final LinearLayoutManager layoutManager = new LinearLayoutManager(PostDetailActivity.this);
+    RecyclerView commentRecyclerView, StickerRecyclerView;
     List<Comment> commentList;
-    RecyclerView commentRecyclerView;
+    ArrayList<Sticker> stickerList;
     CommentAdapter commentAdapter;
+    StickerAdapter stickerAdapter;
+    private int lastPosition;
 
     String postKey;
     String Count_comment;
     static String COMMENT_KEY = "Comment";
-    BottomSheetDialog bottomSheetDialog, bottomSheetDialogEditPost;
+    BottomSheetDialog bottomSheetDialog, bottomSheetDialogEditPost, bottomSheetDialogSticker;
 
     Boolean testClick = false;
     private ProgressBar loadingProgress;
-    private Button commentButton, commentBtnClick, MoreMenu, EditPostButton;
+    private Button commentButton, commentBtnClick, stickerButton, MoreMenu, EditPostButton;
     private ToggleButton likeBtn;
     private TextInputLayout detailComments;
 
@@ -92,6 +103,26 @@ public class PostDetailActivity extends AppCompatActivity {
             "หาเพื่อนใหม่",
             "คุยเล่น",
             "อื่น ๆ"};
+
+    SharedPreferences preferences;
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //Save lastPosition RecyclerView onPause
+        SharedPreferences getPrefs = PreferenceManager.getDefaultSharedPreferences(PostDetailActivity.this);
+        SharedPreferences.Editor dataPosition = getPrefs.edit();
+        dataPosition.putInt("lastPosition", lastPosition);
+        dataPosition.apply();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //Retrieve Last Position RecyclerView onResume
+        SharedPreferences getPrefs = PreferenceManager.getDefaultSharedPreferences(PostDetailActivity.this);
+        lastPosition = getPrefs.getInt("lastPosition", 0);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,6 +152,7 @@ public class PostDetailActivity extends AppCompatActivity {
         likeCount = findViewById(R.id.likeCount);
         textComments = findViewById(R.id.textComments);
 
+        //Back To Home Activity
         Btn_BackPost = findViewById(R.id.Btn_BackPost);
         Btn_BackPost.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,7 +187,41 @@ public class PostDetailActivity extends AppCompatActivity {
         //Retrieve List Comment
         // commentRV stay in layout/activity_post_detail.xml > RecyclerView
         commentRecyclerView = findViewById(R.id.commentRV);
+        commentRecyclerView.setHasFixedSize(true);
+        commentRecyclerView.setLayoutManager(layoutManager);
+        commentRecyclerView.scrollToPosition(lastPosition);
+        //Get Position Scroll
+        commentRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+                lastPosition = layoutManager.findLastCompletelyVisibleItemPosition();
+
+            }
+        });
+
         commentCount = findViewById(R.id.commentCount);
+
+        //Check My Post for Button Check
+        //Save My Post
+        preferences = getSharedPreferences("PREFERENCES", MODE_PRIVATE);
+        if (getEmail.equals(firebaseUser.getDisplayName())) {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("SaveMyPost", "Yes");
+            editor.apply();
+        } else {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("SaveMyPost", "No");
+            editor.apply();
+        }
+
+
+        //Save My PostKey form Post Detail Activity
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("SavePostKey", postKey);
+        editor.apply();
+
 
         //MoreMenu
         MoreMenu = findViewById(R.id.MoreMenu);
@@ -314,11 +380,12 @@ public class PostDetailActivity extends AppCompatActivity {
             }
         });
 
-        //addComment
+        //Button Add comment
         commentBtnClick = findViewById(R.id.commentBtn);
         commentBtnClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 bottomSheetDialog = new BottomSheetDialog(PostDetailActivity.this, R.style.BottomSheetDialog);
 
                 View BottomSheetView = LayoutInflater.from(PostDetailActivity.this)
@@ -348,17 +415,22 @@ public class PostDetailActivity extends AppCompatActivity {
             }
         });
 
+        //Bottom Layout Button Add comment
+        bottomSheetDialogSticker = new BottomSheetDialog(PostDetailActivity.this, R.style.BottomSheetDialog);
         RelativeLayout addComment = (RelativeLayout) findViewById(R.id.bottom_layerComment);
         addComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 bottomSheetDialog = new BottomSheetDialog(PostDetailActivity.this, R.style.BottomSheetDialog);
+                //bottomSheetDialog.setCancelable(false);
 
                 View BottomSheetView = LayoutInflater.from(PostDetailActivity.this)
                         .inflate(R.layout.bottom_sheet_dialog_comment, (RelativeLayout)view.findViewById(R.id.BottomSheetContainerComment));
 
                 loadingProgress = BottomSheetView.findViewById(R.id.progressBarPost);
                 commentButton = BottomSheetView.findViewById(R.id.commentButton);
+                stickerButton = BottomSheetView.findViewById(R.id.stickerButton);
                 detailComments = BottomSheetView.findViewById(R.id.detailComments);
 
                 //addCommentBtn
@@ -366,11 +438,78 @@ public class PostDetailActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         commentButton.setVisibility(INVISIBLE);
+                        stickerButton.setVisibility(INVISIBLE);
                         loadingProgress.setVisibility(View.VISIBLE);
-
-                        // Add All Data Go To Firebase
+                        // Add Text Comment Go To Firebase
                         addCommentBtn();
 
+
+                    }
+                });
+
+                //addStickerBtn
+                BottomSheetView.findViewById(R.id.stickerButton).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //Close Bottom Sheet Add Comment
+                        bottomSheetDialog.dismiss();
+
+
+                        //bottomSheetDialogSticker.setCancelable(false);
+
+                        View BottomSheetView = LayoutInflater.from(PostDetailActivity.this)
+                                .inflate(R.layout.bottom_sheet_dialog_sticker, (RelativeLayout)view.findViewById(R.id.BottomSheetContainerComment));
+
+                        //Back to BottomSheet AddComment and Close BottomSheet Sticker
+                        Btn_BackSticker = BottomSheetView.findViewById(R.id.Btn_BackSticker);
+                        Btn_BackSticker.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                bottomSheetDialog.show();
+                                bottomSheetDialogSticker.dismiss();
+                            }
+                        });
+
+
+
+                        //Get Sticker Form Firebase Storage
+                        StickerRecyclerView = BottomSheetView.findViewById(R.id.StickerRV);
+                        StickerRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.HORIZONTAL));
+
+
+                        stickerList = new ArrayList<>();
+
+                        clearAll();
+                        DatabaseReference stickerRef = firebaseDatabase.getReference().child("sticker");
+                        stickerRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                clearAll();
+
+                                for ( DataSnapshot snap: snapshot.getChildren()) {
+
+                                    Sticker sticker = new Sticker();
+                                    sticker.setStickerUrl(snap.getValue().toString());
+
+                                    stickerList.add(sticker);
+                                }
+
+                                stickerAdapter = new StickerAdapter(getApplicationContext(), stickerList);
+                                StickerRecyclerView.setAdapter(stickerAdapter);
+                                stickerAdapter.notifyDataSetChanged();
+
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Toast.makeText(PostDetailActivity.this, "Error : "+error, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+
+                        bottomSheetDialogSticker.setContentView(BottomSheetView);
+                        bottomSheetDialogSticker.show();
 
                     }
                 });
@@ -379,12 +518,17 @@ public class PostDetailActivity extends AppCompatActivity {
                 bottomSheetDialog.show();
             }
         });
+
+
+
 
 
         //init RecyclerView Like And Comment Count
         initRvLikeComment();
 
     }
+
+
 
 
     //Function
@@ -395,7 +539,6 @@ public class PostDetailActivity extends AppCompatActivity {
     private void initRvLikeComment() {
 
         commentRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         DatabaseReference commentRef = firebaseDatabase.getReference(COMMENT_KEY).child(postKey);
         commentRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -413,6 +556,11 @@ public class PostDetailActivity extends AppCompatActivity {
 
                 commentAdapter = new CommentAdapter(getApplicationContext(), commentList);
                 commentRecyclerView.setAdapter(commentAdapter);
+
+                if (bottomSheetDialogSticker.isShowing()) {
+                    bottomSheetDialogSticker.dismiss();
+                    commentRecyclerView.scrollToPosition(commentList.size() - 1 );
+                }
 
             }
 
@@ -470,6 +618,7 @@ public class PostDetailActivity extends AppCompatActivity {
         if (detailInput.isEmpty()) {
             detailComments.setError("Field can't be empty");
             commentButton.setVisibility(View.VISIBLE);
+            stickerButton.setVisibility(View.VISIBLE);
             loadingProgress.setVisibility(INVISIBLE);
             return false;
         } else {
@@ -482,7 +631,7 @@ public class PostDetailActivity extends AppCompatActivity {
         if (!validateComment()) {
             return;
         } else {
-            //Get_Uri Profile
+            //Get_Uri Profile and Name
             DatabaseReference userDataRef = firebaseDatabase.getReference("userData").child(firebaseUser.getUid());
             userDataRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -504,7 +653,7 @@ public class PostDetailActivity extends AppCompatActivity {
     }
 
     private void loadImageNameUser(String image, String name) {
-        Comment comment = new Comment(detailComments.getEditText().getText().toString(), firebaseUser.getUid(), firebaseUser.getDisplayName(), name, image);
+        Comment comment = new Comment(detailComments.getEditText().getText().toString(), firebaseUser.getUid(), firebaseUser.getDisplayName(), name, image,"text");
 
         //Add Post to firebase
         addComment(comment);
@@ -525,8 +674,10 @@ public class PostDetailActivity extends AppCompatActivity {
             public void onSuccess(Void unused) {
                 //showMessage("Comment added successfully");
                 commentButton.setVisibility(View.VISIBLE);
+                stickerButton.setVisibility(View.VISIBLE);
                 loadingProgress.setVisibility(INVISIBLE);
                 bottomSheetDialog.dismiss();
+                commentRecyclerView.scrollToPosition(commentList.size() - 1 );
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -662,7 +813,7 @@ public class PostDetailActivity extends AppCompatActivity {
 
                 showMessage("ลบโพสต์เรียบร้อย");
                 finish();
-
+                commentRecyclerView.scrollToPosition(lastPosition);
 
             }
         });
@@ -681,6 +832,22 @@ public class PostDetailActivity extends AppCompatActivity {
         });
 
         builder.show();
+
+    }
+
+    private void clearAll() {
+
+        if (stickerList != null) {
+
+            stickerList.clear();
+
+            if (stickerAdapter != null) {
+                stickerAdapter.notifyDataSetChanged();
+            }
+
+        }
+
+        stickerList = new ArrayList<>();
 
     }
 

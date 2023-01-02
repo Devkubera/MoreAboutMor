@@ -75,28 +75,26 @@
     <android.widget.Button
         android:id="@+id/saveNameButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_below="@+id/lineBottom"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginTop="15dp"
         android:layout_marginBottom="10dp"
         android:text="บันทึก"
         android:textSize="25dp"
         android:textColor="@color/white"
-        android:background="@drawable/custom_button_blue"
+        android:background="@color/nav_color"
         android:fontFamily="@font/mitr_medium"/>
 
     <ProgressBar
         android:id="@+id/progressBarName"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_below="@+id/lineBottom"
         android:layout_marginBottom="10dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
         android:visibility="invisible"/>
 
 </RelativeLayout>

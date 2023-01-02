@@ -11,17 +11,20 @@ public class Comment {
     private String userPhoto;
     private String postKey;
     private String CommentKey;
+    private String CommentType;
+
 
     public Comment() {
     }
 
-    public Comment(String contentComments, String uid, String userName, String nickName, String userPhoto) {
+    public Comment(String contentComments, String uid, String userName, String nickName, String userPhoto, String CommentType) {
         this.contentComments = contentComments;
         this.uid = uid;
         this.userName = userName;
         this.nickName = nickName;
         this.timeStamp = ServerValue.TIMESTAMP;
         this.userPhoto = userPhoto;
+        this.CommentType = CommentType;
     }
 
     public Comment(String contentComments, String uid, String userName, String nickName, Object timeStamp, String userPhoto) {
@@ -33,6 +36,14 @@ public class Comment {
         this.userPhoto = userPhoto;
     }
 
+    public String getCommentType() {
+        return CommentType;
+    }
+
+    public void setCommentType(String commentType) {
+        CommentType = commentType;
+    }
+
     public String getPostKey() {
         return postKey;
     }
@@ -41,9 +52,7 @@ public class Comment {
         this.postKey = postKey;
     }
 
-    public String getCommentKey() {
-        return CommentKey;
-    }
+    public String getCommentKey() { return CommentKey;}
 
     public void setCommentKey(String commentKey) {
         CommentKey = commentKey;

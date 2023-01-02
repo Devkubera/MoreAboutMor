@@ -101,68 +101,12 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
         return fragment;
     }
 
-    private ProgressBar loadingProgressData;
-
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        backKeyPressedListener = null;
-
-        //Save lastPosition RecyclerView onPause
-        SharedPreferences getPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-        SharedPreferences.Editor dataPosition = getPrefs.edit();
-        dataPosition.putInt("lastPosition", lastPosition);
-        dataPosition.apply();
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        backKeyPressedListener = this;
-
-        //Retrieve Last Position RecyclerView onResume
-        SharedPreferences getPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-        lastPosition = getPrefs.getInt("lastPosition", 0);
-
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-    }
-
-    @Override
-    public void onBackPressed() {
-        //showMessage("Test!");
-
-    }
-
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
 
-    private int lastPosition, rePosition;
+    private int lastPosition;
     final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
     List<Post> postList;
     RecyclerView postRecyclerView;
@@ -170,6 +114,7 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
 
     public static BackKeyPressedListener backKeyPressedListener;
     private ProgressBar loadingProgress;
+    private ProgressBar loadingProgressData;
     private Button postButton;
     private TextInputLayout detailPost;
     FloatingActionButton addPost;
@@ -197,12 +142,105 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
     private static final String SHARED_PROFILE_IMG = "myShared";
     private static final String KEY_IMG = "myURI";
 
+    private boolean isPaused = false;
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        backKeyPressedListener = null;
+
+        //Save lastPosition RecyclerView onPause
+        SharedPreferences getPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        SharedPreferences.Editor dataPosition = getPrefs.edit();
+        dataPosition.putInt("lastPosition", lastPosition);
+        dataPosition.apply();
+
+        //Save dataPause
+        SharedPreferences getPrefs_Pause = PreferenceManager.getDefaultSharedPreferences(getContext());
+        SharedPreferences.Editor dataPause = getPrefs_Pause.edit();
+        dataPause.putString("dataPause", "Pause");
+        dataPause.apply();
+
+        isPaused = true;
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        backKeyPressedListener = this;
+
+        //Retrieve Last Position RecyclerView onResume
+        SharedPreferences getPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        lastPosition = getPrefs.getInt("lastPosition", 0);
+
+        if (isPaused == true) {
+            // The activity was paused, so do not update the RecyclerView
+            //Set scrollToPosition
+            postRecyclerView.scrollToPosition(lastPosition);
+            //isPaused = false;
+            //return;
+        }
+
+        // Update the RecyclerView
+        String Prefs_Pause = getPrefs.getString("dataPause", "Pause");
+
+        if (Prefs_Pause.equals("Pause")){
+            postRecyclerView.scrollToPosition(lastPosition);
+
+            if(lastPosition == 1) {
+                postRecyclerView.scrollToPosition(0);
+            } else {
+                //postRecyclerView.scrollToPosition(lastPosition);
+            }
+
+        }
+
+
+    }
+
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        //showMessage("Test!");
+
+    }
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("allPost");
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
@@ -214,17 +252,39 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
 
         //Load User Profile
         userProfile = view.findViewById(R.id.userProfile);
+        userProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent ProfileActivity = new Intent(getActivity(), ProfileActivity.class);
+                startActivity(ProfileActivity);
+            }
+        });
+
+        DatabaseReference userDataRef = firebaseDatabase.getReference("userData").child(currentUser.getUid());
+        DatabaseReference imageRef = userDataRef.child("userPhoto");
+        imageRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String get_URI = snapshot.getValue().toString();
+                Picasso.get().load(get_URI).into(userProfile);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         //SearchView custom font
-        searchView = view.findViewById(R.id.search);
+        //searchView = view.findViewById(R.id.search);
 
-        int id = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
-        TextView searchText = (TextView) searchView.findViewById(id);
+        //int id = searchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+        //TextView searchText = (TextView) searchView.findViewById(id);
 
         Typeface typeface = ResourcesCompat.getFont(getActivity(), R.font.mitr_light);
-        searchText.setTypeface(typeface);
-        searchText.setTextColor(getResources().getColor(R.color.black));
-        searchText.setHintTextColor(getResources().getColor(R.color.dark_gray));
+        //searchText.setTypeface(typeface);
+        //searchText.setTextColor(getResources().getColor(R.color.black));
+        //searchText.setHintTextColor(getResources().getColor(R.color.dark_gray));
 
         //Filter Post
         textPosts = view.findViewById(R.id.textPosts);
@@ -292,7 +352,6 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
             }
         });
 
-
         //addPostBtn
         addPost = (FloatingActionButton) view.findViewById(R.id.addPostBtn);
         addPost.setOnClickListener(new View.OnClickListener() {
@@ -341,9 +400,10 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
             }
         });
 
+
         //Retrieve Data List Post
         postRecyclerView = view.findViewById(R.id.postRV);
-        postRecyclerView.setHasFixedSize(true);
+        //postRecyclerView.setHasFixedSize(true);
         postRecyclerView.setLayoutManager(layoutManager);
         postRecyclerView.scrollToPosition(lastPosition);
 
@@ -354,14 +414,14 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
                 super.onScrollStateChanged(recyclerView, newState);
 
                 lastPosition = layoutManager.findLastCompletelyVisibleItemPosition();
+                Log.e("", String.valueOf(lastPosition));
 
             }
         });
 
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("allPost");
 
         //Get List Posts Form The Database
+        //showMessage("Get List");
         loadingProgressData.setVisibility(View.VISIBLE);
         addPost.setVisibility(INVISIBLE);
 
@@ -390,6 +450,7 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
                     postAdapter = new PostAdapter(getActivity(),postList);
                     postRecyclerView.setAdapter(postAdapter);
 
+
                     textNoneInfo.setVisibility(View.INVISIBLE);
                     loadingProgressData.setVisibility(INVISIBLE);
                     addPost.setVisibility(View.VISIBLE);
@@ -398,6 +459,7 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
                     textNoneInfo.setVisibility(View.VISIBLE);
                     loadingProgressData.setVisibility(INVISIBLE);
                     addPost.setVisibility(View.VISIBLE);
+
                 }
 
 
@@ -416,7 +478,6 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
         return view;
 
     }
-
 
 
     //Function
@@ -654,14 +715,16 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
         });
 
         //Load Img Profile
-        sharedPreferences = getActivity().getSharedPreferences(SHARED_PROFILE_IMG, Context.MODE_PRIVATE);
-        String get_URI = sharedPreferences.getString(KEY_IMG, null);
+        //sharedPreferences = getActivity().getSharedPreferences(SHARED_PROFILE_IMG, Context.MODE_PRIVATE);
+        //String get_URI = sharedPreferences.getString(KEY_IMG, null);
 
-        if (get_URI != null) {
+        /*if (get_URI != null) {
             Picasso.get().load(get_URI).into(userProfile);
         } else {
             Picasso.get().load(R.drawable.img_profile).into(userProfile);
         }
+
+         */
 
 
     }
@@ -765,6 +828,7 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
         });
 
     }
+
 
 
 }
