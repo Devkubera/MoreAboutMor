@@ -1,6 +1,10 @@
 package com.example.moreaboutmoreapp;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -58,6 +63,17 @@ public class MenuFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
+    // Declare Space for 3 Menu study plan, courseDescription, GE
+    Button btn_studyPlan;
+    Button btn_courseDes;
+    Button btn_GE;
+
+    // Declare String to store sharepreference 3 Menu study plan, courseDescription, GE
+    public static String link_studyplan;
+    public static String link_courseDes;
+    public static String link_geApi;
+    public static String major;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -113,6 +129,69 @@ public class MenuFragment extends Fragment {
             }
         });
 
+        // For 3 Menu study plan, courseDescription, GE
+
+        // find id study plan button
+        btn_studyPlan = view.findViewById(R.id.Btn_SP);
+        btn_studyPlan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getPref("studyPlans");
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(link_studyplan));
+                startActivity(intent);
+            }
+        });
+
+        btn_courseDes = view.findViewById(R.id.Btn_MJ);
+        btn_courseDes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getPref("studyPlans");
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(link_courseDes));
+                startActivity(intent);
+            }
+        });
+
+        btn_GE = view.findViewById(R.id.Btn_GE);
+        btn_GE.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getPref("geApi");
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(link_geApi));
+                startActivity(intent);
+            }
+        });
+
         return view;
+    }
+
+    public void getPref(String name) {
+        // Get data from study plan sharepreference
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences(name, MODE_PRIVATE);
+
+        if (name.equals("studyPlans")) {
+            String studyPlan = sharedPreferences.getString("Plan", null);
+            String course = sharedPreferences.getString("CourseDescription", null);
+            link_studyplan = studyPlan;
+            link_courseDes = course;
+
+            if (studyPlan != null) {
+                System.out.println("link_studyplan = " + studyPlan);
+            }
+            if (course != null) {
+                System.out.println("link_courseDes = " + course);
+            }
+        }
+
+        if (name.equals("geApi")) {
+            link_geApi = sharedPreferences.getString("link", null);
+
+            if (link_geApi != null) {
+                System.out.println("link_geApi = " + link_geApi);
+            }
+        }
     }
 }

@@ -2,12 +2,12 @@ package com.example.moreaboutmoreapp.Models;
 
 public class User {
 
-    private String userId;
-    private String email;
-    private String major;
-    private String subMajor;
-    private String name;
-    private String userPhoto;
+    public String userId;
+    public String email;
+    public String major;
+    public String subMajor;
+    public String name;
+    public String userPhoto;
 
     public User() {
 
