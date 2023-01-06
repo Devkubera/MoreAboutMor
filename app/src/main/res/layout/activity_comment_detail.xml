@@ -182,6 +182,14 @@
                             android:textSize="15dp"
                             android:fontFamily="@font/sarabun_medium"/>
 
+                        <pl.droidsonroids.gif.GifImageView
+                            android:id="@+id/stickerComment"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_centerHorizontal="true"
+                            android:src="@drawable/img_default_photo"
+                            android:visibility="gone"/>
+
                     </RelativeLayout>
 
                     <!-- ViewMore -->
@@ -226,6 +234,7 @@
                         android:layout_below="@+id/lineBottom">
 
                         <!-- Like -->
+                        <!--
                         <ToggleButton
                             android:id="@+id/likeBtn"
                             android:layout_width="40dp"
@@ -245,6 +254,7 @@
                             android:text="0"
                             android:textColor="@color/black"
                             android:fontFamily="@font/sarabun_bold"/>
+                        -->
 
                         <!-- DisLike -->
                         <!--

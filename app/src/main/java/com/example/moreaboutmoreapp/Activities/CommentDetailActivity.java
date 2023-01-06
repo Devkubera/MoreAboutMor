@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.moreaboutmoreapp.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -37,10 +38,13 @@ import java.time.chrono.ThaiBuddhistDate;
 import java.util.Calendar;
 import java.util.Locale;
 
+import pl.droidsonroids.gif.GifImageView;
+
 public class CommentDetailActivity extends AppCompatActivity {
 
     TextView textTime, textUser, textComments, likeCount, commentCount;
     ImageView userProfile, Btn_BackPost;
+    GifImageView stickerComment;
     String CommentKey, postKey;
 
     FirebaseAuth firebaseAuth;
@@ -79,7 +83,7 @@ public class CommentDetailActivity extends AppCompatActivity {
         firebaseUser = firebaseAuth.getCurrentUser();
         firebaseDatabase = FirebaseDatabase.getInstance();
 
-
+        //Back To Post Detail Activity
         Btn_BackPost = findViewById(R.id.Btn_BackPost);
         Btn_BackPost.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,12 +112,11 @@ public class CommentDetailActivity extends AppCompatActivity {
         textTime.setText(date);
 
         String getComment = getIntent().getExtras().getString("textComments");
+        String getType = getIntent().getExtras().getString("typeComments");
+        stickerComment = findViewById(R.id.stickerComment);
         textComments = findViewById(R.id.textComments);
-        textComments.setText(getComment);
 
-        likeCount = findViewById(R.id.likeCount);
-
-        //Check User
+        //Check User for Edit or Delete Post
         layoutReport = findViewById(R.id.layoutReport);
         layoutEdit = findViewById(R.id.layoutEdit);
         layoutDelete = findViewById(R.id.layoutDelete);
@@ -124,6 +127,20 @@ public class CommentDetailActivity extends AppCompatActivity {
             layoutDelete.setVisibility(View.GONE);
             layoutReport.setVisibility(View.VISIBLE);
         }
+
+        //Check Type Comment > sticker or text and set comment
+        if (getType.equals("sticker")) {
+            layoutEdit.setVisibility(View.GONE);
+            textComments.setVisibility(View.INVISIBLE);
+            stickerComment.setVisibility(View.VISIBLE);
+            Glide.with(getApplicationContext()).load(getComment).into(stickerComment);
+        } else {
+            textComments.setText(getComment);
+        }
+
+
+
+
 
         //Edit my Comment
         layoutEdit.setOnClickListener(new View.OnClickListener() {
@@ -163,7 +180,6 @@ public class CommentDetailActivity extends AppCompatActivity {
                 AlertBox();
             }
         });
-
 
 
     }
@@ -242,20 +258,20 @@ public class CommentDetailActivity extends AppCompatActivity {
 
 
                 //Remove Value Like
-                likeReference = FirebaseDatabase.getInstance().getReference("likes");
+                likeReference = FirebaseDatabase.getInstance().getReference("likeComment");
                 likeReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                        /*if (snapshot.child(postKey).exists()) {
+                        if (snapshot.child(CommentKey).exists()) {
 
-                            likeReference.child(postKey).removeValue();
+                            likeReference.child(CommentKey).removeValue();
 
                         } else {
 
                         }
 
-                         */
+
 
                     }
 

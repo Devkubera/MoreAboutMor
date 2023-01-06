@@ -282,14 +282,29 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
         //Get & Set Profile
-        sharedPreferences = getSharedPreferences(SHARED_PROFILE_IMG, MODE_PRIVATE);
-        String get_URI = sharedPreferences.getString(KEY_IMG, null);
+        //sharedPreferences = getSharedPreferences(SHARED_PROFILE_IMG, MODE_PRIVATE);
+        //String get_URI = sharedPreferences.getString(KEY_IMG, null);
 
-        if (get_URI != null) {
+        /*if (get_URI != null) {
             Picasso.get().load(get_URI).into(userProfile);
         } else {
             Picasso.get().load(R.drawable.img_profile).into(userProfile);
         }
+         */
+
+        DatabaseReference imageRef = userDataRef.child("userPhoto");
+        imageRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String get_URI = snapshot.getValue().toString();
+                Picasso.get().load(get_URI).into(userProfile);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
         //Edit Profile by Text

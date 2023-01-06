@@ -16,33 +16,52 @@
             android:id="@+id/LayoutTop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="20dp">
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp">
 
-            <TextView
-                android:id="@+id/textFeeds"
+            <RelativeLayout
+                android:id="@+id/LayoutProfile"
                 android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:fontFamily="@font/mitr_regular"
-                android:text="หน้าแรก"
-                android:textColor="@color/white"
-                android:textSize="40dp"
-                android:shadowColor="@color/dark"
-                android:shadowDx="1"
-                android:shadowDy="1"
-                android:shadowRadius="2"/>
+                android:layout_height="wrap_content">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/userProfile"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_alignParentRight="true"
-                android:src="@drawable/img_profile" />
+                <TextView
+                    android:id="@+id/textFeeds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/mitr_regular"
+                    android:text="หน้าแรก"
+                    android:textColor="@color/white"
+                    android:textSize="24dp"
+                    android:shadowColor="@color/dark"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="2"
+                    android:layout_centerVertical="true"/>
 
+                <ImageView
+                    android:id="@+id/se"
+                    android:layout_width="39dp"
+                    android:layout_height="39dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/ic_search"
+                    android:layout_toStartOf="@+id/userProfile"/>
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/userProfile"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/img_profile" />
+
+            </RelativeLayout>
+
+            <!--
             <RelativeLayout
                 android:id="@+id/layout_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/userProfile"
+                android:layout_below="@+id/LayoutProfile"
                 android:layout_centerHorizontal="true">
 
                 <SearchView
@@ -57,14 +76,15 @@
                     android:queryBackground="@null" />
 
             </RelativeLayout>
-
+            -->
 
             <RelativeLayout
                 android:id="@+id/layout_filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_below="@+id/layout_search"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
+                android:layout_below="@+id/LayoutProfile"
                 android:layout_centerHorizontal="true">
 
                 <RelativeLayout

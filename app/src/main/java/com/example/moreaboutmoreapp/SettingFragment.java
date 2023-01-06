@@ -3,6 +3,7 @@ package com.example.moreaboutmoreapp;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -14,6 +15,15 @@ import android.widget.Toast;
 import com.example.moreaboutmoreapp.Activities.LoginActivity;
 import com.example.moreaboutmoreapp.Activities.ProfileActivity;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -63,16 +73,50 @@ public class SettingFragment extends Fragment {
     }
 
     private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+
     Button Btn_EP, btn_logout;
+    CircleImageView userProfile;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("allPost");
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_setting, container, false);
+
+        //Load User Profile
+        userProfile = view.findViewById(R.id.userProfile);
+        userProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent ProfileActivity = new Intent(getActivity(), com.example.moreaboutmoreapp.Activities.ProfileActivity.class);
+                startActivity(ProfileActivity);
+            }
+        });
+
+        DatabaseReference userDataRef = firebaseDatabase.getReference("userData").child(currentUser.getUid());
+        DatabaseReference imageRef = userDataRef.child("userPhoto");
+        imageRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String get_URI = snapshot.getValue().toString();
+                Picasso.get().load(get_URI).into(userProfile);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         //EditProfile
         Btn_EP = view.findViewById(R.id.Btn_EP);
