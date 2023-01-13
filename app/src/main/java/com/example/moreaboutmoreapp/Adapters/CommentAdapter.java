@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,6 +40,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -108,7 +111,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
 
         }
 
-
         //Set Name
         // > GET b
         String Email = mData.get(position).getUserName().substring(0, 1);
@@ -128,24 +130,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         } else {
 
         }
-
-        String KeyTrue = preferences.getString("SaveKeyComment", "");
-
-
-        if (mData.get(position).getCommentKey().equals(KeyTrue)){
-            holder.trueBtn.setVisibility(View.VISIBLE);
-
-        } else if (KeyTrue.isEmpty()) {
-            holder.trueBtn.setVisibility(View.VISIBLE);
-            //Toast.makeText(mContext, "NotKeyTrue", Toast.LENGTH_SHORT).show();
-        }
-        else {
-            holder.trueBtn.setVisibility(View.INVISIBLE);
-        }
-
-        //if (mData.get(position).getCommentKey().equals(KeyTrue)) {
-          //
-        //}
 
         //Get Like Count
         DatabaseReference LikeRef = firebaseDatabase.getReference("likeComment").child(mData.get(position).getCommentKey());
@@ -213,6 +197,57 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
 
             }
         });
+
+
+        String KeyTrue = preferences.getString("SaveKeyComment", "");
+        String checkMyPost = preferences.getString("SaveMyPost", "");
+
+        if(KeyTrue.isEmpty()) {
+            trueReference = FirebaseDatabase.getInstance().getReference("commentCheckTrue");
+            trueReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for (DataSnapshot snap: snapshot.getChildren()) {
+                        String getKey = snap.getKey();
+                        String s = snap.getValue().toString();
+
+                        String modifiedString = s.replaceAll("[{}=true]", "");
+                        //String[] split = s.split("=");
+                        //String value = split[1];
+                        //String substring = value.substring(0, 4);
+                        //Toast.makeText(mContext, modifiedString, Toast.LENGTH_SHORT).show();
+
+                        if (mData.get(holder.getAdapterPosition()).getCommentKey().equals(getKey)) {
+                            //Save Key Comment
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString("SaveKeyComment", getKey);
+                            editor.apply();
+                        } else {
+                            holder.trueBtn.setVisibility(View.INVISIBLE);
+                        }
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        }
+
+        if (mData.get(position).getCommentKey().equals(KeyTrue)){
+            holder.trueBtn.setVisibility(View.VISIBLE);
+
+        } else if (KeyTrue.isEmpty() && checkMyPost.equals("Yes")) {
+            holder.trueBtn.setVisibility(View.VISIBLE);
+            //Toast.makeText(mContext, "NotKeyTrue", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            holder.trueBtn.setVisibility(View.INVISIBLE);
+        }
+
 
 
 
@@ -428,6 +463,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
                                         editor.putString("SaveKeyComment", "");
                                         editor.apply();
 
+
                                         //Refresh
                                         RefreshListview();
 
@@ -479,12 +515,16 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
 
         }
 
+
+
         //Refresh Listview When Click Button Check True
         private void RefreshListview() {
 
             notifyDataSetChanged();
 
         }
+
+
 
         //AlertBox
         private void AlertBox() {
@@ -596,6 +636,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         }
 
     }
+
 
 
     // >>> END Constructor <<< //
