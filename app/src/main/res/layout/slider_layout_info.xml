@@ -15,9 +15,27 @@
 
         <ImageView
             android:id="@+id/imgInfo"
-            android:layout_width="600dp"
-            android:layout_height="600dp"
-            android:src="@drawable/info_first"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/info_third"/>
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/gifTwo"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginVertical="500dp"
+            android:layout_marginHorizontal="50dp"
+            android:visibility="invisible"
+            android:src="@drawable/motion_one" />
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/gifThird"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginVertical="520dp"
+            android:layout_marginHorizontal="40dp"
+            android:visibility="invisible"
+            android:src="@drawable/motion_eight" />
 
         <android.widget.Button
             android:id="@+id/startButtonInfo"
@@ -26,11 +44,11 @@
             android:layout_marginTop="20dp"
             android:layout_below="@+id/imgInfo"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/custom_button_orange"
-            android:fontFamily="@font/mitr_semibold"
+            android:background="@drawable/custom_button_blue_v2"
+            android:fontFamily="@font/mitr_medium"
             android:text="เริ่มต้นใช้งาน"
             android:textColor="@color/white"
-            android:textSize="20dp"
+            android:textSize="18dp"
             android:visibility="invisible"/>
 
     </RelativeLayout>

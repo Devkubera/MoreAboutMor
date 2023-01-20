@@ -125,7 +125,7 @@ public class FirstUserActivity extends AppCompatActivity {
             mDotSlide.addView(dot[i]);
         }
 
-        dot[position].setTextColor(getResources().getColor(R.color.orange));
+        dot[position].setTextColor(getResources().getColor(R.color.nav_color));
 
     }
 
