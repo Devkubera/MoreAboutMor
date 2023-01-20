@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_login"
+    android:background="@drawable/bg_picture"
     tools:context=".Activities.LoginActivity"
     android:id="@+id/frag">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/layout_from"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_width="330dp"
+        android:layout_height="600dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         app:cardBackgroundColor="@color/white"
@@ -22,7 +22,7 @@
             android:id="@+id/logo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="30dp">
 
             <!-- Layout LOGO -->
             <RelativeLayout
@@ -42,7 +42,7 @@
                     android:id="@+id/IMG_name"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="10dp"
                     android:layout_toEndOf="@+id/IMG_Logo"
                     app:srcCompat="@drawable/bg_name" />
 
@@ -54,15 +54,15 @@
                     android:id="@+id/fromTextMail"
                     android:layout_width="285dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="45dp"
                     android:layout_below="@+id/LayoutLogo"
                     android:layout_centerHorizontal="true">
 
                     <!--IMG Mail-->
                     <ImageView
                         android:id="@+id/imgMail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="50px"
+                        android:layout_height="50px"
                         app:srcCompat="@drawable/ic_baseline_email_24black" />
 
                     <!--TextEmail-->
@@ -71,10 +71,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@+id/imgMail"
-                        android:layout_marginStart="5dp"
-                        android:text="Email Address"
+                        android:layout_marginStart="10dp"
+                        android:text="อีเมล"
                         android:textColor="@color/black"
-                        android:fontFamily="@font/mitr_medium"/>
+                        android:fontFamily="@font/mitr_regular"/>
 
                 </RelativeLayout>
 
@@ -85,12 +85,12 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_below="@+id/loginEmail"
-                    android:layout_marginTop="25dp">
+                    android:layout_marginTop="20dp">
 
                     <ImageView
                         android:id="@+id/imgLock"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="50px"
+                        android:layout_height="50px"
                         app:srcCompat="@drawable/ic_baseline_lock_24black" />
 
                     <!--TextPass-->
@@ -99,10 +99,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@+id/imgLock"
-                        android:layout_marginStart="5dp"
-                        android:text="Password"
+                        android:layout_marginStart="10dp"
+                        android:text="รหัสผ่าน"
                         android:textColor="@color/black"
-                        android:fontFamily="@font/mitr_medium"/>
+                        android:fontFamily="@font/mitr_regular"/>
 
                 </RelativeLayout>
 
@@ -152,21 +152,21 @@
                     android:textAlignment="viewEnd"
                     android:layout_marginTop="15dp"
                     android:text="ลืมรหัสผ่าน ?"
-                    android:textColor="@color/black"
+                    android:textColor="@color/darknight"
                     android:fontFamily="@font/mitr_light"/>
 
                 <android.widget.Button
                     android:id="@+id/loginButton"
-                    android:layout_width="220dp"
+                    android:layout_width="280dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/textForget"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="40dp"
-                    android:text="ล็อคอิน"
-                    android:textSize="20dp"
+                    android:layout_marginTop="30dp"
+                    android:text="เข้าสู่ระบบ"
+                    android:textSize="18dp"
                     android:textColor="@color/white"
                     android:background="@drawable/custom_button_blue"
-                    android:fontFamily="@font/mitr_semibold"/>
+                    android:fontFamily="@font/mitr_medium"/>
 
                 <ProgressBar
                     android:id="@+id/progressBarLogin"
@@ -182,8 +182,8 @@
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="30dp"
                     android:layout_centerHorizontal="true"
                     android:layout_below="@+id/loginButton">
 
@@ -193,6 +193,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         android:text="ยังไม่มีบัญชี ? "
+                        android:textSize="14dp"
                         android:fontFamily="@font/mitr_regular" />
 
                     <TextView
@@ -203,6 +204,8 @@
                         android:textStyle="bold"
                         android:textColor="@color/nav_color"
                         android:text=" สมัครสมาชิก"
+                        android:textSize="14dp"
+
                         android:fontFamily="@font/mitr_regular"/>
 
                 </RelativeLayout>

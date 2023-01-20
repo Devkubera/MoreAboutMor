@@ -2,7 +2,7 @@
 <resources>
 
     <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
-        <item name="boxStrokeColor">@color/nav_color</item>
+        <item name="boxStrokeColor">@color/darknight</item>
         <item name="boxStrokeWidth">1dp</item>
     </style>
 

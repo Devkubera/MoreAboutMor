@@ -138,10 +138,6 @@ public class CommentDetailActivity extends AppCompatActivity {
             textComments.setText(getComment);
         }
 
-
-
-
-
         //Edit my Comment
         layoutEdit.setOnClickListener(new View.OnClickListener() {
             @Override

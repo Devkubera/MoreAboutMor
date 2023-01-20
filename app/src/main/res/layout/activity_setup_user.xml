@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_setup"
+    android:background="@drawable/bg_setname1"
     tools:context=".Activities.SetupUserActivity">
 
     <FrameLayout
@@ -84,8 +84,8 @@
             android:layout_marginTop="25dp"
             android:fontFamily="@font/mitr_regular"
             android:text="ความยาวไม่เกิน 20 ตัวอักษร"
-            android:textColor="@color/black"
-            android:textSize="18dp" />
+            android:textColor="@color/darknight"
+            android:textSize="16dp" />
 
         <!--Name-->
         <com.google.android.material.textfield.TextInputLayout
@@ -104,8 +104,9 @@
             app:counterMaxLength="20">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
+                android:layout_width="280dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:fontFamily="@font/mitr_light"
                 android:hint="ชื่อเล่น"
                 android:inputType="textPersonName"
@@ -126,14 +127,14 @@
 
             <android.widget.Button
                 android:id="@+id/setNameButton"
-                android:layout_width="220dp"
+                android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:background="@drawable/custom_button_blue"
-                android:fontFamily="@font/mitr_semibold"
+                android:fontFamily="@font/mitr_medium"
                 android:text="ตั้งชื่อ"
                 android:textColor="@color/white"
-                android:textSize="20dp" />
+                android:textSize="18dp" />
 
             <ProgressBar
                 android:id="@+id/progressBar"
