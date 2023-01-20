@@ -54,10 +54,10 @@
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
             android:background="@drawable/custom_button_orange"
-            android:fontFamily="@font/mitr_semibold"
+            android:fontFamily="@font/mitr_medium"
             android:text="เริ่มต้นใช้งาน"
             android:textColor="@color/white"
-            android:textSize="20dp"
+            android:textSize="18dp"
             android:visibility="invisible"/>
 
 
