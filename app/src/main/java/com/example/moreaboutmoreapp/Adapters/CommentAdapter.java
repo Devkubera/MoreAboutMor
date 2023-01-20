@@ -217,11 +217,14 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
                         //String substring = value.substring(0, 4);
                         //Toast.makeText(mContext, modifiedString, Toast.LENGTH_SHORT).show();
 
+                        holder.trueBtn.setVisibility(View.INVISIBLE);
+
                         if (mData.get(holder.getAdapterPosition()).getCommentKey().equals(getKey)) {
                             //Save Key Comment
                             SharedPreferences.Editor editor = preferences.edit();
                             editor.putString("SaveKeyComment", getKey);
                             editor.apply();
+                            holder.trueBtn.setVisibility(View.VISIBLE);
                         } else {
                             holder.trueBtn.setVisibility(View.INVISIBLE);
                         }
