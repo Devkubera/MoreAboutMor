@@ -432,13 +432,13 @@ public class RegisterFragment extends Fragment implements BackKeyPressedListener
         String emailInput = Email.getEditText().getText().toString().trim();
 
         if (emailInput.isEmpty()) {
-            Email.setError("Field can't be empty");
+            Email.setError("กรุณากรอกอีเมล");
             regButton.setVisibility(View.VISIBLE);
             loadingProgress.setVisibility(INVISIBLE);
             return false;
 
         } else if (!Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) {
-            Email.setError("Enter valid Email address !");
+            Email.setError("รูปแบบของอีเมลไม่ถูกต้อง");
             regButton.setVisibility(View.VISIBLE);
             loadingProgress.setVisibility(INVISIBLE);
             return false;
@@ -451,7 +451,7 @@ public class RegisterFragment extends Fragment implements BackKeyPressedListener
                 Email.setError(null);
                 return true;
             } else {
-                Email.setError("Please use only @g.sut.ac.th account !");
+                Email.setError("กรุณาใช้อีเมล มทส. ในการสมัครใช้งาน");
             }
 
             regButton.setVisibility(View.VISIBLE);
@@ -469,7 +469,7 @@ public class RegisterFragment extends Fragment implements BackKeyPressedListener
         String passInput = Pass.getEditText().getText().toString().trim();
 
         if (passInput.isEmpty()) {
-            Pass.setError("Field can't be empty");
+            Pass.setError("กรุณากรอกรหัสผ่าน");
             regButton.setVisibility(View.VISIBLE);
             loadingProgress.setVisibility(INVISIBLE);
             return false;
@@ -484,13 +484,13 @@ public class RegisterFragment extends Fragment implements BackKeyPressedListener
         String passConInput = PassCon.getEditText().getText().toString().trim();
 
         if (!passInput.equals(passConInput)) {
-            PassCon.setError("Passwords do not match");
+            PassCon.setError("รหัสผ่านไม่ตรงกัน");
             regButton.setVisibility(View.VISIBLE);
             loadingProgress.setVisibility(INVISIBLE);
             return false;
 
         } else if (passInput.isEmpty()) {
-            PassCon.setError("Field can't be empty");
+            PassCon.setError("กรุณากรอกรหัสผ่านอีกครั้ง");
             regButton.setVisibility(View.VISIBLE);
             loadingProgress.setVisibility(INVISIBLE);
             return false;
@@ -506,7 +506,7 @@ public class RegisterFragment extends Fragment implements BackKeyPressedListener
         String groupInput = selectGroup.getText().toString().trim();
 
         if (groupInput.isEmpty()) {
-            SGroup.setError("Required");
+            SGroup.setError("กรุณาเลือกสำนักวิชาของคุณ");
             regButton.setVisibility(View.VISIBLE);
             loadingProgress.setVisibility(INVISIBLE);
             return false;
@@ -522,7 +522,7 @@ public class RegisterFragment extends Fragment implements BackKeyPressedListener
         String branchInput = selectBranch.getText().toString().trim();
 
         if (branchInput.isEmpty()) {
-            SBranch.setError("Required");
+            SBranch.setError("กรุณาเลือกสาขาวิชาของคุณ");
             regButton.setVisibility(View.VISIBLE);
             loadingProgress.setVisibility(INVISIBLE);
             return false;

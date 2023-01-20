@@ -12,69 +12,39 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/CV_BackMenu"
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:layout_marginTop="20dp"
-            app:cardBackgroundColor="@color/back_color"
-            style="@style/CustomCardViewStyle_BackMenu">
-
-            <RelativeLayout
-                android:layout_width="310dp"
-                android:layout_height="match_parent"
-                android:layout_centerHorizontal="true">
-
-                <ImageView
-                    android:id="@+id/Btn_BackForgetPage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="60dp"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/ic_baseline_arrow_white_ios_35" />
-
-                <RelativeLayout
-                    android:id="@+id/LayoutFont"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toEndOf="@id/Btn_BackForgetPage">
-
-                    <TextView
-                        android:id="@+id/textCreate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textStyle="bold"
-                        android:textColor="@color/white"
-                        android:layout_marginStart="10dp"
-                        android:textSize="30dp"
-                        android:text="Forgot Password"
-                        android:fontFamily="@font/mitr_medium"/>
-
-                    <TextView
-                        android:id="@+id/textCreateTH"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/textCreate"
-                        android:textStyle="bold"
-                        android:textColor="@color/white"
-                        android:layout_marginStart="10dp"
-                        android:textSize="15dp"
-                        android:text="ลืมรหัสผ่าน"
-                        android:fontFamily="@font/mitr_light"/>
-
-
-                </RelativeLayout>
-
-            </RelativeLayout>
-
-        </com.google.android.material.card.MaterialCardView>
 
         <!-- Card View Input Field -->
+
+        <RelativeLayout
+            android:id="@+id/CV_BackMenu"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_centerHorizontal="true">
+
+            <ImageView
+                android:id="@+id/Btn_BackForgetPage"
+                android:layout_width="40dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="28dp"
+                android:src="@drawable/back_circle_button" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="256dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="75dp"
+                android:src="@drawable/text_passwordreset_2" />
+
+
+        </RelativeLayout>
+
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/CV_From"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:layout_below="@+id/CV_BackMenu"
             app:cardBackgroundColor="@color/white"
             style="@style/CustomCardViewStyle_Field">
@@ -87,7 +57,7 @@
                 <RelativeLayout
                     android:id="@+id/FromInfo"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="500dp"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true">
 
@@ -96,7 +66,7 @@
                         android:layout_width="200dp"
                         android:layout_height="200dp"
                         android:layout_centerHorizontal="true"
-                        android:src="@drawable/img_forgot" />
+                        android:src="@drawable/logo_circle_fill" />
 
                     <TextView
                         android:id="@+id/textInfo"
@@ -106,9 +76,9 @@
                         android:layout_below="@+id/imageView"
                         android:layout_centerHorizontal="true"
                         android:fontFamily="@font/mitr_regular"
-                        android:text="กรุณากรอกอีเมลล์ที่คุณใช้สมัคร"
-                        android:textColor="@color/black"
-                        android:textSize="20dp" />
+                        android:text="กรุณากรอกอีเมลที่คุณใช้สมัคร"
+                        android:textColor="@color/darknight"
+                        android:textSize="16dp" />
 
                     <TextView
                         android:id="@+id/textInfo2"
@@ -118,13 +88,13 @@
                         android:layout_centerHorizontal="true"
                         android:fontFamily="@font/mitr_regular"
                         android:text="เพื่อทำการตั้งรหัสผ่านใหม่"
-                        android:textColor="@color/black"
-                        android:textSize="20dp" />
+                        android:textColor="@color/darknight"
+                        android:textSize="16dp" />
 
                     <ImageView
                         android:id="@+id/imgMail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="50px"
+                        android:layout_height="50px"
                         android:layout_below="@+id/textInfo2"
                         android:layout_marginTop="30dp"
                         app:srcCompat="@drawable/ic_baseline_email_24black" />
@@ -135,25 +105,26 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/textInfo2"
-                        android:layout_marginStart="5dp"
+                        android:layout_marginStart="10dp"
                         android:layout_marginTop="30dp"
                         android:layout_toEndOf="@+id/imgMail"
-                        android:fontFamily="@font/mitr_medium"
-                        android:text="Email Address"
-                        android:textColor="@color/black" />
+                        android:fontFamily="@font/mitr_regular"
+                        android:text="อีเมล"
+                        android:textColor="@color/darknight" />
 
                     <EditText
                         android:id="@+id/putEmail"
-                        android:layout_width="300dp"
+                        android:layout_width="280dp"
                         android:layout_height="45dp"
                         android:layout_below="@+id/textEmail"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/custom_input"
                         android:fontFamily="@font/mitr_light"
-                        android:hint="Email"
+                        android:hint="กรอกอีเมลของคุณ"
                         android:inputType="textEmailAddress"
                         android:padding="10dp"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        android:textSize="13dp"/>
 
                 </RelativeLayout>
 
@@ -166,20 +137,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="15dp">
+                android:layout_marginBottom="50dp">
 
                 <android.widget.Button
                     android:id="@+id/sendButton"
-                    android:layout_width="220dp"
+                    android:layout_width="280dp"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="15dp"
+                    android:layout_marginBottom="30dp"
                     android:text="ส่งอีเมล"
-                    android:textSize="20dp"
+                    android:textSize="18dp"
                     android:textColor="@color/white"
                     android:background="@drawable/custom_button_blue"
-                    android:fontFamily="@font/mitr_semibold"/>
+                    android:fontFamily="@font/mitr_medium"/>
 
                 <ProgressBar
                     android:id="@+id/progressBar"

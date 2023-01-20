@@ -12,6 +12,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -114,6 +116,13 @@ public class LoginActivity extends AppCompatActivity {
 
         //Click ForgetPass
         textForget = findViewById(R.id.textForget);
+
+        // Make underline
+        SpannableString content = new SpannableString("ลืมรหัสผ่าน ?");
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        textForget.setText(content);
+
+
         textForget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -170,6 +179,12 @@ public class LoginActivity extends AppCompatActivity {
 
         //Click Register
         C_Register = findViewById(R.id.textRegister);
+
+        // Make underline
+        SpannableString register_text = new SpannableString("สมัครสมาชิก");
+        register_text.setSpan(new UnderlineSpan(), 0, register_text.length(), 0);
+        C_Register.setText(register_text);
+
         C_Register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

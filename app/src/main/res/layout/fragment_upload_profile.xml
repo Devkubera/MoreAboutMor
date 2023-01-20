@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".UploadProfileFragment"
-    android:background="@drawable/bg_setup">
+    android:background="@drawable/bg_setname1">
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
@@ -103,14 +103,14 @@
 
             <android.widget.Button
                 android:id="@+id/setPhotoButton"
-                android:layout_width="220dp"
+                android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:background="@drawable/custom_button_blue"
                 android:fontFamily="@font/mitr_semibold"
                 android:text="ตกลง"
                 android:textColor="@color/white"
-                android:textSize="20dp" />
+                android:textSize="18dp" />
 
             <ProgressBar
                 android:id="@+id/progressBar"

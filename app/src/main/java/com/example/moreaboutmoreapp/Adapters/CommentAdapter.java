@@ -164,7 +164,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
                 } else {
                     holder.likeBtn.setChecked(false);
                 }
-            }
+            }//;;
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
