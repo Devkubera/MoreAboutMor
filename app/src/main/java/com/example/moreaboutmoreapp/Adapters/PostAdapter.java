@@ -23,6 +23,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -60,6 +61,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
     DatabaseReference postReference, likeReference, commentReference;
     FirebaseUser firebaseUser;
     FirebaseAuth firebaseAuth;
+
+    //CardView CV_Row_Post;
 
     public PostAdapter(Context mContext, List<Post> mData) {
         this.mContext = mContext;
@@ -127,10 +130,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
        //Check Our Post
        if (mData.get(position).getUserName().equals(firebaseUser.getDisplayName())){
 
-           //holder.textUser.setTextColor(ContextCompat.getColor(mContext, R.color.nav_color));
+           holder.textUser.setTextColor(ContextCompat.getColor(mContext, R.color.nav_color));
 
        } else {
-
+           //CV_Row_Post.setVisibility(View.GONE);
        }
 
         //Get Comment Count
@@ -236,6 +239,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            //CV_Row_Post = itemView.findViewById(R.id.CV_Row_Post);
 
 
             db = FirebaseDatabase.getInstance();
