@@ -34,6 +34,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.inappmessaging.FirebaseInAppMessaging;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -54,7 +55,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     // For Api
     private static String studyApiURL = "https://script.google.com/macros/s/AKfycbwKcPctrw2a_L90xtp32dXMr30XRNRoQ9OIw2-gMKhk83pU23Vv25XEsEAvFLfWEPkO/exec";
     private static String geApiURL = "https://script.google.com/macros/s/AKfycbyZWz1QLjtkmWBnDPHE1r5YSYUK8owLJJlEZhXRbklL49Mhx01GWaK5oC9PZIIuKHF1/exec";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,6 +162,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             bottomNavigationView.setSelectedItemId(R.id.nav_Home);
             //moveTaskToBack(true);
         }
+
+        getFragmentManager().popBackStack();
+
 
 
     }

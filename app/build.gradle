@@ -29,6 +29,7 @@ android {
     }
 }
 
+def core_version = "1.6.0"
 dependencies {
     //firebase
     implementation platform('com.google.firebase:firebase-bom:30.4.1')
@@ -69,5 +70,13 @@ dependencies {
 
     //Gif
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'
+
+    // Notification
+    implementation "androidx.core:core:$core_version"
+
+    // Add the dependencies for the In-App Messaging and Analytics libraries
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-inappmessaging-display'
+    implementation 'com.google.firebase:firebase-analytics'
 }
 
