@@ -226,7 +226,8 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
 
     @Override
     public void onBackPressed() {
-        //showMessage("Test!");
+        showMessage("Test!");
+        //getFragmentManager().popBackStack();
 
     }
 

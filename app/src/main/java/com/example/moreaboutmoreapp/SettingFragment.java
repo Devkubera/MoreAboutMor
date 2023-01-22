@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.moreaboutmoreapp.Activities.LoginActivity;
+import com.example.moreaboutmoreapp.Activities.ManagePostActivity;
 import com.example.moreaboutmoreapp.Activities.ProfileActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,7 +32,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Use the {@link SettingFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SettingFragment extends Fragment {
+public class SettingFragment extends Fragment{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -40,6 +42,8 @@ public class SettingFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    public static BackKeyPressedListener backKeyPressedListener;
 
     public SettingFragment() {
         // Required empty public constructor
@@ -72,12 +76,24 @@ public class SettingFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+
+
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
 
-    Button Btn_EP, btn_logout;
+    Button btn_EP, btn_epc , btn_logout;
     CircleImageView userProfile;
 
     @Override
@@ -119,12 +135,27 @@ public class SettingFragment extends Fragment {
         });
 
         //EditProfile
-        Btn_EP = view.findViewById(R.id.Btn_EP);
-        Btn_EP.setOnClickListener(new View.OnClickListener() {
+        btn_EP = view.findViewById(R.id.Btn_EP);
+        btn_EP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent profileActivity = new Intent(getActivity(), ProfileActivity.class);
                 startActivity(profileActivity);
+            }
+        });
+
+        // EditPost
+        btn_epc = view.findViewById(R.id.Btn_EPC);
+        btn_epc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Fragment newFragment = new ManagePostFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.settingFragment, newFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+
             }
         });
 
@@ -136,6 +167,7 @@ public class SettingFragment extends Fragment {
                 SingOut();
             }
         });
+
 
         return view;
     }
@@ -151,5 +183,4 @@ public class SettingFragment extends Fragment {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
-
 }
