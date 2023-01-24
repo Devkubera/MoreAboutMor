@@ -130,7 +130,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
        //Check Our Post
        if (mData.get(position).getUserName().equals(firebaseUser.getDisplayName())){
 
-           holder.textUser.setTextColor(ContextCompat.getColor(mContext, R.color.nav_color));
+           //holder.textUser.setTextColor(ContextCompat.getColor(mContext, R.color.nav_color));
 
        } else {
            //CV_Row_Post.setVisibility(View.GONE);

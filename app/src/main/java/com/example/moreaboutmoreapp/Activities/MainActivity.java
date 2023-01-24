@@ -17,6 +17,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.example.moreaboutmoreapp.HomeFragment;
+import com.example.moreaboutmoreapp.ManagePostFragment;
 import com.example.moreaboutmoreapp.MenuFragment;
 import com.example.moreaboutmoreapp.Models.GeLink;
 import com.example.moreaboutmoreapp.Models.ModelFacultyData;
@@ -34,7 +35,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.inappmessaging.FirebaseInAppMessaging;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     public void onBackPressed() {
-
+        //super.onBackPressed();
 
         if (bottomNavigationView.getSelectedItemId() == R.id.nav_Home) {
 
@@ -146,6 +146,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 return;
             }
 
+
+
             Toast.makeText(getApplicationContext(), "Press again to exit", Toast.LENGTH_SHORT).show();
             isPressed = true;
 
@@ -158,12 +160,20 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
 
 
-        } else {
+        } else if (ManagePostFragment.backKeyPressedListener != null) {
+            super.onBackPressed();
+        }
+
+        else {
+            //finish();
+            //super.onBackPressed();
+            //getFragmentManager().popBackStack();
             bottomNavigationView.setSelectedItemId(R.id.nav_Home);
             //moveTaskToBack(true);
         }
 
-        getFragmentManager().popBackStack();
+        //getFragmentManager().popBackStack();
+
 
 
 
