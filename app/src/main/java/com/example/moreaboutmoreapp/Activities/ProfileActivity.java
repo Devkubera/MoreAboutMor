@@ -691,10 +691,9 @@ public class ProfileActivity extends AppCompatActivity {
 
         // Update Name on my Post
         DatabaseReference namePostRef = db.getReference("allPost");
-        namePostRef.addValueEventListener(new ValueEventListener() {
+        namePostRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                 for (DataSnapshot userNameSnapshot: snapshot.getChildren()) {
 
                     String updateNickName = userNameSnapshot.child("userName").getValue(String.class);
@@ -708,7 +707,6 @@ public class ProfileActivity extends AppCompatActivity {
 
 
                 }
-
             }
 
             @Override
@@ -719,7 +717,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         // Update Name on my Comment
         DatabaseReference nameCommentRef = db.getReference("Comment");
-        nameCommentRef.addValueEventListener(new ValueEventListener() {
+        nameCommentRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -734,10 +732,6 @@ public class ProfileActivity extends AppCompatActivity {
                         ///showMessage(CommentKey);
 
                         String updateNickNameComment = CommentKeySnapshot.child("userName").getValue(String.class);
-                        //showMessage(updateNickNameComment);
-
-                        //Log.e("s", updateNickNameComment);
-                        //Log.e(updateNickNameComment, "Some not null string");
 
                         // Update Name in Comment
                         if (updateNickNameComment.equals(currentUser.getEmail())) {
@@ -745,7 +739,6 @@ public class ProfileActivity extends AppCompatActivity {
                         }
 
                     }
-
 
                 }
 
@@ -758,6 +751,10 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
+
+
+
+
 
 
     }
