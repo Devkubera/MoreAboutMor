@@ -17,7 +17,7 @@
             android:id="@+id/CV_BackManagePost"
             android:layout_width="match_parent"
             android:layout_height="110dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="-10dp"
             android:layout_centerHorizontal="true">
 
             <ImageView
@@ -36,13 +36,21 @@
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@id/Btn_BackManagePost">
 
+<!--                <ImageView-->
+<!--                    android:id="@+id/imgManagePost"-->
+<!--                    android:layout_centerVertical="true"-->
+<!--                    android:layout_width="150dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="28dp"-->
+<!--                    android:src="@drawable/text_register" />-->
+
                 <ImageView
                     android:id="@+id/imgManagePost"
-                    android:layout_centerVertical="true"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="28dp"
-                    android:src="@drawable/text_register" />
+                    android:layout_marginTop="2dp"
+                    android:layout_marginStart="25dp"
+                    android:src="@drawable/text_managepost" />
 
 
             </RelativeLayout>
