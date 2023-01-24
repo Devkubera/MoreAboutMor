@@ -21,19 +21,20 @@
 
         <pl.droidsonroids.gif.GifImageView
             android:id="@+id/gifTwo"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:layout_marginVertical="500dp"
+            android:layout_width="105dp"
+            android:layout_height="105dp"
+            android:layout_marginVertical="450dp"
             android:layout_marginHorizontal="50dp"
             android:visibility="invisible"
             android:src="@drawable/motion_one" />
 
         <pl.droidsonroids.gif.GifImageView
             android:id="@+id/gifThird"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:layout_marginVertical="520dp"
-            android:layout_marginHorizontal="40dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginVertical="490dp"
+            android:layout_marginHorizontal="52dp"
+            android:layout_centerHorizontal="false"
             android:visibility="invisible"
             android:src="@drawable/motion_eight" />
 
