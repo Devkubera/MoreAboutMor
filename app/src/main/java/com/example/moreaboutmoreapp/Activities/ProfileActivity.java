@@ -753,10 +753,6 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
 
-
-
-
-
     }
 
     private boolean validateSelectGroup() {
