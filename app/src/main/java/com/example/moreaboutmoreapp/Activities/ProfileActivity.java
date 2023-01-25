@@ -34,6 +34,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.moreaboutmoreapp.Models.Comment;
 import com.example.moreaboutmoreapp.R;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -205,7 +206,6 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
-
 
 
         //Get & Set Major
@@ -689,12 +689,11 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        DatabaseReference nameRef = db.getReference("allPost");
-
-        nameRef.addValueEventListener(new ValueEventListener() {
+        // Update Name on my Post
+        DatabaseReference namePostRef = db.getReference("allPost");
+        namePostRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                 for (DataSnapshot userNameSnapshot: snapshot.getChildren()) {
 
                     String updateNickName = userNameSnapshot.child("userName").getValue(String.class);
@@ -702,12 +701,48 @@ public class ProfileActivity extends AppCompatActivity {
                     //showMessage(key);
 
                     if (updateNickName.equals(currentUser.getEmail())) {
-                        nameRef.child(key).child("nickName").setValue(updateName);
+                        namePostRef.child(key).child("nickName").setValue(updateName);
                     }
 
 
 
                 }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        // Update Name on my Comment
+        DatabaseReference nameCommentRef = db.getReference("Comment");
+        nameCommentRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot PostKeySnapshot: snapshot.getChildren()) {
+                    //loop 1 to go PostKeySnapshot
+                    String PostKey = PostKeySnapshot.getKey();
+                    //showMessage(PostKey);
+
+                    for(DataSnapshot CommentKeySnapshot : snapshot.child(PostKey).getChildren()) {
+                        //loop 2 to go CommentKey
+                        String CommentKey = CommentKeySnapshot.getKey();
+                        ///showMessage(CommentKey);
+
+                        String updateNickNameComment = CommentKeySnapshot.child("userName").getValue(String.class);
+
+                        // Update Name in Comment
+                        if (updateNickNameComment.equals(currentUser.getEmail())) {
+                            nameCommentRef.child(PostKey).child(CommentKey).child("nickName").setValue(updateName);
+                        }
+
+                    }
+
+                }
+
+
 
             }
 
@@ -716,6 +751,10 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
+
+
+
+
 
 
     }

@@ -91,7 +91,6 @@ public class ManagePostFragment extends Fragment implements BackKeyPressedListen
 
     @Override
     public void onBackPressed() {
-        getActivity().onBackPressed();
     }
 
     @Override

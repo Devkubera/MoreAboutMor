@@ -17,7 +17,6 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.example.moreaboutmoreapp.HomeFragment;
-import com.example.moreaboutmoreapp.ManagePostFragment;
 import com.example.moreaboutmoreapp.MenuFragment;
 import com.example.moreaboutmoreapp.Models.GeLink;
 import com.example.moreaboutmoreapp.Models.ModelFacultyData;
@@ -134,12 +133,18 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         if (bottomNavigationView.getSelectedItemId() == R.id.nav_Home) {
 
+            /*if(HomeFragment.backKeyPressedListener != null) {
+                //super.onBackPressed();
+                //inish();
+                //System.exit(0);
+                moveTaskToBack(true);
+                //HomeFragment.backKeyPressedListener.onBackPressed();
+            }*/
 
             if (isPressed) {
                 moveTaskToBack(true);
                 return;
             }
-
 
             Toast.makeText(getApplicationContext(), "Press again to exit", Toast.LENGTH_SHORT).show();
             isPressed = true;
@@ -153,13 +158,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
 
 
-        } else if (ManagePostFragment.backKeyPressedListener != null) {
-            super.onBackPressed();
+        } else {
+            bottomNavigationView.setSelectedItemId(R.id.nav_Home);
+            //moveTaskToBack(true);
         }
 
-        else {
-            bottomNavigationView.setSelectedItemId(R.id.nav_Home);
-        }
+        getFragmentManager().popBackStack();
+
 
 
     }
