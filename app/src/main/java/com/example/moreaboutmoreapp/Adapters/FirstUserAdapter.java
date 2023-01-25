@@ -12,6 +12,8 @@ import androidx.viewpager.widget.PagerAdapter;
 
 import com.example.moreaboutmoreapp.R;
 
+import pl.droidsonroids.gif.GifImageView;
+
 public class FirstUserAdapter extends PagerAdapter {
 
     Context context;
@@ -55,6 +57,19 @@ public class FirstUserAdapter extends PagerAdapter {
 
         ImageView slideImage = view.findViewById(R.id.imgInfo);
         RelativeLayout layout = view.findViewById(R.id.layout_slid_first_user);
+
+        // Show gif in page 2
+        GifImageView motion2 = view.findViewById(R.id.gifTwo);
+        if (position == 1) {
+            motion2.setVisibility(View.VISIBLE);
+        }
+
+        // Show gif in page 3
+        GifImageView motion3 = view.findViewById(R.id.gifThird);
+        if (position == 2) {
+            motion3.setVisibility(View.VISIBLE);
+        }
+
 
         slideImage.setImageResource(images[position]);
         layout.setBackgroundResource(bg[position]);

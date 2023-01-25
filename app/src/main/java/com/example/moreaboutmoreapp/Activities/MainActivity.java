@@ -17,6 +17,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.example.moreaboutmoreapp.HomeFragment;
+import com.example.moreaboutmoreapp.ManagePostFragment;
 import com.example.moreaboutmoreapp.MenuFragment;
 import com.example.moreaboutmoreapp.Models.GeLink;
 import com.example.moreaboutmoreapp.Models.ModelFacultyData;
@@ -34,6 +35,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.inappmessaging.FirebaseInAppMessaging;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -54,7 +56,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     // For Api
     private static String studyApiURL = "https://script.google.com/macros/s/AKfycbwKcPctrw2a_L90xtp32dXMr30XRNRoQ9OIw2-gMKhk83pU23Vv25XEsEAvFLfWEPkO/exec";
     private static String geApiURL = "https://script.google.com/macros/s/AKfycbyZWz1QLjtkmWBnDPHE1r5YSYUK8owLJJlEZhXRbklL49Mhx01GWaK5oC9PZIIuKHF1/exec";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,18 +134,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         if (bottomNavigationView.getSelectedItemId() == R.id.nav_Home) {
 
-            /*if(HomeFragment.backKeyPressedListener != null) {
-                //super.onBackPressed();
-                //inish();
-                //System.exit(0);
-                moveTaskToBack(true);
-                //HomeFragment.backKeyPressedListener.onBackPressed();
-            }*/
 
             if (isPressed) {
                 moveTaskToBack(true);
                 return;
             }
+
 
             Toast.makeText(getApplicationContext(), "Press again to exit", Toast.LENGTH_SHORT).show();
             isPressed = true;
@@ -158,9 +153,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
 
 
-        } else {
+        } else if (ManagePostFragment.backKeyPressedListener != null) {
+            super.onBackPressed();
+        }
+
+        else {
             bottomNavigationView.setSelectedItemId(R.id.nav_Home);
-            //moveTaskToBack(true);
         }
 
 

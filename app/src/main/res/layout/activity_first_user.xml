@@ -22,8 +22,8 @@
 
         <ImageView
             android:id="@+id/info_first"
-            android:layout_width="600dp"
-            android:layout_height="600dp" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
 
 
@@ -33,7 +33,7 @@
         android:id="@+id/LayoutButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="60dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true" >
 
@@ -43,21 +43,21 @@
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
             android:background="@drawable/custom_button_blue_v2"
-            android:fontFamily="@font/mitr_semibold"
+            android:fontFamily="@font/mitr_medium"
             android:text="ต่อไป"
             android:textColor="@color/white"
-            android:textSize="20dp" />
+            android:textSize="18dp" />
 
         <android.widget.Button
             android:id="@+id/startButtonInfo"
             android:layout_width="220dp"
             android:layout_height="50dp"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/custom_button_orange"
-            android:fontFamily="@font/mitr_semibold"
+            android:background="@drawable/custom_button_blue_v2"
+            android:fontFamily="@font/mitr_medium"
             android:text="เริ่มต้นใช้งาน"
             android:textColor="@color/white"
-            android:textSize="20dp"
+            android:textSize="18dp"
             android:visibility="invisible"/>
 
 

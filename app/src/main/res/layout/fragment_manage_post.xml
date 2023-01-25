@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/managePostFragment"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_picture"
+    tools:context=".ManagePostFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/CV_BackManagePost"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:layout_marginTop="-10dp"
+            android:layout_centerHorizontal="true">
+
+            <ImageView
+                android:id="@+id/Btn_BackManagePost"
+                android:layout_centerVertical="true"
+                android:layout_width="40dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="28dp"
+                android:src="@drawable/back_circle_button" />
+
+            <RelativeLayout
+                android:id="@+id/LayoutFont"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/Btn_BackManagePost">
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/imgManagePost"-->
+<!--                    android:layout_centerVertical="true"-->
+<!--                    android:layout_width="150dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="28dp"-->
+<!--                    android:src="@drawable/text_register" />-->
+
+                <ImageView
+                    android:id="@+id/imgManagePost"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginStart="25dp"
+                    android:src="@drawable/text_managepost" />
+
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/managePostRV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/CV_BackManagePost"
+            android:layout_marginBottom="?actionBarSize" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <ProgressBar
+                android:id="@+id/managePost_ProgressData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:theme="@style/progressBarWhite"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/managePost_txtNoneInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:text="ยังไม่มีข้อมูลการโพสต์"
+                android:textSize="32dp"
+                android:textColor="@color/none_color"
+                android:fontFamily="@font/mitr_regular"
+                android:visibility="invisible"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+</LinearLayout>

@@ -2,4 +2,8 @@
     <string name="app_name">More About\nMor</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Notification Channel -->
+    <string name="channel_social">Post and Comment Notification</string>
+    <string name="channel_social_des">this is notification for post and comment when something is happen</string>
 </resources>
