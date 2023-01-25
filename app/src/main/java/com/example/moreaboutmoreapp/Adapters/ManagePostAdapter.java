@@ -5,9 +5,6 @@ import static android.view.View.INVISIBLE;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.text.Html;
-import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,18 +16,13 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.moreaboutmoreapp.Activities.LoginActivity;
 import com.example.moreaboutmoreapp.Activities.PostDetailActivity;
-import com.example.moreaboutmoreapp.Activities.ProfileActivity;
-import com.example.moreaboutmoreapp.Models.Comment;
 import com.example.moreaboutmoreapp.Models.Post;
 import com.example.moreaboutmoreapp.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -44,43 +36,31 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import java.text.SimpleDateFormat;
-import java.time.ZoneId;
-import java.time.chrono.ThaiBuddhistDate;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
-public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> {
-
+public class ManagePostAdapter extends RecyclerView.Adapter<ManagePostAdapter.MyViewHolder> {
     Context mContext;
     List<Post> mData;
     String postKey, postEditKey, postKeyLike, userID;
     DatabaseReference postReference, likeReference, commentReference;
     FirebaseUser firebaseUser;
     FirebaseAuth firebaseAuth;
+    CardView CV_Row_Post;
 
-    //CardView CV_Row_Post;
-
-    public PostAdapter(Context mContext, List<Post> mData) {
+    public ManagePostAdapter(Context mContext, List<Post> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
 
     @NonNull
     @Override
-    public PostAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
+    public ManagePostAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View row = LayoutInflater.from(mContext).inflate(R.layout.row_post_item,parent,false);
         return new MyViewHolder(row);
-
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PostAdapter.MyViewHolder holder, int position) {
-
+    public void onBindViewHolder(@NonNull ManagePostAdapter.MyViewHolder holder, int position) {
         FirebaseDatabase firebaseDatabase;
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
@@ -110,10 +90,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
             //comments = comments.substring(0,20) + " ...";
 
         }*/
-       if (comments.length() > 155) {
-           comments = comments.substring(0,155) + " ...";
-           holder.textPost.setText(comments);
-           holder.textViewMore.setVisibility(View.VISIBLE);
+        if (comments.length() > 155) {
+            comments = comments.substring(0,155) + " ...";
+            holder.textPost.setText(comments);
+            holder.textViewMore.setVisibility(View.VISIBLE);
 
            /*holder.textViewMore.setOnClickListener(new View.OnClickListener() {
                @Override
@@ -123,18 +103,18 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
            });*/
 
         } else {
-           holder.textViewMore.setVisibility(View.INVISIBLE);
-           holder.textPost.setText(comments);
-       }
+            holder.textViewMore.setVisibility(View.INVISIBLE);
+            holder.textPost.setText(comments);
+        }
 
-       //Check Our Post
-       if (mData.get(position).getUserName().equals(firebaseUser.getDisplayName())){
+        //Check Our Post
+        if (mData.get(position).getUserName().equals(firebaseUser.getDisplayName())){
 
-           //holder.textUser.setTextColor(ContextCompat.getColor(mContext, R.color.nav_color));
+            //holder.textUser.setTextColor(ContextCompat.getColor(mContext, R.color.nav_color));
 
-       } else {
-           //CV_Row_Post.setVisibility(View.GONE);
-       }
+        } else {
+            CV_Row_Post.setVisibility(View.GONE);
+        }
 
         //Get Comment Count
         DatabaseReference commentRef = firebaseDatabase.getReference("Comment").child(mData.get(position).getPostKey());
@@ -196,9 +176,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
             }
         });
-
     }
-
 
     @Override
     public int getItemCount() {
@@ -240,8 +218,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            //CV_Row_Post = itemView.findViewById(R.id.CV_Row_Post);
-
 
             db = FirebaseDatabase.getInstance();
 
@@ -259,6 +235,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
             likeBtn = itemView.findViewById(R.id.likeBtn);
             commentBtn = itemView.findViewById(R.id.commentBtn);
 
+            // Card View
+            CV_Row_Post = itemView.findViewById(R.id.CV_Row_Post);
+
             /*itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -270,117 +249,117 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
             //Button MoreMenu
             MoreMenu = itemView.findViewById(R.id.MoreMenu);
             MoreMenu.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
+                @Override
+                public void onClick(View view) {
 
-                        int position = getAdapterPosition();
-                        postEditKey = mData.get(position).getPostKey();
+                    int position = getAdapterPosition();
+                    postEditKey = mData.get(position).getPostKey();
 
-                        if (mData.get(position).getUserName().equals(firebaseUser.getDisplayName())){
+                    if (mData.get(position).getUserName().equals(firebaseUser.getDisplayName())){
 
-                            bottomSheetDialog = new BottomSheetDialog(mContext, R.style.BottomSheetDialog);
-                            View BottomSheetView = LayoutInflater.from(mContext)
-                                   .inflate(R.layout.bottom_sheet_dialog_more_menu, (RelativeLayout)view.findViewById(R.id.BottomSheetContainerProfile));
+                        bottomSheetDialog = new BottomSheetDialog(mContext, R.style.BottomSheetDialog);
+                        View BottomSheetView = LayoutInflater.from(mContext)
+                                .inflate(R.layout.bottom_sheet_dialog_more_menu, (RelativeLayout)view.findViewById(R.id.BottomSheetContainerProfile));
 
-                            //setVisibility Gone
-                            layoutPin = BottomSheetView.findViewById(R.id.layoutPin);
-                            layoutReport = BottomSheetView.findViewById(R.id.layoutReport);
-                            layoutPin.setVisibility(View.GONE);
-                            layoutReport.setVisibility(View.GONE);
+                        //setVisibility Gone
+                        layoutPin = BottomSheetView.findViewById(R.id.layoutPin);
+                        layoutReport = BottomSheetView.findViewById(R.id.layoutReport);
+                        layoutPin.setVisibility(View.GONE);
+                        layoutReport.setVisibility(View.GONE);
 
-                            //Edit Post
-                            layoutEdit = BottomSheetView.findViewById(R.id.layoutEdit);
-                            layoutEdit.setVisibility(View.VISIBLE);
-                            layoutEdit.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
+                        //Edit Post
+                        layoutEdit = BottomSheetView.findViewById(R.id.layoutEdit);
+                        layoutEdit.setVisibility(View.VISIBLE);
+                        layoutEdit.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
 
-                                    bottomSheetDialogEditPost = new BottomSheetDialog(mContext, R.style.BottomSheetDialog);
-                                    View BottomSheetView = LayoutInflater.from(mContext)
-                                            .inflate(R.layout.bottom_sheet_dialog_edit_post, (RelativeLayout)view.findViewById(R.id.BottomSheetContainerProfile));
+                                bottomSheetDialogEditPost = new BottomSheetDialog(mContext, R.style.BottomSheetDialog);
+                                View BottomSheetView = LayoutInflater.from(mContext)
+                                        .inflate(R.layout.bottom_sheet_dialog_edit_post, (RelativeLayout)view.findViewById(R.id.BottomSheetContainerProfile));
 
-                                    loadingProgress = BottomSheetView.findViewById(R.id.progressBarPost);
-                                    EditPostButton = BottomSheetView.findViewById(R.id.postBtn);
+                                loadingProgress = BottomSheetView.findViewById(R.id.progressBarPost);
+                                EditPostButton = BottomSheetView.findViewById(R.id.postBtn);
 
-                                    //Get detailComments and Set
-                                    Edit_Post = BottomSheetView.findViewById(R.id.Edit_Post);
-                                    DatabaseReference userDataRef = db.getReference("allPost").child(postEditKey);
-                                    DatabaseReference getCommentRef = userDataRef.child("detailComments");
-                                    getCommentRef.addValueEventListener(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            if (snapshot.exists()){
-                                                String Get_Comment = snapshot.getValue().toString();
-                                                Edit_Post.getEditText().setText(Get_Comment);
-                                            }
+                                //Get detailComments and Set
+                                Edit_Post = BottomSheetView.findViewById(R.id.Edit_Post);
+                                DatabaseReference userDataRef = db.getReference("allPost").child(postEditKey);
+                                DatabaseReference getCommentRef = userDataRef.child("detailComments");
+                                getCommentRef.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if (snapshot.exists()){
+                                            String Get_Comment = snapshot.getValue().toString();
+                                            Edit_Post.getEditText().setText(Get_Comment);
                                         }
+                                    }
 
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError error) {
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
 
-                                        }
-                                    });
+                                    }
+                                });
 
-                                    //Get Tag and Set
-                                    EditSelectTag = BottomSheetView.findViewById(R.id.EditSelectTag);
-                                    Edit_Tag = BottomSheetView.findViewById(R.id.Edit_Tag);
-                                    adapterItem = new ArrayAdapter<String>(mContext,R.layout.list_item_tag,EditTags);
-                                    Edit_Tag.setAdapter(adapterItem);
-                                    Edit_Tag.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                        @Override
-                                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                            itemSelectTag = adapterView.getItemAtPosition(i).toString();
-                                            //Toast.makeText(mContext, "Click : " + itemSelectTag, Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
+                                //Get Tag and Set
+                                EditSelectTag = BottomSheetView.findViewById(R.id.EditSelectTag);
+                                Edit_Tag = BottomSheetView.findViewById(R.id.Edit_Tag);
+                                adapterItem = new ArrayAdapter<String>(mContext,R.layout.list_item_tag,EditTags);
+                                Edit_Tag.setAdapter(adapterItem);
+                                Edit_Tag.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                        itemSelectTag = adapterView.getItemAtPosition(i).toString();
+                                        //Toast.makeText(mContext, "Click : " + itemSelectTag, Toast.LENGTH_SHORT).show();
+                                    }
+                                });
 
-                                    //Save Edit Post and Tag
-                                    EditPostButton.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            String updateComment = Edit_Post.getEditText().getText().toString().trim();
-                                            updateCommentTag(updateComment, itemSelectTag);
-                                        }
-                                    });
+                                //Save Edit Post and Tag
+                                EditPostButton.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        String updateComment = Edit_Post.getEditText().getText().toString().trim();
+                                        updateCommentTag(updateComment, itemSelectTag);
+                                    }
+                                });
 
-                                    bottomSheetDialogEditPost.setContentView(BottomSheetView);
-                                    bottomSheetDialogEditPost.show();
+                                bottomSheetDialogEditPost.setContentView(BottomSheetView);
+                                bottomSheetDialogEditPost.show();
 
-                                    bottomSheetDialog.dismiss();
+                                bottomSheetDialog.dismiss();
 
-                                }
-                            });
+                            }
+                        });
 
-                            //Delete Post
-                            layoutDelete = BottomSheetView.findViewById(R.id.layoutDelete);
-                            layoutDelete.setVisibility(View.VISIBLE);
-                            layoutDelete.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    AlertBox();
-                                    bottomSheetDialog.dismiss();
-                                }
-                            });
+                        //Delete Post
+                        layoutDelete = BottomSheetView.findViewById(R.id.layoutDelete);
+                        layoutDelete.setVisibility(View.VISIBLE);
+                        layoutDelete.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                AlertBox();
+                                bottomSheetDialog.dismiss();
+                            }
+                        });
 
-                            bottomSheetDialog.setContentView(BottomSheetView);
-                            bottomSheetDialog.show();
+                        bottomSheetDialog.setContentView(BottomSheetView);
+                        bottomSheetDialog.show();
 
-                        } else {
+                    } else {
 
-                            bottomSheetDialog = new BottomSheetDialog(mContext, R.style.BottomSheetDialog);
-                            View BottomSheetView = LayoutInflater.from(mContext)
-                                    .inflate(R.layout.bottom_sheet_dialog_more_menu, (RelativeLayout)view.findViewById(R.id.BottomSheetContainerProfile));
-
-
-                            bottomSheetDialog.setContentView(BottomSheetView);
-                            bottomSheetDialog.show();
-
-                        }
+                        bottomSheetDialog = new BottomSheetDialog(mContext, R.style.BottomSheetDialog);
+                        View BottomSheetView = LayoutInflater.from(mContext)
+                                .inflate(R.layout.bottom_sheet_dialog_more_menu, (RelativeLayout)view.findViewById(R.id.BottomSheetContainerProfile));
 
 
+                        bottomSheetDialog.setContentView(BottomSheetView);
+                        bottomSheetDialog.show();
 
                     }
-                });
+
+
+
+                }
+            });
 
 
 
@@ -634,8 +613,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
     }
 
-
-
     private static final int SECOND_MILLIS = 1000;
     private static final int MINUTE_MILLIS = 60 * SECOND_MILLIS;
     private static final int HOUR_MILLIS = 60 * MINUTE_MILLIS;
@@ -687,7 +664,5 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
 
     }
-
-
 
 }
