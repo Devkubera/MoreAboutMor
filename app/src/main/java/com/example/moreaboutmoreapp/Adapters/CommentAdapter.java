@@ -181,6 +181,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
+                /*
                 if (snapshot.exists()) {
                     holder.IconCheckTrue.setVisibility(View.VISIBLE);
                     holder.textUser.setTextColor(ContextCompat.getColor(mContext, R.color.nav_color));
@@ -190,6 +191,9 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
                     holder.textUser.setTextColor(ContextCompat.getColor(mContext, R.color.black));
                     holder.trueBtn.setChecked(false);
                 }
+
+                 */
+
             }
 
             @Override
@@ -198,10 +202,10 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
             }
         });
 
-
         String KeyTrue = preferences.getString("SaveKeyComment", "");
         String checkMyPost = preferences.getString("SaveMyPost", "");
 
+        /*
         if(KeyTrue.isEmpty()) {
             trueReference = FirebaseDatabase.getInstance().getReference("commentCheckTrue");
             trueReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -240,7 +244,9 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
 
         }
 
-        if (mData.get(position).getCommentKey().equals(KeyTrue)){
+         */
+
+        /*if (mData.get(position).getCommentKey().equals(KeyTrue)){
             holder.trueBtn.setVisibility(View.VISIBLE);
 
         } else if (KeyTrue.isEmpty() && checkMyPost.equals("Yes")) {
@@ -250,6 +256,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         else {
             holder.trueBtn.setVisibility(View.INVISIBLE);
         }
+
+         */
 
 
 
@@ -432,6 +440,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
             preferences = mContext.getSharedPreferences("PREFERENCES", MODE_PRIVATE);
             String checkMyPost = preferences.getString("SaveMyPost", "");
 
+            /*
             if (checkMyPost.equals("Yes")) {
 
                 trueBtn.setVisibility(View.VISIBLE);
@@ -512,6 +521,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
                 trueBtn.setVisibility(View.INVISIBLE);
 
             }
+
+             */
 
 
 
@@ -658,10 +669,5 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         return date;
 
     }
-
-
-
-
-
 
 }
