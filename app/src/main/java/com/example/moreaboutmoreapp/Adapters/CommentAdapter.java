@@ -123,7 +123,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
 
         FullEmail = mData.get(position).getUserName();
 
-        //Check Button Check True
+        //
         if (mData.get(position).getUserName().equals(firebaseUser.getDisplayName())){
 
             //holder.textUser.setTextColor(ContextCompat.getColor(mContext, R.color.nav_color));
@@ -132,19 +132,25 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
 
         }
 
+        PostKey = preferences.getString("SavePostKey", "");
+
+        //Set Check True
+
         if (mData.get(position).getCommentCheckTrue().equals("true")) {
             holder.trueBtn.setVisibility(View.VISIBLE);
             holder.textUser.setTextColor(ContextCompat.getColor(mContext, R.color.nav_color));
             holder.IconCheckTrue.setVisibility(View.VISIBLE);
             holder.trueBtn.setChecked(true);
-        } else {
-            holder.textUser.setTextColor(ContextCompat.getColor(mContext, R.color.orange));
+
+
         }
 
-        if (mData.get(position).getCommentCheckTrue().equals("false") && !holder.trueBtn.isChecked()) {
-            holder.trueBtn.setVisibility(View.VISIBLE);
-            holder.textUser.setTextColor(ContextCompat.getColor(mContext, R.color.red));
-        }
+
+
+
+
+
+
 
         //Get Like Count
         DatabaseReference LikeRef = firebaseDatabase.getReference("likeComment").child(mData.get(position).getCommentKey());
@@ -187,53 +193,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
             }
         });
 
-        //Check True Button on Firebase
-        PostKey = preferences.getString("SavePostKey", "");
-        String KeyTrue = preferences.getString("SaveKeyComment", "");
-        String checkMyPost = preferences.getString("SaveMyPost", "");
-        DatabaseReference TureRef = firebaseDatabase.getReference("Comment").child(PostKey);
-        TureRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                //Log.e("msg", snapshot.getKey());
-
-                for (DataSnapshot PostKeySnapshot: snapshot.getChildren()) {
-                    String CommentKey = PostKeySnapshot.getKey();
-                    String updateNickNameComment = PostKeySnapshot.child("commentCheckTrue").getValue().toString();
-
-
-                    /*if (mData.get(holder.getAdapterPosition()).getCommentCheckTrue().equals("true")) {
-                        holder.trueBtn.setVisibility(View.VISIBLE);
-                        holder.textUser.setTextColor(ContextCompat.getColor(mContext, R.color.nav_color));
-                        holder.IconCheckTrue.setVisibility(View.VISIBLE);
-                        holder.trueBtn.setChecked(true);
-
-                    } else if (mData.get(holder.getAdapterPosition()).getCommentCheckTrue().equals("true") && KeyTrue.equals("")) {
-                        holder.textUser.setTextColor(ContextCompat.getColor(mContext, R.color.red));
-                    }
-
-                    else if (mData.get(holder.getAdapterPosition()).getCommentCheckTrue().equals("false") && KeyTrue.equals("")) {
-                        holder.trueBtn.setVisibility(View.VISIBLE);
-                    }
-                    else {
-                        holder.trueBtn.setVisibility(View.INVISIBLE);
-                        holder.textUser.setTextColor(ContextCompat.getColor(mContext, R.color.orange));
-                    }
-
-                     */
-
-
-                    Log.e("msg", updateNickNameComment);
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
 
 
@@ -506,12 +466,12 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
                                         checkClick = false;
 
                                         //Save Key Comment
-                                        SharedPreferences.Editor editor = preferences.edit();
-                                        editor.putString("SaveKeyComment", "");
-                                        editor.apply();
+                                        //SharedPreferences.Editor editor = preferences.edit();
+                                        //editor.putString("SaveKeyComment", "");
+                                        //editor.apply();
 
-                                        Toast.makeText(mContext, "Remove" + snapshot.getKey(), Toast.LENGTH_SHORT).show();
 
+                                        //Toast.makeText(mContext, "Remove : " + commentCheckTrue, Toast.LENGTH_SHORT).show();
 
 
                                         //Refresh
@@ -522,16 +482,34 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
                                         //Set Value Like
                                         IconCheckTrue.setVisibility(View.VISIBLE);
                                         textUser.setTextColor(ContextCompat.getColor(mContext, R.color.nav_color));
-                                        //trueReference.child(commentCheckTrue).child(firebaseUser.getUid()).setValue("true");
                                         trueReference.child(commentCheckTrue).child("commentCheckTrue").setValue("true");
                                         checkClick = false;
 
-                                        //Save Key Comment
-                                        SharedPreferences.Editor editor = preferences.edit();
-                                        editor.putString("SaveKeyComment", commentCheckTrue);
-                                        editor.apply();
 
-                                        Toast.makeText(mContext, "Add" + snapshot.getKey(), Toast.LENGTH_SHORT).show();
+                                        for (DataSnapshot SnapShotTrueCheck : snapshot.getChildren()) {
+                                            String CommentKey = SnapShotTrueCheck.getKey();
+                                            String GetValue = SnapShotTrueCheck.child("commentCheckTrue").getValue().toString();
+                                            //Log.e("msg", CommentKey);
+                                            //Log.e("msg",  V);
+
+                                            if (GetValue.equals("true")) {
+                                                for (DataSnapshot CommentKeySnapshot : snapshot.child(CommentKey).getChildren()) {
+                                                    //String Key = CommentKeySnapshot.getKey();
+                                                    trueReference.child(CommentKey).child("commentCheckTrue").setValue("false");
+                                                }
+
+                                            }
+
+
+
+                                        }
+
+                                        //Save Key Comment
+                                        //SharedPreferences.Editor editor = preferences.edit();
+                                        //.putString("SaveKeyComment", commentCheckTrue);
+                                        //editor.apply();
+
+                                        //Toast.makeText(mContext, "Add : " + commentCheckTrue, Toast.LENGTH_SHORT).show();
 
                                         //Refresh
                                         //RefreshListview();
