@@ -49,6 +49,8 @@ public class SelectStickerActivity extends AppCompatActivity {
     Button commentButton;
     ImageView Btn_BackSticker;
 
+    AlertDialog builder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +83,7 @@ public class SelectStickerActivity extends AppCompatActivity {
         View view = layoutInflater.inflate(R.layout.bottom_sheet_dialog_select_sticker, null);
 
         //Create AlertDialog
-        AlertDialog builder = new AlertDialog.Builder(SelectStickerActivity.this)
+        builder = new AlertDialog.Builder(SelectStickerActivity.this)
                 .setCancelable(false)
                 .setView(view)
                 .create();
@@ -96,6 +98,7 @@ public class SelectStickerActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
+                builder.dismiss();
             }
         });
 
@@ -139,7 +142,7 @@ public class SelectStickerActivity extends AppCompatActivity {
     }
 
     private void loadImageNameUser(String image, String name) {
-        Comment comment = new Comment(getSticker, firebaseUser.getUid(), firebaseUser.getDisplayName(), name, image,"sticker");
+        Comment comment = new Comment(getSticker, firebaseUser.getUid(), firebaseUser.getDisplayName(), name, image,"sticker", "false");
 
         //Add Post to firebase
         addComment(comment);
@@ -163,6 +166,7 @@ public class SelectStickerActivity extends AppCompatActivity {
                 progressBarSticker.setVisibility(INVISIBLE);
 
                 finish();
+                builder.dismiss();
 
             }
         }).addOnFailureListener(new OnFailureListener() {

@@ -263,7 +263,7 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
 
         DatabaseReference userDataRef = firebaseDatabase.getReference("userData").child(currentUser.getUid());
         DatabaseReference imageRef = userDataRef.child("userPhoto");
-        imageRef.addValueEventListener(new ValueEventListener() {
+        imageRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String get_URI = snapshot.getValue().toString();
@@ -426,7 +426,7 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
         loadingProgressData.setVisibility(View.VISIBLE);
         addPost.setVisibility(INVISIBLE);
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 

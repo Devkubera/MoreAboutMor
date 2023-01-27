@@ -210,10 +210,13 @@ public class PostDetailActivity extends AppCompatActivity {
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString("SaveMyPost", "Yes");
             editor.apply();
+            showMessage("Yes");
+
         } else {
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString("SaveMyPost", "No");
             editor.apply();
+            showMessage("No");
         }
 
 
@@ -653,7 +656,8 @@ public class PostDetailActivity extends AppCompatActivity {
     }
 
     private void loadImageNameUser(String image, String name) {
-        Comment comment = new Comment(detailComments.getEditText().getText().toString(), firebaseUser.getUid(), firebaseUser.getDisplayName(), name, image,"text");
+        //Comment comment = new Comment()
+        Comment comment = new Comment(detailComments.getEditText().getText().toString(), firebaseUser.getUid(), firebaseUser.getDisplayName(), name, image,"text", "false");
 
         //Add Post to firebase
         addComment(comment);
