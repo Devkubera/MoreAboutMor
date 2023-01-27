@@ -1,21 +1,34 @@
 package com.example.moreaboutmoreapp.Activities;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.moreaboutmoreapp.Adapters.FirstUserAdapter;
+import com.example.moreaboutmoreapp.Models.NotificationCenter;
 import com.example.moreaboutmoreapp.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class FirstUserActivity extends AppCompatActivity {
 
@@ -27,6 +40,11 @@ public class FirstUserActivity extends AppCompatActivity {
     FirstUserAdapter firstUserAdapter;
 
     SharedPreferences preferences;
+
+    // For notification declaration space
+    NotificationCenter notificationCenter;
+
+
 
     @Override
     protected void onStart() {
@@ -50,6 +68,13 @@ public class FirstUserActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_user);
+
+        /** Not use this function */
+        // get token for FCM
+        //getTokenFCM();
+
+        // create new token and save to sqlite
+        //createTokenFCM();
 
         //Change Navigation Bar Color in Android
         Window window = getWindow();
@@ -110,7 +135,16 @@ public class FirstUserActivity extends AppCompatActivity {
 
 
 
+    } // on Create
+
+    // create new token FCM
+    private void createTokenFCM() {
+//        notificationCenter = new NotificationCenter();
+//        /** send token to the servers */
+//        notificationCenter.onNewToken(token);
     }
+
+
 
     public void setupCountDot(int position) {
 
@@ -164,7 +198,5 @@ public class FirstUserActivity extends AppCompatActivity {
         return mSlideImgInfo.getCurrentItem() + i;
 
     }
-
-
 
 }

@@ -6,4 +6,9 @@
     <!-- Notification Channel -->
     <string name="channel_social">Post and Comment Notification</string>
     <string name="channel_social_des">this is notification for post and comment when something is happen</string>
+    <string name="default_notification_channel_id">default</string>
+
+<!-- notification FCM   -->
+    <string name="msg_token_fmt">FCM registration token: %s</string>
+    <string name="token_sqlite">tokens_fcm</string>
 </resources>

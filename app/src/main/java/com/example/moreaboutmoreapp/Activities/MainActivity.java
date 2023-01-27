@@ -20,11 +20,14 @@ import com.example.moreaboutmoreapp.HomeFragment;
 import com.example.moreaboutmoreapp.MenuFragment;
 import com.example.moreaboutmoreapp.Models.GeLink;
 import com.example.moreaboutmoreapp.Models.ModelFacultyData;
+import com.example.moreaboutmoreapp.Models.NotificationCenter;
 import com.example.moreaboutmoreapp.Models.User;
 import com.example.moreaboutmoreapp.NotificationFragment;
 import com.example.moreaboutmoreapp.R;
 import com.example.moreaboutmoreapp.RegisterFragment;
 import com.example.moreaboutmoreapp.SettingFragment;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.common.reflect.TypeToken;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,6 +38,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.inappmessaging.FirebaseInAppMessaging;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -55,6 +59,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     // For Api
     private static String studyApiURL = "https://script.google.com/macros/s/AKfycbwKcPctrw2a_L90xtp32dXMr30XRNRoQ9OIw2-gMKhk83pU23Vv25XEsEAvFLfWEPkO/exec";
     private static String geApiURL = "https://script.google.com/macros/s/AKfycbyZWz1QLjtkmWBnDPHE1r5YSYUK8owLJJlEZhXRbklL49Mhx01GWaK5oC9PZIIuKHF1/exec";
+
+    // For FCM
+    NotificationCenter notificationCenter;
+
+    FirebaseDatabase firebaseDatabase;
+    FirebaseAuth firebaseAuth;
+    DatabaseReference tokenRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +96,42 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         FetchingGeAPI ge = new FetchingGeAPI();
         ge.execute(geApiURL);
 
+        /** get token for FCM */
+        getTokenFCM();
+
+    }
+    private void getTokenFCM() {
+        // Get current token with user
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w("", "Fetching FCM registration token failed", task.getException());
+                            return;
+                        }
+
+                        // Get new FCM registration token
+                        String token = task.getResult();
+
+                        // Log and toast
+                        String msg = getString(R.string.msg_token_fmt, token);
+                        Log.d("TAG", msg);
+                        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+
+                        // send to token to the servers
+                        sendTokenToSevers(token);
+                    }
+                });
+    }
+
+    private void sendTokenToSevers(String token) {
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+        String uid = firebaseAuth.getCurrentUser().getUid();
+        String path = "tokens/" + uid +"/";
+        tokenRef = firebaseDatabase.getReference(path);
+        tokenRef.child("token").setValue(token);
     }
 
     public boolean OpenFrag(Fragment fragment) {

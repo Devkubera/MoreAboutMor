@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace 'com.example.moreaboutmoreapp'
-    compileSdk 32
+    compileSdk 33 // Default is 32 I'm update to 33 To work with notification
 
     defaultConfig {
         applicationId "com.example.moreaboutmoreapp"
         minSdk 26
-        targetSdk 32
+        targetSdk 33 // Default is 32 I'm update to 33 To work with notification
         versionCode 1
         versionName "1.0"
 
@@ -78,5 +78,8 @@ dependencies {
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-inappmessaging-display'
     implementation 'com.google.firebase:firebase-analytics'
+
+    // Firebase Cloud Messaging
+    implementation 'com.google.firebase:firebase-messaging'
 }
 
