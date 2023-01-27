@@ -170,7 +170,8 @@
                     android:layout_marginStart="10dp"
                     android:layout_toEndOf="@id/likeCount"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/custom_button_check" />
+                    android:background="@drawable/custom_button_check"
+                    />
 
                 <!--
                 <TextView

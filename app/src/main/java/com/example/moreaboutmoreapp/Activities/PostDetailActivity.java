@@ -207,15 +207,15 @@ public class PostDetailActivity extends AppCompatActivity {
         //Save My Post
         preferences = getSharedPreferences("PREFERENCES", MODE_PRIVATE);
         if (getEmail.equals(firebaseUser.getDisplayName())) {
-            //SharedPreferences.Editor editor = preferences.edit();
-            //editor.putString("SaveMyPost", "Yes");
-            //editor.apply();
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("SaveMyPost", "Yes");
+            editor.apply();
             showMessage("Yes");
 
         } else {
-            //SharedPreferences.Editor editor = preferences.edit();
-            //editor.putString("SaveMyPost", "No");
-            //editor.apply();
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("SaveMyPost", "No");
+            editor.apply();
             showMessage("No");
         }
 
@@ -656,7 +656,8 @@ public class PostDetailActivity extends AppCompatActivity {
     }
 
     private void loadImageNameUser(String image, String name) {
-        Comment comment = new Comment(detailComments.getEditText().getText().toString(), firebaseUser.getUid(), firebaseUser.getDisplayName(), name, image,"text");
+        //Comment comment = new Comment()
+        Comment comment = new Comment(detailComments.getEditText().getText().toString(), firebaseUser.getUid(), firebaseUser.getDisplayName(), name, image,"text", "false");
 
         //Add Post to firebase
         addComment(comment);

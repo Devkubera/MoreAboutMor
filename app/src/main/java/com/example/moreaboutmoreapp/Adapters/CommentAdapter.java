@@ -68,6 +68,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
     Boolean testClick = false;
     Boolean checkClick = false;
     SharedPreferences preferences;
+    String PostKey;
 
     // Function Constructor 002
     public CommentAdapter(Context mContext, List<Comment> mData) {
@@ -131,6 +132,20 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
 
         }
 
+        if (mData.get(position).getCommentCheckTrue().equals("true")) {
+            holder.trueBtn.setVisibility(View.VISIBLE);
+            holder.textUser.setTextColor(ContextCompat.getColor(mContext, R.color.nav_color));
+            holder.IconCheckTrue.setVisibility(View.VISIBLE);
+            holder.trueBtn.setChecked(true);
+        } else {
+            holder.textUser.setTextColor(ContextCompat.getColor(mContext, R.color.orange));
+        }
+
+        if (mData.get(position).getCommentCheckTrue().equals("false") && !holder.trueBtn.isChecked()) {
+            holder.trueBtn.setVisibility(View.VISIBLE);
+            holder.textUser.setTextColor(ContextCompat.getColor(mContext, R.color.red));
+        }
+
         //Get Like Count
         DatabaseReference LikeRef = firebaseDatabase.getReference("likeComment").child(mData.get(position).getCommentKey());
         DatabaseReference checkLikeRef = LikeRef.child(firebaseUser.getUid());
@@ -173,26 +188,44 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         });
 
         //Check True Button on Firebase
-        DatabaseReference TureRef = firebaseDatabase.getReference("commentCheckTrue").child(mData.get(position).getCommentKey());
-        DatabaseReference checkTureRef = TureRef.child(firebaseUser.getUid());
-
-        //Set Check True Button
-        checkTureRef.addValueEventListener(new ValueEventListener() {
+        PostKey = preferences.getString("SavePostKey", "");
+        String KeyTrue = preferences.getString("SaveKeyComment", "");
+        String checkMyPost = preferences.getString("SaveMyPost", "");
+        DatabaseReference TureRef = firebaseDatabase.getReference("Comment").child(PostKey);
+        TureRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                /*
-                if (snapshot.exists()) {
-                    holder.IconCheckTrue.setVisibility(View.VISIBLE);
-                    holder.textUser.setTextColor(ContextCompat.getColor(mContext, R.color.nav_color));
-                    holder.trueBtn.setChecked(true);
-                } else {
-                    holder.IconCheckTrue.setVisibility(View.INVISIBLE);
-                    holder.textUser.setTextColor(ContextCompat.getColor(mContext, R.color.black));
-                    holder.trueBtn.setChecked(false);
-                }
+                //Log.e("msg", snapshot.getKey());
 
-                 */
+                for (DataSnapshot PostKeySnapshot: snapshot.getChildren()) {
+                    String CommentKey = PostKeySnapshot.getKey();
+                    String updateNickNameComment = PostKeySnapshot.child("commentCheckTrue").getValue().toString();
+
+
+                    /*if (mData.get(holder.getAdapterPosition()).getCommentCheckTrue().equals("true")) {
+                        holder.trueBtn.setVisibility(View.VISIBLE);
+                        holder.textUser.setTextColor(ContextCompat.getColor(mContext, R.color.nav_color));
+                        holder.IconCheckTrue.setVisibility(View.VISIBLE);
+                        holder.trueBtn.setChecked(true);
+
+                    } else if (mData.get(holder.getAdapterPosition()).getCommentCheckTrue().equals("true") && KeyTrue.equals("")) {
+                        holder.textUser.setTextColor(ContextCompat.getColor(mContext, R.color.red));
+                    }
+
+                    else if (mData.get(holder.getAdapterPosition()).getCommentCheckTrue().equals("false") && KeyTrue.equals("")) {
+                        holder.trueBtn.setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        holder.trueBtn.setVisibility(View.INVISIBLE);
+                        holder.textUser.setTextColor(ContextCompat.getColor(mContext, R.color.orange));
+                    }
+
+                     */
+
+
+                    Log.e("msg", updateNickNameComment);
+                }
 
             }
 
@@ -202,8 +235,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
             }
         });
 
-        String KeyTrue = preferences.getString("SaveKeyComment", "");
-        String checkMyPost = preferences.getString("SaveMyPost", "");
+
+
 
         /*
         if(KeyTrue.isEmpty()) {
@@ -439,6 +472,95 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
             //Check My Post
             preferences = mContext.getSharedPreferences("PREFERENCES", MODE_PRIVATE);
             String checkMyPost = preferences.getString("SaveMyPost", "");
+
+
+            if (checkMyPost.equals("No")) {
+                trueBtn.setVisibility(View.INVISIBLE);
+            } else {
+                trueBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        checkClick = true;
+                        int position = getAdapterPosition();
+                        commentCheckTrue = mData.get(position).getCommentKey();
+
+
+                        //Toast.makeText(mContext, "dsadas"+PostKey, Toast.LENGTH_SHORT).show();
+
+                        //Set Value "commentCheckTrue" is "true" in Firebase
+                        trueReference = FirebaseDatabase.getInstance().getReference("Comment").child(PostKey);
+
+                        trueReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                if (checkClick == true) {
+
+                                    if (snapshot.child(commentCheckTrue).child("commentCheckTrue").getValue().equals("true")) {
+
+                                        //Remove Value Like
+                                        IconCheckTrue.setVisibility(View.INVISIBLE);
+                                        textUser.setTextColor(ContextCompat.getColor(mContext, R.color.black));
+                                        trueReference.child(commentCheckTrue).child("commentCheckTrue").setValue("false");
+                                        checkClick = false;
+
+                                        //Save Key Comment
+                                        SharedPreferences.Editor editor = preferences.edit();
+                                        editor.putString("SaveKeyComment", "");
+                                        editor.apply();
+
+                                        Toast.makeText(mContext, "Remove" + snapshot.getKey(), Toast.LENGTH_SHORT).show();
+
+
+
+                                        //Refresh
+                                        //RefreshListview();
+
+                                    } else {
+
+                                        //Set Value Like
+                                        IconCheckTrue.setVisibility(View.VISIBLE);
+                                        textUser.setTextColor(ContextCompat.getColor(mContext, R.color.nav_color));
+                                        //trueReference.child(commentCheckTrue).child(firebaseUser.getUid()).setValue("true");
+                                        trueReference.child(commentCheckTrue).child("commentCheckTrue").setValue("true");
+                                        checkClick = false;
+
+                                        //Save Key Comment
+                                        SharedPreferences.Editor editor = preferences.edit();
+                                        editor.putString("SaveKeyComment", commentCheckTrue);
+                                        editor.apply();
+
+                                        Toast.makeText(mContext, "Add" + snapshot.getKey(), Toast.LENGTH_SHORT).show();
+
+                                        //Refresh
+                                        //RefreshListview();
+
+
+                                    }
+
+                                }
+
+
+
+
+                                }
+
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+
+
+
+
+
+                    }
+                });
+            }
 
             /*
             if (checkMyPost.equals("Yes")) {

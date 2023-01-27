@@ -12,12 +12,13 @@ public class Comment {
     private String postKey;
     private String CommentKey;
     private String CommentType;
+    private String CommentCheckTrue;
 
 
     public Comment() {
     }
 
-    public Comment(String contentComments, String uid, String userName, String nickName, String userPhoto, String CommentType) {
+    public Comment(String contentComments, String uid, String userName, String nickName, String userPhoto, String CommentType, String CommentCheckTrue) {
         this.contentComments = contentComments;
         this.uid = uid;
         this.userName = userName;
@@ -25,15 +26,17 @@ public class Comment {
         this.timeStamp = ServerValue.TIMESTAMP;
         this.userPhoto = userPhoto;
         this.CommentType = CommentType;
+        this.CommentCheckTrue = CommentCheckTrue;
     }
 
-    public Comment(String contentComments, String uid, String userName, String nickName, Object timeStamp, String userPhoto) {
-        this.contentComments = contentComments;
-        this.uid = uid;
-        this.userName = userName;
-        this.nickName = nickName;
-        this.timeStamp = timeStamp;
-        this.userPhoto = userPhoto;
+
+
+    public String getCommentCheckTrue() {
+        return CommentCheckTrue;
+    }
+
+    public void setCommentCheckTrue(String commentCheckTrue) {
+        CommentCheckTrue = commentCheckTrue;
     }
 
     public String getCommentType() {
