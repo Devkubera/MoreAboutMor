@@ -4,8 +4,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Notification Channel -->
-    <string name="channel_social">Post and Comment Notification</string>
-    <string name="channel_social_des">this is notification for post and comment when something is happen</string>
+    <string name="channel_id">10</string>
+    <string name="channel_name">All Notification</string>
+    <string name="channel_description">this is notification for post and comment when something is happen</string>
     <string name="default_notification_channel_id">default</string>
 
 <!-- notification FCM   -->

@@ -2,6 +2,7 @@ package com.example.moreaboutmoreapp;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -19,7 +20,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.moreaboutmoreapp.Activities.LoginActivity;
+import com.example.moreaboutmoreapp.Activities.MainActivity;
 import com.example.moreaboutmoreapp.Activities.ProfileActivity;
+import com.example.moreaboutmoreapp.Models.NotificationClass;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -92,8 +95,13 @@ public class NotificationFragment extends Fragment {
     CircleImageView userProfile;
 
     // Notification
-    private static final String CHANNEL_ID = String.valueOf(R.string.channel_social);
+    private static final String CHANNEL_ID = String.valueOf(R.string.channel_id);
+    private static final String CHANNEL_NAME = String.valueOf(R.string.channel_name);
+    private static final String CHANNEL_DESCRIPTION = String.valueOf(R.string.channel_description);
     private static final int NOTIFICATION_ID = 1;
+
+    // Notification Class
+    NotificationClass notificationClass = NotificationClass.getInstance();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -137,11 +145,15 @@ public class NotificationFragment extends Fragment {
         });
 
         // Android Notification Example
-        createNotificationChannel();
+        // createNotificationChannel();
         //NotificationExample();
 
         // in-app messaging test
         //newMessage();
+
+        notificationClass.createNotificationChannel(getContext());
+        notificationClass.createNotification(getContext(), "test", "description");
+
 
         return view;
     }
@@ -156,26 +168,37 @@ public class NotificationFragment extends Fragment {
     }
 
     private void NotificationExample() {
+        /** Intent section if we want to navigation to any content when user tap notification*/
+        // We will use fragment transaction because we use fragment
+        // For Example
+        Intent intent = new Intent(getContext(), MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        /** get a FCM token to specific devices to send notification */
+        String token = FirebaseMessaging.getInstance().getToken().toString();
+
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_book)
                 .setContentTitle("My notification")
                 .setContentText("Hello World!")
+//                .setContentIntent(pendingIntent)
                 .setPriority(NotificationCompat.PRIORITY_HIGH);
 
+
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getContext());
-        notificationManager.notify(NOTIFICATION_ID, builder.build());
+        notificationManager.notify(token,NOTIFICATION_ID, builder.build());
     }
 
-    // Notification
+    /** Create Notification Channel to Group Notification in setting in android API 26+ */
     private void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = getString(R.string.channel_social);
-            String description = getString(R.string.channel_social_des);
+
             int importance = NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
-            channel.setDescription(description);
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, importance);
+            channel.setDescription(CHANNEL_DESCRIPTION);
             // Register the channel with the system; you can't change the importance
             // or other notification behaviors after this
             NotificationManager notificationManager = (NotificationManager) requireContext().getSystemService(Context.NOTIFICATION_SERVICE);
