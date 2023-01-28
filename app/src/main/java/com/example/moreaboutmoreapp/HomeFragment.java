@@ -825,6 +825,53 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
                 postButton.setVisibility(View.VISIBLE);
                 loadingProgress.setVisibility(INVISIBLE);
                 bottomSheetDialog.dismiss();
+
+                databaseReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        if (snapshot.exists()) {
+
+                            postList = new ArrayList<>();
+                            for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
+                                Post post = dataSnapshot.getValue(Post.class);
+                                postList.add(post);
+                            }
+
+
+                            //Sort Post by TimeStamp
+                            Collections.sort(postList, new Comparator<Post>() {
+                                @Override
+                                public int compare(Post post, Post t1) {
+                                    return post.getTimeStamp().toString().compareToIgnoreCase(t1.getTimeStamp().toString());
+                                }
+                            });
+
+                            Collections.reverse(postList);
+                            postAdapter = new PostAdapter(getActivity(),postList);
+                            postRecyclerView.setAdapter(postAdapter);
+
+                            textNoneInfo.setVisibility(View.INVISIBLE);
+                            loadingProgressData.setVisibility(INVISIBLE);
+                            addPost.setVisibility(View.VISIBLE);
+
+                        } else {
+                            textNoneInfo.setVisibility(View.VISIBLE);
+                            loadingProgressData.setVisibility(INVISIBLE);
+                            addPost.setVisibility(View.VISIBLE);
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
+
             }
         });
 
