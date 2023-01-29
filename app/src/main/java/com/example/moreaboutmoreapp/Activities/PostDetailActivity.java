@@ -210,13 +210,13 @@ public class PostDetailActivity extends AppCompatActivity {
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString("SaveMyPost", "Yes");
             editor.apply();
-            showMessage("Yes");
+            //showMessage("Yes");
 
         } else {
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString("SaveMyPost", "No");
             editor.apply();
-            showMessage("No");
+            //showMessage("No");
         }
 
 
