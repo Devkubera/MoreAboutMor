@@ -68,7 +68,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
     Boolean testClick = false;
     Boolean checkClick = false;
     SharedPreferences preferences;
-    String PostKey;
+    String PostKey, checkMyPost;
 
     // Function Constructor 002
     public CommentAdapter(Context mContext, List<Comment> mData) {
@@ -133,7 +133,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         }
 
         PostKey = preferences.getString("SavePostKey", "");
-
+        //checkMyPost = preferences.getString("SaveMyPost", "");
         //Set Check True
 
         if (mData.get(position).getCommentCheckTrue().equals("true")) {
@@ -145,11 +145,12 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
 
         }
 
+        if (mData.get(position).getCommentCheckTrue().equals("true") && checkMyPost.equals("No")) {
+
+            holder.trueBtn.setEnabled(false);
 
 
-
-
-
+        }
 
 
         //Get Like Count
@@ -192,10 +193,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
 
             }
         });
-
-
-
-
 
 
         /*
@@ -431,7 +428,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
 
             //Check My Post
             preferences = mContext.getSharedPreferences("PREFERENCES", MODE_PRIVATE);
-            String checkMyPost = preferences.getString("SaveMyPost", "");
+            checkMyPost = preferences.getString("SaveMyPost", "");
 
 
             if (checkMyPost.equals("No")) {
@@ -446,11 +443,8 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
                         commentCheckTrue = mData.get(position).getCommentKey();
 
 
-                        //Toast.makeText(mContext, "dsadas"+PostKey, Toast.LENGTH_SHORT).show();
-
                         //Set Value "commentCheckTrue" is "true" in Firebase
                         trueReference = FirebaseDatabase.getInstance().getReference("Comment").child(PostKey);
-
                         trueReference.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
