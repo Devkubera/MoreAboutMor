@@ -12,4 +12,6 @@
 <!-- notification FCM   -->
     <string name="msg_token_fmt">FCM registration token: %s</string>
     <string name="token_sqlite">tokens_fcm</string>
+    <string name="MY_SERVER_KEY">AAAA6Esuea4:APA91bG-6nZ1aU2JYsMiJ7rRrVNtKERhuKek0Qy5VAwGNNijchS4oOEIjKjbDO6LfH4auPI9CvQQM029_Iin-6Mcov6RL-kilXoRGHkKd22tu4AMQH1q73PStD2Kg5xD1emjRwJugbZj
+</string>
 </resources>

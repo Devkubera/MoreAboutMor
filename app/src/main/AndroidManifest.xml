@@ -9,9 +9,15 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- Notification -->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
     <!-- In Android 13+ They need runtime permission for showing notification  -->
     <!-- This Information get from https://firebase.google.com/docs/cloud-messaging/android/client?authuser=3  -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <permission android:name="com.example.moreaboutmoreapp.permission.C2D_MESSAGE" android:protectionLevel="signature" />
+    <uses-permission android:name="com.example.moreaboutmoreapp.permission.C2D_MESSAGE" />
 
     <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
      See README(https://goo.gl/l4GJaQ) for more. -->

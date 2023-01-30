@@ -39,6 +39,7 @@ import com.example.moreaboutmoreapp.Activities.ProfileActivity;
 import com.example.moreaboutmoreapp.Activities.SetupUserActivity;
 import com.example.moreaboutmoreapp.Activities.SplashActivity;
 import com.example.moreaboutmoreapp.Adapters.PostAdapter;
+import com.example.moreaboutmoreapp.Models.NotificationClass;
 import com.example.moreaboutmoreapp.Models.Post;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -144,6 +145,9 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
 
     private boolean isPaused = false;
 
+    // NotificationClass
+    NotificationClass notificationClass = NotificationClass.getInstance();
+
 
     @Override
     public void onStart() {
@@ -246,6 +250,9 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        //Check Set Name & Photo
+        checkSetDataUser();
+
         loadingProgressData = view.findViewById(R.id.loadingProgressData);
         textNoneInfo = view.findViewById(R.id.textNoneInfo);
         //userName = view.findViewById(R.id.userName);
@@ -263,11 +270,17 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
 
         DatabaseReference userDataRef = firebaseDatabase.getReference("userData").child(currentUser.getUid());
         DatabaseReference imageRef = userDataRef.child("userPhoto");
+        Log.d("SHOW USER PHOTO ", "onCreateView: " + imageRef);
         imageRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String get_URI = snapshot.getValue().toString();
-                Picasso.get().load(get_URI).into(userProfile);
+//                Picasso.get().load(get_URI).into(userProfile);
+                if (get_URI != null || get_URI != "" || !get_URI.equals(null) || !get_URI.equals("")) {
+                    Picasso.get().load(get_URI).into(userProfile);
+                } else {
+                    checkSetDataUser();
+                }
             }
 
             @Override
@@ -472,13 +485,12 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
             }
         });
 
-
-        //Check Set Name & Photo
-        checkSetDataUser();
+        // Create Notification Channel
+        // notificationClass.createNotificationChannel(getContext());
 
         return view;
 
-    }
+    } // onCreateView
 
 
     //Function
@@ -690,30 +702,54 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
     }
 
     private void checkSetDataUser() {
-        DatabaseReference userDataRef = firebaseDatabase.getReference("userData").child(currentUser.getUid());
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        DatabaseReference userDataRef = firebaseDatabase.getReference("userData/" + auth.getUid() + "/");
         DatabaseReference nameRef = userDataRef.child("name");
         DatabaseReference imageRef = userDataRef.child("userPhoto");
+        Log.d("SHOW UID", String.valueOf(nameRef));
+        Log.d("SHOW UID", auth.getUid());
 
-        //Get Name
+        // Get Name
         nameRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("SHOW UID value is ", snapshot.getValue().toString());
                 String name = snapshot.getValue().toString();
 
-                if(name.isEmpty()) {
-                    //showMessage(name);
+                if(name.equals("default")) {
+                    showMessage(name);
                     Intent setupUserActivity = new Intent(getActivity(), SetupUserActivity.class);
                     startActivity(setupUserActivity);
                 }
-
-
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Log.e("SHOW GET NAME ERROR ", "onCancelled: " + error );
             }
         });
+
+        // Get Photo
+        imageRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("SHOW Image value is ", snapshot.getValue().toString());
+                String uri = snapshot.getValue().toString();
+
+                if(uri.equals("default")) {
+                    showMessage(uri);
+                    Intent setupUserActivity = new Intent(getActivity(), SetupUserActivity.class);
+                    startActivity(setupUserActivity);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("SHOW GET PHOTO ERROR ", "onCancelled: " + error );
+            }
+        });
+
+
 
         //Load Img Profile
         //sharedPreferences = getActivity().getSharedPreferences(SHARED_PROFILE_IMG, Context.MODE_PRIVATE);

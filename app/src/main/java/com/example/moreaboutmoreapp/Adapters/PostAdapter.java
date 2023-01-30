@@ -5,8 +5,6 @@ import static android.view.View.INVISIBLE;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.text.Html;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,15 +21,12 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.moreaboutmoreapp.Activities.LoginActivity;
 import com.example.moreaboutmoreapp.Activities.PostDetailActivity;
-import com.example.moreaboutmoreapp.Activities.ProfileActivity;
-import com.example.moreaboutmoreapp.Models.Comment;
 import com.example.moreaboutmoreapp.Models.Post;
+import com.example.moreaboutmoreapp.Models.PushNotificationTask;
+import com.example.moreaboutmoreapp.Models.TokenStore;
 import com.example.moreaboutmoreapp.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.textfield.TextInputLayout;
@@ -44,23 +39,21 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import java.text.SimpleDateFormat;
-import java.time.ZoneId;
-import java.time.chrono.ThaiBuddhistDate;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> {
 
     Context mContext;
     List<Post> mData;
     String postKey, postEditKey, postKeyLike, userID;
-    DatabaseReference postReference, likeReference, commentReference;
+    DatabaseReference postReference, likeReference, commentReference, tokenReference;
     FirebaseUser firebaseUser;
     FirebaseAuth firebaseAuth;
+
+    // For notification
+    // Not used NAJA NotificationClass notificationClass = NotificationClass.getInstance();
+
+    public static String tokens, nickname;
 
     //CardView CV_Row_Post;
 
@@ -382,17 +375,22 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                     }
                 });
 
-
-
             //Button Like
             likeBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     testClick = true;
-
+                    
                     int position = getAdapterPosition();
                     postKeyLike = mData.get(position).getPostKey();
                     userID = mData.get(position).getUserId();
+
+                    // get nickname from firebase
+                    String nickname = getNickName();
+
+                    // set type notification
+                    String type = "like post";
+
 
                     likeReference = FirebaseDatabase.getInstance().getReference("likes");
                     likeReference.addValueEventListener(new ValueEventListener() {
@@ -413,6 +411,26 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                                     likeReference.child(postKeyLike).child(firebaseUser.getUid()).setValue("true");
                                     testClick = false;
 
+                                    // Notification to owner post
+                                    String path = "tokens/" + userID + "/";
+                                    tokenReference = FirebaseDatabase.getInstance().getReference(path);
+                                    tokenReference.addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            // tokens = snapshot.getValue().toString();
+                                            TokenStore tokenStore = snapshot.getValue(TokenStore.class);
+                                            tokens = tokenStore.token;
+                                            Log.d("Fetch Token", "Tokens owner post is " + tokens);
+                                            PushNotificationTask pushNotificationTask = new PushNotificationTask();
+                                            pushNotificationTask.execute(tokens, nickname, type);
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+                                            Log.d("Fetch Token", "Error to fetching tokens because " + error);
+                                        }
+                                    }); // end of call Real time DB in tokens
+
                                 }
 
                             }
@@ -425,6 +443,27 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                         }
                     });
 
+                }
+
+                public String getNickName() {
+
+                    String uid = firebaseAuth.getUid();
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("userData").child(uid).child("name");
+                    System.out.println(databaseReference);
+                    databaseReference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            nickname = snapshot.getValue().toString();
+                            Toast.makeText(mContext, nickname, Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Log.d("get nick name", "onCancelled: " + error);
+                        }
+                    });
+                    //Log.d("CHECK NICKNAME", "getNickName: " + nickname);
+                    return nickname;
                 }
             });
 

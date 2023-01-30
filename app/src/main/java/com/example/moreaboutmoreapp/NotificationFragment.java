@@ -151,20 +151,11 @@ public class NotificationFragment extends Fragment {
         // in-app messaging test
         //newMessage();
 
-        notificationClass.createNotificationChannel(getContext());
-        notificationClass.createNotification(getContext(), "test", "description");
+        // notificationClass.createNotificationChannel(getContext());
+        // notificationClass.createNotification(getContext(), "test", "description");
 
 
         return view;
-    }
-
-
-
-    private void newMessage() {
-//        FirebaseInAppMessagingDisplay message = FirebaseInAppMessaging.getInstance().;
-//        message.setTitle("New feature available");
-//        message.setBody("Check out our new feature now!");
-//        FirebaseInAppMessaging.getInstance().show(message);
     }
 
     private void NotificationExample() {

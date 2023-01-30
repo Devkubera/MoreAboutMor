@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -72,6 +73,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        firebaseDatabase = FirebaseDatabase.getInstance();
+
         //Change Navigation Bar Color in Android
         Window window = getWindow();
 
@@ -100,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         getTokenFCM();
 
     }
+
     private void getTokenFCM() {
         // Get current token with user
         FirebaseMessaging.getInstance().getToken()
@@ -260,14 +264,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                     User data = snapshot.getValue(User.class);
-                                    Log.d("FirebaseAuth ", "onDataChange: " + data.subMajor);
+//                                    Log.d("FirebaseAuth ", "onDataChange: " + data.subMajor);
                                     arrayCut[0] = data.subMajor;
                                     subMajor = arrayCut[0];
-                                    System.out.println("major array check : " + arrayCut[0]);
+//                                    System.out.println("major array check : " + arrayCut[0]);
 
                                     if (arrayCut[0].equals(item.getMajor())) {
                                         sqLiteStudyPlan(item);
-                                        Log.d("Check sharePreference : ", "major : " + item.getMajor());
+//                                        Log.d("Check sharePreference : ", "major : " + item.getMajor());
                                     }
                                 }
                                 @Override
@@ -317,7 +321,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     // fetch data from api and store in variable
                     for (GeLink data : items) {
                         geLink = data.getLink();
-                        System.out.println("geLink in data : " + geLink);
+//                        System.out.println("geLink in data : " + geLink);
                     }
 
                     // check null
@@ -341,7 +345,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     private void sqLiteStudyPlan(ModelFacultyData item) {
 
-        System.out.println("subMajor : " + subMajor);
+//        System.out.println("subMajor : " + subMajor);
 
         // Declare SharePreference
         SharedPreferences sharedPreferences = getSharedPreferences("studyPlans", MODE_PRIVATE);
@@ -353,7 +357,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         editor.apply();
 
         String x = sharedPreferences.getString("Major", "หาไม่เจอจ้า");
-        System.out.println("x " + x);
+//        System.out.println("x " + x);
     }
 
     private void sqLiteGe(String link) {
@@ -366,7 +370,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         editor.apply();
 
         String x = sharedPreferences.getString("link", "หาไม่เจอจ้า");
-        System.out.println("ge link in sqlite " + x);
+//        System.out.println("ge link in sqlite " + x);
     }
 
     // End of 3 Menu Code Study Plan, Ge Course Description, Major Course Description

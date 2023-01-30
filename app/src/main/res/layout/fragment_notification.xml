@@ -43,7 +43,7 @@
         </RelativeLayout>
 
 
-
+        <!--   Not have notification in a moment      -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -52,7 +52,8 @@
             android:text="ยังไม่มีการแจ้งเตือน"
             android:textSize="32dp"
             android:textColor="@color/none_color"
-            android:fontFamily="@font/mitr_regular"/>
+            android:fontFamily="@font/mitr_regular"
+            android:visibility="gone"/>
 
     </RelativeLayout>
 

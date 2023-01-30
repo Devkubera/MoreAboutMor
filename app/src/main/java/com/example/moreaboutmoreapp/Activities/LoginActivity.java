@@ -228,8 +228,10 @@ public class LoginActivity extends AppCompatActivity {
 
         // We need to get runtime permission from user to using FCM
         askNotificationPermission();
+        askAccessFilePermission();
 
     } // onCreate
+
 
     @Override
     public void onBackPressed() {
@@ -341,6 +343,10 @@ public class LoginActivity extends AppCompatActivity {
                 requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
             }
         }
+    }
+
+    private void askAccessFilePermission() {
+
     }
 
 

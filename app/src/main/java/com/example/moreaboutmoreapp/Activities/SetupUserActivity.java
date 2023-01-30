@@ -2,12 +2,14 @@ package com.example.moreaboutmoreapp.Activities;
 
 import static android.view.View.INVISIBLE;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -24,8 +26,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.shuhart.stepview.StepView;
 
 import java.util.ArrayList;
@@ -43,6 +48,8 @@ public class SetupUserActivity extends AppCompatActivity {
     private Button setNameButton;
 
     StepView stepView;
+
+    public static String oldName;
 
 
 
@@ -107,6 +114,30 @@ public class SetupUserActivity extends AppCompatActivity {
 
         stepView.done(false);
 
+        /** check name database section */
+
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        String uid = mAuth.getUid();
+        DatabaseReference reference = firebaseDatabase.getReference("userData").child(uid).child("name");
+
+        // check name of user in database
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    oldName = snapshot.getValue().toString();
+                    setName.getEditText().setText(oldName);
+                } else {
+                    Log.e("SHOW Failds IN FETCHING OLD NAME", "onDataChange: " + snapshot.getValue().toString());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("SHOW ERROR IN FETCHING OLD NAME", "onDataChange: " + error);
+            }
+        });
+
         setNameButton = findViewById(R.id.setNameButton);
         setNameButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,6 +172,11 @@ public class SetupUserActivity extends AppCompatActivity {
             return false;
         } else if (nameInput.length() > 20) {
             setName.setError("More than 20 characters");
+            setNameButton.setVisibility(View.VISIBLE);
+            loadingProgress.setVisibility(INVISIBLE);
+            return false;
+        } else if (nameInput.equals("default")) {
+            setName.setError("Can't use this name");
             setNameButton.setVisibility(View.VISIBLE);
             loadingProgress.setVisibility(INVISIBLE);
             return false;

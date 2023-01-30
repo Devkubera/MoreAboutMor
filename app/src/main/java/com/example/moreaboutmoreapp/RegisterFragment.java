@@ -630,7 +630,7 @@ public class RegisterFragment extends Fragment implements BackKeyPressedListener
                             userVerified.sendEmailVerification();
 
                             //Save UserData
-                            User user = new User(currentUser.getUid(), email, itemSelectGroup, itemSelectBranch, "", "");
+                            User user = new User(currentUser.getUid(), email, itemSelectGroup, itemSelectBranch, "default", "default");
                             addDataUser(user, currentUser.getUid());
 
                             AlertBox();
