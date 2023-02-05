@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:id="@+id/row_noty_overview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/row_noty_bg"
+            android:layout_marginTop="0dp"
+            android:layout_width="360dp"
+            android:layout_height="70dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/custom_notification_bg" />
+
+        <TextView
+            android:id="@+id/row_noty_txtHeader"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/row_noty_profile"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="45dp"
+            android:fontFamily="@font/mitr_regular"
+            android:text="Content : Kit has like your post !"
+            android:textSize="12dp" />
+
+        <ImageView
+            android:id="@+id/row_noty_rectangle"
+            android:layout_marginStart="16dp"
+            android:layout_marginVertical="0dp"
+            android:layout_width="46dp"
+            android:layout_height="70dp"
+            android:src="@drawable/custom_notification_rectangle" />
+
+        <ImageView
+            android:id="@+id/row_noty_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignStart="@+id/row_noty_rectangle"
+            android:layout_alignEnd="@+id/row_noty_rectangle"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_add_post2" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/row_noty_profile"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="75dp"
+            android:src="@drawable/image_placeholder" />
+
+    </RelativeLayout>
+
+
+
+
+
+
+</RelativeLayout>

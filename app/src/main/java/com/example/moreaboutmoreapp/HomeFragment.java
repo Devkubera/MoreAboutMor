@@ -2,7 +2,6 @@ package com.example.moreaboutmoreapp;
 
 import static android.view.View.INVISIBLE;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -10,7 +9,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,25 +19,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.example.moreaboutmoreapp.Activities.LoginActivity;
 import com.example.moreaboutmoreapp.Activities.ProfileActivity;
 import com.example.moreaboutmoreapp.Activities.SetupUserActivity;
-import com.example.moreaboutmoreapp.Activities.SplashActivity;
 import com.example.moreaboutmoreapp.Adapters.PostAdapter;
-import com.example.moreaboutmoreapp.Models.NotificationClass;
 import com.example.moreaboutmoreapp.Models.Post;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -53,8 +45,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -145,8 +135,7 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
 
     private boolean isPaused = false;
 
-    // NotificationClass
-    NotificationClass notificationClass = NotificationClass.getInstance();
+
 
 
     @Override
@@ -748,20 +737,6 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
                 Log.e("SHOW GET PHOTO ERROR ", "onCancelled: " + error );
             }
         });
-
-
-
-        //Load Img Profile
-        //sharedPreferences = getActivity().getSharedPreferences(SHARED_PROFILE_IMG, Context.MODE_PRIVATE);
-        //String get_URI = sharedPreferences.getString(KEY_IMG, null);
-
-        /*if (get_URI != null) {
-            Picasso.get().load(get_URI).into(userProfile);
-        } else {
-            Picasso.get().load(R.drawable.img_profile).into(userProfile);
-        }
-
-         */
 
 
     }

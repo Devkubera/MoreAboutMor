@@ -25,15 +25,16 @@ public class PushNotificationTask extends AsyncTask<String, Void, String> {
         try {
             String apiKey = "AAAA6Esuea4:APA91bG_Sgrnkd1ixaKF8XmPXJCB0s6GytWMtvS4o9vGUwpfNM1XaGPZ4lCk1vuaCIwgvkB_KvhIZOgDiuy3z-QQ_2yzs1xRz2ZsZak_4JJVVWdvsS3scEIxEBBvLuaGSu_tx4w4nRD8";
             String token = params[0];
-            String title = params[1];
-            String type = params[2];
+            String title = params[1]; // is mean receive nick name string variable to make nickname in title of notification
+            String type =  params[2];
+            String uidReceiver = params[3];
 
             // find type
-            String types = seperateType(type);
-            title = title + types;
+            String topic = seperateType(type);
+            title = title + topic;
 
             // make body...
-            String body = "";
+            String body = "testing in message";
 
             Log.d("TITLE IS ", "doInBackground: " + title);
             URL url = new URL("https://fcm.googleapis.com/fcm/send");
@@ -48,7 +49,7 @@ public class PushNotificationTask extends AsyncTask<String, Void, String> {
                     + "\"to\":\"" + token + "\","
                     + "\"notification\":{"
                     + "\"title\":\"" + title + "\","
-                    + "\"body\":\""+ title +"\""
+                    + "\"body\":\""+ body +"\""
                     + "}"
                     + "}";
             byte[] sendBytes = strJsonBody.getBytes("UTF-8");
@@ -64,7 +65,7 @@ public class PushNotificationTask extends AsyncTask<String, Void, String> {
 
                 // push to firebase
                 System.out.println("CHECK TITLE PLEASE " + title);
-                pushToFirebase(type,title,body);
+                pushToFirebase(type,title,body,uidReceiver,topic);
 
                 return scanner.useDelimiter("\\A").next();
             } else {
@@ -82,25 +83,31 @@ public class PushNotificationTask extends AsyncTask<String, Void, String> {
             mtype = " ถูกใจโพสต์ของคุณ";
         } else if (type.equals("like comment")) {
             mtype = " ถูกใจความคิดเห็นของคุณ";
+        } else if (type.equals("pin comment")) {
+            mtype = " ตึงความคิดเห็นของคุณในโพสต์ของเขา";
+        } else if (type.equals("post moment")) {
+            mtype = " ได้แสดงความคิดเห็นในโพสต์ของคุณ";
         }
 
         return mtype;
     }
 
-    public void pushToFirebase(String type, String title, String subtitle) {
+    public void pushToFirebase(String type, String title, String subtitle, String uidReceiver, String topic) {
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
-        String uid = firebaseAuth.getUid();
+        String uidPusher = firebaseAuth.getUid();
 
-        databaseReference = firebaseDatabase.getReference("NotificationCenter")
-                .child(uid);
+        databaseReference = firebaseDatabase.getReference("NotificationCenter");
 
-
-        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm");
         String dateTime = formatter.format(new Date());
 
-        NotificationData notificationData = new NotificationData(type,title,subtitle,dateTime);
+        NotificationData notificationData = new NotificationData(type,title,subtitle,dateTime,uidPusher,uidReceiver, topic);
 
-        databaseReference.setValue(notificationData);
+        // auto generate id
+        DatabaseReference newRef = databaseReference.push();
+        newRef.setValue(notificationData);
+
+        String key = newRef.getKey();
     }
 }

@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                         // Log and toast
                         String msg = getString(R.string.msg_token_fmt, token);
                         Log.d("TAG", msg);
-                        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
 
                         // send to token to the servers
                         sendTokenToSevers(token);
@@ -248,7 +248,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
                     // Use the list of items
                     for (ModelFacultyData item : items) {
-                        System.out.println(item.getMajor() + ": $" + item.getFaculty() + "\n");
+                        //System.out.println(item.getMajor() + ": $" + item.getFaculty() + "\n");
 
                         // Check data that matching major of user
                         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();

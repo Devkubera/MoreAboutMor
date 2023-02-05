@@ -36,7 +36,9 @@ import com.example.moreaboutmoreapp.Adapters.PostAdapter;
 import com.example.moreaboutmoreapp.Adapters.StickerAdapter;
 import com.example.moreaboutmoreapp.Models.Comment;
 import com.example.moreaboutmoreapp.Models.Post;
+import com.example.moreaboutmoreapp.Models.PushNotificationTask;
 import com.example.moreaboutmoreapp.Models.Sticker;
+import com.example.moreaboutmoreapp.Models.TokenStore;
 import com.example.moreaboutmoreapp.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -80,6 +82,8 @@ public class PostDetailActivity extends AppCompatActivity {
     private int lastPosition;
 
     String postKey;
+    String uidReceiver, nickname, tokens; // for notification
+    String fastNickName;
     String Count_comment;
     static String COMMENT_KEY = "Comment";
     BottomSheetDialog bottomSheetDialog, bottomSheetDialogEditPost, bottomSheetDialogSticker;
@@ -145,6 +149,8 @@ public class PostDetailActivity extends AppCompatActivity {
         firebaseUser = firebaseAuth.getCurrentUser();
         firebaseDatabase = FirebaseDatabase.getInstance();
 
+        fastNickName = getNickName();
+
         textTag = findViewById(R.id.textTag);
         userProfile = findViewById(R.id.userProfile);
         textUser = findViewById(R.id.textUser);
@@ -164,7 +170,7 @@ public class PostDetailActivity extends AppCompatActivity {
             }
         });
 
-        //Get And Set Data
+        /** Get And Set Data from postAdapter line at 480 */
         String getTag = getIntent().getExtras().getString("textTag");
         textTag.setText(getTag);
 
@@ -183,6 +189,9 @@ public class PostDetailActivity extends AppCompatActivity {
 
         String date = timestampToString(getIntent().getExtras().getLong("postDate"));
         textTime.setText(date);
+
+        // get user id that receive notifiication
+        uidReceiver = getIntent().getExtras().getString("uidReceiver");
 
         //Retrieve List Comment
         // commentRV stay in layout/activity_post_detail.xml > RecyclerView
@@ -473,12 +482,9 @@ public class PostDetailActivity extends AppCompatActivity {
                             }
                         });
 
-
-
                         //Get Sticker Form Firebase Storage
                         StickerRecyclerView = BottomSheetView.findViewById(R.id.StickerRV);
                         StickerRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.HORIZONTAL));
-
 
                         stickerList = new ArrayList<>();
 
@@ -496,11 +502,18 @@ public class PostDetailActivity extends AppCompatActivity {
 
                                     stickerList.add(sticker);
                                 }
+                                // Declare SharePreference
+                                SharedPreferences sharedPreferences = getSharedPreferences("uidReceiver", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString("uid", uidReceiver);
+                                String nickname = getNickName();
+                                Log.d("GET NICKNAME", "onDataChange: " + nickname);
+                                editor.putString("nickname", nickname);
+                                editor.apply();
 
                                 stickerAdapter = new StickerAdapter(getApplicationContext(), stickerList);
                                 StickerRecyclerView.setAdapter(stickerAdapter);
                                 stickerAdapter.notifyDataSetChanged();
-
 
                             }
 
@@ -509,7 +522,6 @@ public class PostDetailActivity extends AppCompatActivity {
                                 Toast.makeText(PostDetailActivity.this, "Error : "+error, Toast.LENGTH_SHORT).show();
                             }
                         });
-
 
                         bottomSheetDialogSticker.setContentView(BottomSheetView);
                         bottomSheetDialogSticker.show();
@@ -522,14 +534,10 @@ public class PostDetailActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
         //init RecyclerView Like And Comment Count
         initRvLikeComment();
 
-    }
+    } // end of onCreate
 
 
 
@@ -682,7 +690,14 @@ public class PostDetailActivity extends AppCompatActivity {
                 loadingProgress.setVisibility(INVISIBLE);
                 bottomSheetDialog.dismiss();
                 commentRecyclerView.scrollToPosition(commentList.size() - 1 );
+
+                // notification
+                /** สงสัยจังว่า post id จะช่วย navigation เมื่อ user tap ที่แจ้งเตือนได้รึปล่าวน๊า */
+                String post_id = postKey;
+                /** Push notification */
+                pushNotification();
             }
+
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
@@ -690,6 +705,73 @@ public class PostDetailActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private String getNickName() {
+
+        String uid = firebaseAuth.getUid();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("userData").child(uid).child("name");
+        System.out.println(databaseReference);
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                nickname = snapshot.getValue().toString();
+                //Toast.makeText(mContext, nickname, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("get nick name", "onCancelled: " + error);
+            }
+        });
+        //Log.d("CHECK NICKNAME", "getNickName: " + nickname);
+        return nickname;
+    }
+
+
+    private void pushNotification() {
+        String uid = uidReceiver; // get receiver_uid
+        String user_nickname = getNickName();
+        int check_error_on_fetching_name = 0;
+        if (user_nickname.isEmpty()) {
+            check_error_on_fetching_name++;
+            user_nickname = getNickName();
+            if (user_nickname.isEmpty()) {
+                check_error_on_fetching_name++;
+                user_nickname = getNickName();
+            }
+            Log.d("Checking error on fetch name", "pushNotification: " + check_error_on_fetching_name);
+        }
+        String finalUser_nickname = user_nickname;
+        String type = "post moment"; // identify type notification
+        String path = "tokens/" + uid + "/";
+        DatabaseReference tokenReference = FirebaseDatabase.getInstance().getReference(path);
+        tokenReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // tokens = snapshot.getValue().toString();
+                TokenStore tokenStore = snapshot.getValue(TokenStore.class);
+                tokens = tokenStore.token;
+                Log.d("Fetch Token", "Tokens owner post is " + tokens);
+
+                // get uid receiver is mean owner content that you make event noty happen
+                String uidReceiver = uid;
+
+                // if an pusher and receiver notification is a same user
+                // notification should not show on display
+                if (FirebaseAuth.getInstance().getUid().equals(uidReceiver)) {
+                    // Not do anything
+                } else {
+                    PushNotificationTask pushNotificationTask = new PushNotificationTask();
+                    pushNotificationTask.execute(tokens, finalUser_nickname, type, uidReceiver);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("Fetch Token", "Error to fetching tokens because " + error);
+            }
+        }); // end of call Real time DB in tokens
     }
 
     private boolean validateSelectTag() {

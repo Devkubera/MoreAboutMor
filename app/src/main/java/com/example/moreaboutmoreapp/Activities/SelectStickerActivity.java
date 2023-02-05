@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -19,6 +20,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.moreaboutmoreapp.Models.Comment;
+import com.example.moreaboutmoreapp.Models.PushNotificationTask;
+import com.example.moreaboutmoreapp.Models.TokenStore;
+import com.example.moreaboutmoreapp.Models.User;
 import com.example.moreaboutmoreapp.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -51,6 +55,11 @@ public class SelectStickerActivity extends AppCompatActivity {
 
     AlertDialog builder;
 
+    // for notification
+    String nickname;
+    String uidReceiver;
+    String tokens;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +87,13 @@ public class SelectStickerActivity extends AppCompatActivity {
         //Get PostKey
         preferences = getSharedPreferences("PREFERENCES", MODE_PRIVATE);
         postKey = preferences.getString("SavePostKey", "");
+
+        // get receiver uid from put extra
+        uidReceiver = getIntent().getExtras().getString("uidReceiver");
+        Log.d("uidReceiver", "onCreate: " + uidReceiver);
+
+        // geet nickname from put extra
+        nickname = getIntent().getExtras().getString("nickname");
 
         LayoutInflater layoutInflater = LayoutInflater.from(SelectStickerActivity.this);
         View view = layoutInflater.inflate(R.layout.bottom_sheet_dialog_select_sticker, null);
@@ -167,7 +183,8 @@ public class SelectStickerActivity extends AppCompatActivity {
 
                 finish();
                 builder.dismiss();
-
+                /** Push Notification */
+                pushNotification();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -175,6 +192,64 @@ public class SelectStickerActivity extends AppCompatActivity {
                 showMessage("Fail to added comment : " +e.getMessage());
             }
         });
+    }
+
+    private String getNickName() {
+        final String[] nicknamex = new String[1];
+        String uid = firebaseAuth.getUid();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("userData").child(uid).child("name");
+        System.out.println(databaseReference);
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                nicknamex[0] = snapshot.getValue().toString();
+                // Toast.makeText(getApplicationContext(), nickname, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("get nick name", "onCancelled: " + error);
+            }
+        });
+        //Log.d("CHECK NICKNAME", "getNickName: " + nickname);
+        return nicknamex[0];
+    }
+
+
+    private void pushNotification() {
+        User user = new User();
+        String uid = uidReceiver; // get receiver_uid
+        String user_nickname = nickname;
+
+        String type = "post moment"; // identify type notification
+        String path = "tokens/" + uid + "/";
+        DatabaseReference tokenReference = FirebaseDatabase.getInstance().getReference(path);
+        tokenReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // tokens = snapshot.getValue().toString();
+                TokenStore tokenStore = snapshot.getValue(TokenStore.class);
+                tokens = tokenStore.token;
+                Log.d("Fetch Token", "Tokens owner post is " + tokens);
+
+                // get uid receiver is mean owner content that you make event noty happen
+                String uidReceiver = uid;
+
+                // if an pusher and receiver notification is a same user
+                // notification should not show on display
+                if (FirebaseAuth.getInstance().getUid().equals(uidReceiver)) {
+                    // Not do anything
+                } else {
+                    PushNotificationTask pushNotificationTask = new PushNotificationTask();
+                    pushNotificationTask.execute(tokens, user_nickname, type, uidReceiver);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.d("Fetch Token", "Error to fetching tokens because " + error);
+            }
+        }); // end of call Real time DB in tokens
     }
 
 

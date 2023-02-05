@@ -406,7 +406,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                                     testClick = false;
 
                                 } else {
-
                                     //Set Value Like
                                     likeReference.child(postKeyLike).child(firebaseUser.getUid()).setValue("true");
                                     testClick = false;
@@ -421,8 +420,18 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                                             TokenStore tokenStore = snapshot.getValue(TokenStore.class);
                                             tokens = tokenStore.token;
                                             Log.d("Fetch Token", "Tokens owner post is " + tokens);
-                                            PushNotificationTask pushNotificationTask = new PushNotificationTask();
-                                            pushNotificationTask.execute(tokens, nickname, type);
+
+                                            // get uid receiver is mean owner content that you make event noty happen
+                                            String uidReceiver = mData.get(position).getUserId();
+
+                                            // if an pusher and receiver notification is a same user
+                                            // notification should not show on display
+                                            if (FirebaseAuth.getInstance().getUid().equals(uidReceiver)) {
+                                                // Not do anything
+                                            } else {
+                                                PushNotificationTask pushNotificationTask = new PushNotificationTask();
+                                                pushNotificationTask.execute(tokens, nickname, type, uidReceiver);
+                                            }
                                         }
 
                                         @Override
@@ -454,7 +463,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             nickname = snapshot.getValue().toString();
-                            Toast.makeText(mContext, nickname, Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(mContext, nickname, Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
@@ -467,7 +476,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                 }
             });
 
-            //Button Comment
+            //Button Open PostDetail Activity
             commentBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -478,6 +487,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                     postDetailActivity.putExtra("userPhotoImg",  mData.get(position).getUserPhoto());
                     postDetailActivity.putExtra("textComments", mData.get(position).getDetailComments());
                     postDetailActivity.putExtra("postKey", mData.get(position).getPostKey());
+                    /** send owner post uid to identify who should receive notification when someone comment there post.*/
+                    postDetailActivity.putExtra("uidReceiver", mData.get(position).getUserId());
 
                     // > GET b
                     String Email = mData.get(position).getUserName().substring(0, 1);

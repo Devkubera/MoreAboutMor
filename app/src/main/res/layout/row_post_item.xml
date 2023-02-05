@@ -23,7 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="15dp"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/custom_tag">
 
@@ -34,11 +34,11 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_centerVertical="true"
-                    android:text="Tag"
+                    android:text="#TAG"
                     android:justificationMode="inter_word"
                     android:textColor="@color/white"
-                    android:textSize="15dp"
-                    android:fontFamily="@font/mitr_regular"/>
+                    android:textSize="13dp"
+                    android:fontFamily="@font/mitr_light"/>
 
 
             </RelativeLayout>
@@ -52,7 +52,7 @@
                 android:id="@+id/MoreMenu"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="15dp"
                 android:padding="5dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
@@ -65,10 +65,11 @@
                 android:id="@+id/lineTop"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp"
                 android:layout_marginTop="10dp"
                 android:layout_below="@+id/layoutTag"
+                android:visibility="visible"
                 android:background="@color/colorDivider" />
 
         <!-- UserPhoto -->
@@ -76,8 +77,8 @@
             android:id="@+id/layoutUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="15dp"
             android:layout_below="@id/lineTop">
 
             <RelativeLayout
@@ -99,9 +100,9 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
-                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="0dp"
+                android:layout_centerVertical="false"
                 android:layout_toEndOf="@id/LayoutIMG">
 
                 <TextView
@@ -109,7 +110,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="B6XXXXX"
-                    android:textColor="@color/black"
+                    android:textColor="@color/darknight"
                     android:fontFamily="@font/mitr_medium"/>
 
                 <TextView
@@ -119,7 +120,7 @@
                     android:layout_below="@+id/textUser"
                     android:text="เวลา"
                     android:textColor="@color/dark_gray"
-                    android:fontFamily="@font/mitr_medium"/>
+                    android:fontFamily="@font/mitr_regular"/>
 
             </RelativeLayout>
 
@@ -158,7 +159,7 @@
             android:id="@+id/layoutComment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="7.5dp"
             android:layout_marginBottom="5dp"
             android:layout_below="@+id/layoutUser">
 
@@ -166,14 +167,14 @@
                 android:id="@+id/textPost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
                 android:text="Posts"
                 android:justificationMode="inter_word"
                 android:lineSpacingExtra="4sp"
-                android:textColor="@color/black"
-                android:textSize="15dp"
-                android:fontFamily="@font/sarabun_medium"/>
+                android:textColor="@color/darknight"
+                android:textSize="14dp"
+                android:fontFamily="@font/mitr_light"/>
 
         </RelativeLayout>
 
@@ -202,20 +203,22 @@
                 android:id="@+id/lineBottom"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp"
                 android:layout_marginTop="10dp"
                 android:layout_below="@+id/LayoutViewMore"
+                android:visibility="invisible"
                 android:background="@color/colorDivider" />
 
 
         <!-- LikeMenu -->
         <RelativeLayout
+            android:layout_marginTop="5dp"
             android:id="@+id/LayoutLikeMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
             android:layout_below="@+id/lineBottom">
 
             <!-- Like -->
@@ -236,7 +239,7 @@
                 android:layout_toEndOf="@id/likeBtn"
                 android:layout_centerVertical="true"
                 android:text="0"
-                android:textColor="@color/black"
+                android:textColor="@color/darknight"
                 android:fontFamily="@font/sarabun_bold"/>
 
             <!-- DisLike -->
@@ -282,7 +285,7 @@
                 android:layout_toEndOf="@id/commentBtn"
                 android:layout_centerVertical="true"
                 android:text="0"
-                android:textColor="@color/black"
+                android:textColor="@color/darknight"
                 android:fontFamily="@font/sarabun_bold"/>
 
 
@@ -290,9 +293,10 @@
         </RelativeLayout>
 
             <View
+                android:layout_marginTop="5dp"
                 android:id="@+id/lineBlue"
                 android:layout_width="match_parent"
-                android:layout_height="5dp"
+                android:layout_height="3dp"
                 android:layout_below="@+id/LayoutLikeMenu"
                 android:background="@color/row_color" />
         </RelativeLayout>

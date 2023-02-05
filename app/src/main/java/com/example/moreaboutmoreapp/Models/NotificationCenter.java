@@ -54,8 +54,14 @@ public class NotificationCenter extends FirebaseMessagingService {
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated. See sendNotification method below.
         Map<String, String> data = remoteMessage.getData();
-        sendNotification(data);
-        System.out.println("MAP DATA " + data.get("title"));
+        //sendNotification(data);
+
+        // new
+        String title = remoteMessage.getNotification().getTitle();
+        String body = remoteMessage.getNotification().getBody();
+
+        sendNotification(title,body);
+        System.out.println("MAP DATA " + data.get("titles"));
     }
 
     /**
@@ -77,14 +83,14 @@ public class NotificationCenter extends FirebaseMessagingService {
         Log.d("Testing generate token", "onNewToken: ");
 
         /** This function is automatically work when existing token is changed */
-        // save token to sqlite0
+        // save token to sqlite
         //saveToken(token);
     }
 
-    private void sendNotification(Map<String, String> data) {
-        String title = data.get("title");
-        String message = data.get("message");
-        String token = data.get("token");
+    private void sendNotification(String title, String body) {
+//        String title = data.get("titles");
+//        String message = data.get("message");
+//        String token = data.get("token");
 
         System.out.println("TITLE IN CENTER : " + title);
 
@@ -98,7 +104,7 @@ public class NotificationCenter extends FirebaseMessagingService {
             notificationChannel.setDescription(CHANNEL_DESCRIPTION);
             notificationChannel.enableLights(true);
             notificationChannel.setLightColor(Color.RED);
-            notificationChannel.setVibrationPattern(new long[]{0, 500, 500, 0});
+            notificationChannel.setVibrationPattern(new long[]{0, 1000, 500, 0});
             notificationChannel.enableVibration(true);
             notificationManager.createNotificationChannel(notificationChannel);
         }
@@ -109,10 +115,11 @@ public class NotificationCenter extends FirebaseMessagingService {
                 .setDefaults(NotificationCompat.DEFAULT_ALL)
                 .setWhen(System.currentTimeMillis())
                 .setSmallIcon(R.drawable.ic_book)
-                .setTicker("Hearty365")
+                .setTicker("New notification arrived!")
                 .setContentTitle(title)
-                .setContentText(message)
-                .setContentInfo("Info");
+//                .setContentTitle(message)
+                .setContentText(body)
+                .setContentInfo("1");
 
         notificationManager.notify(/*notification id*/1, notificationBuilder.build());
     }

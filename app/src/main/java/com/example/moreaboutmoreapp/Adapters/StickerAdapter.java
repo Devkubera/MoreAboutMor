@@ -1,9 +1,13 @@
 package com.example.moreaboutmoreapp.Adapters;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,7 +47,7 @@ public class StickerAdapter extends RecyclerView.Adapter<StickerAdapter.MyViewHo
 
     Context mContext;
     ArrayList<Sticker> mData;
-
+    SharedPreferences preferences;
     //List<Comment> mData;
 
 
@@ -81,8 +85,18 @@ public class StickerAdapter extends RecyclerView.Adapter<StickerAdapter.MyViewHo
                 Intent SelectStickerActivity = new Intent(mContext, SelectStickerActivity.class);
                 SelectStickerActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
+                // get receiver uid
+                //Check First User
+
+                preferences = mContext.getSharedPreferences("uidReceiver", MODE_PRIVATE);
+                String uid = preferences.getString("uid", "");
+                String nickname = preferences.getString("nickname", "");
+
+
                 //Put Data
                 SelectStickerActivity.putExtra("StickerUrl", mData.get(positionUrl).getStickerUrl());
+                SelectStickerActivity.putExtra("uidReceiver", uid);
+                SelectStickerActivity.putExtra("nickname", nickname);
 
 
                 mContext.startActivity(SelectStickerActivity);

@@ -35,6 +35,8 @@ import com.example.moreaboutmoreapp.Activities.LoginActivity;
 import com.example.moreaboutmoreapp.Activities.PostDetailActivity;
 import com.example.moreaboutmoreapp.Activities.ProfileActivity;
 import com.example.moreaboutmoreapp.Models.Comment;
+import com.example.moreaboutmoreapp.Models.PushNotificationTask;
+import com.example.moreaboutmoreapp.Models.TokenStore;
 import com.example.moreaboutmoreapp.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.textfield.TextInputLayout;
@@ -57,6 +59,8 @@ import java.util.Locale;
 import pl.droidsonroids.gif.GifImageView;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentViewHolder> {
+
+    public static String tokens, nickname;
 
     private Context mContext;
     private List<Comment> mData;
@@ -388,6 +392,10 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
                     commentKeyLike = mData.get(position).getCommentKey();
                     userID = mData.get(position).getUid();
 
+                    // notification sections
+                    String nickname = getNickName();
+                    String type = "like comment";
+
                     likeReference = FirebaseDatabase.getInstance().getReference("likeComment");
                     likeReference.addValueEventListener(new ValueEventListener() {
                         @Override
@@ -407,6 +415,37 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
                                     likeReference.child(commentKeyLike).child(firebaseUser.getUid()).setValue("true");
                                     testClick = false;
 
+                                    // Notification to owner comment
+                                    String path = "tokens/" + userID + "/";
+
+                                    DatabaseReference tokenReference = FirebaseDatabase.getInstance().getReference(path);
+                                    tokenReference.addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            // tokens = snapshot.getValue().toString();
+                                            TokenStore tokenStore = snapshot.getValue(TokenStore.class);
+                                            tokens = tokenStore.token;
+                                            Log.d("Fetch Token", "Tokens owner post is " + tokens);
+
+                                            // get uid receiver is mean owner content that you make event noty happen
+                                            String uidReceiver = mData.get(position).getUid();
+
+                                            // if an pusher and receiver notification is a same user
+                                            // notification should not show on display
+                                            if (FirebaseAuth.getInstance().getUid().equals(uidReceiver)) {
+                                                // Not do anything
+                                            } else {
+                                                PushNotificationTask pushNotificationTask = new PushNotificationTask();
+                                                pushNotificationTask.execute(tokens, nickname, type, uidReceiver);
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+                                            Log.d("Fetch Token", "Error to fetching tokens because " + error);
+                                        }
+                                    }); // end of call Real time DB in tokens
+
                                 }
 
                             }
@@ -420,16 +459,38 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
                     });
 
                 }
+
+                public String getNickName() {
+
+                    String uid = firebaseAuth.getUid();
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("userData").child(uid).child("name");
+                    System.out.println(databaseReference);
+                    databaseReference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            nickname = snapshot.getValue().toString();
+                            //Toast.makeText(mContext, nickname, Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Log.d("get nick name", "onCancelled: " + error);
+                        }
+                    });
+                    //Log.d("CHECK NICKNAME", "getNickName: " + nickname);
+                    return nickname;
+                }
+
+
             });
 
-            //Button Check
+            //Button Check / Pin comment
             IconCheckTrue = itemView.findViewById(R.id.IconCheckTrue);
             trueBtn = itemView.findViewById(R.id.checkBtn);
 
             //Check My Post
             preferences = mContext.getSharedPreferences("PREFERENCES", MODE_PRIVATE);
             checkMyPost = preferences.getString("SaveMyPost", "");
-
 
             if (checkMyPost.equals("No")) {
                 trueBtn.setVisibility(View.INVISIBLE);
@@ -441,7 +502,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
                         checkClick = true;
                         int position = getAdapterPosition();
                         commentCheckTrue = mData.get(position).getCommentKey();
-
 
                         //Set Value "commentCheckTrue" is "true" in Firebase
                         trueReference = FirebaseDatabase.getInstance().getReference("Comment").child(PostKey);
@@ -473,11 +533,51 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
 
                                     } else {
 
-                                        //Set Value Like
+                                        // Set Value Like
+                                        // show icon mark end of name user
                                         IconCheckTrue.setVisibility(View.VISIBLE);
+                                        // change color of name user to blue color
                                         textUser.setTextColor(ContextCompat.getColor(mContext, R.color.nav_color));
+                                        // make a pin icon value equal to True
                                         trueReference.child(commentCheckTrue).child("commentCheckTrue").setValue("true");
                                         checkClick = false;
+
+                                        // Notification to owner comment
+                                        // get nickname from firebase
+                                        String nickname = getNickName();
+
+                                        // set type notification
+                                        String type = "pin comment";
+                                        userID = mData.get(position).getUid();
+                                        String path = "tokens/" + userID + "/";
+                                        DatabaseReference tokenReference = FirebaseDatabase.getInstance().getReference(path);
+                                        tokenReference.addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                // tokens = snapshot.getValue().toString();
+                                                TokenStore tokenStore = snapshot.getValue(TokenStore.class);
+                                                tokens = tokenStore.token;
+                                                Log.d("Fetch Token", "Tokens owner post is " + tokens);
+
+                                                // get uid receiver is mean owner content that you make event noty happen
+                                                String uidReceiver = mData.get(position).getUid();
+
+                                                // if an pusher and receiver notification is a same user
+                                                // notification should not show on display
+                                                if (FirebaseAuth.getInstance().getUid().equals(uidReceiver)) {
+                                                    // Not do anything
+                                                } else {
+                                                    PushNotificationTask pushNotificationTask = new PushNotificationTask();
+                                                    pushNotificationTask.execute(tokens, nickname, type, uidReceiver);
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                Log.d("Fetch Token", "Error to fetching tokens because " + error);
+                                            }
+                                        }); // end of call Real time DB in tokens
+
 
 
                                         for (DataSnapshot SnapShotTrueCheck : snapshot.getChildren()) {
@@ -485,17 +585,14 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
                                             String GetValue = SnapShotTrueCheck.child("commentCheckTrue").getValue().toString();
                                             //Log.e("msg", CommentKey);
                                             //Log.e("msg",  V);
+                                            //Log.d("TAG", "Pin comment test" );
 
                                             if (GetValue.equals("true")) {
                                                 for (DataSnapshot CommentKeySnapshot : snapshot.child(CommentKey).getChildren()) {
                                                     //String Key = CommentKeySnapshot.getKey();
                                                     trueReference.child(CommentKey).child("commentCheckTrue").setValue("false");
                                                 }
-
                                             }
-
-
-
                                         }
 
                                         //Save Key Comment
@@ -512,11 +609,28 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
                                     }
 
                                 }
-
-
-
-
                                 }
+
+                            public String getNickName() {
+
+                                String uid = firebaseAuth.getUid();
+                                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("userData").child(uid).child("name");
+                                System.out.println(databaseReference);
+                                databaseReference.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        nickname = snapshot.getValue().toString();
+                                        //Toast.makeText(mContext, nickname, Toast.LENGTH_SHORT).show();
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                        Log.d("get nick name", "onCancelled: " + error);
+                                    }
+                                });
+                                //Log.d("CHECK NICKNAME", "getNickName: " + nickname);
+                                return nickname;
+                            }
 
 
                             @Override
@@ -524,12 +638,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
 
                             }
                         });
-
-
-
-
-
-
                     }
                 });
             }
