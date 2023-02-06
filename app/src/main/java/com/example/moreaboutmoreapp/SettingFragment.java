@@ -93,7 +93,7 @@ public class SettingFragment extends Fragment{
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
 
-    Button btn_EP, btn_epc , btn_logout;
+    Button btn_EP, btn_epc , btn_aa, btn_logout;
     CircleImageView userProfile;
 
     @Override
@@ -153,6 +153,21 @@ public class SettingFragment extends Fragment{
                 Fragment newFragment = new ManagePostFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.settingFragment, newFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+
+            }
+        });
+
+        // EditPost
+        btn_aa = view.findViewById(R.id.Btn_AA);
+        btn_aa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Fragment newFragment = new ManagePostFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.aboutappFragment, newFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
 

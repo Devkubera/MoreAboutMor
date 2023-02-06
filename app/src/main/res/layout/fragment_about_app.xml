@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/aboutappFragment"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".AboutAppFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <RelativeLayout
+        android:id="@+id/app_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_picture"
+        >
+        <!-- logo -->
+        <ImageView
+            android:id="@+id/aboutapp_logo"
+            android:layout_width="31dp"
+            android:layout_height="31dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="32dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/bg_logo"
+            />
+
+        <!-- เกี่ยวกับแอพ -->
+        <TextView
+            android:id="@+id/some_id"
+            android:layout_width="240dp"
+            android:layout_height="53dp"
+            android:fontFamily="@font/mitr_regular"
+            android:gravity="center"
+            android:layout_alignLeft="@id/aboutapp_logo"
+            android:layout_marginLeft="-15dp"
+            android:layout_marginTop="16dp"
+            android:text="เกี่ยวกับแอพ"
+            android:textColor="@color/white"
+            android:textSize="24dp" />
+
+    </RelativeLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/CV_From"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="80dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginBottom="0dp"
+        android:layout_below="@+id/profile"
+        app:cardBackgroundColor="@color/white"
+        style="@style/CustomCardViewStyle_Field">
+
+
+    <RelativeLayout
+        android:id="@+id/LayoutInput"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- info icon -->
+        <View
+            android:id="@+id/aboutapp_infologo"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginTop="16dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/ic_info"
+            />
+        <!-- Devs img -->
+        <View
+            android:layout_width="286dp"
+            android:layout_height="153dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="155dp"
+            android:background="@drawable/img_appinfo_devs"
+            ></View>
+
+        <!-- Text Area -->
+        <View
+            android:layout_width="286dp"
+            android:layout_height="277dp"
+            android:layout_marginTop="335dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/img_appinfo_contentbox"
+            >
+        </View>
+
+        <ScrollView
+            android:layout_width="250dp"
+            android:layout_height="230dp"
+            android:layout_marginTop="360dp"
+            android:layout_centerHorizontal="true"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/black"
+                android:text="@string/app_info"
+                android:textSize="10dp"
+                android:fontFamily="@font/mitr_light"
+                android:lineSpacingMultiplier="1.1"
+                ></TextView>
+        </ScrollView>
+
+
+        
+
+    </RelativeLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+
+</FrameLayout>
