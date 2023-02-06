@@ -165,9 +165,9 @@ public class SettingFragment extends Fragment{
             @Override
             public void onClick(View view) {
 
-                Fragment newFragment = new ManagePostFragment();
+                Fragment newFragment = new AboutAppFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.aboutappFragment, newFragment);
+                transaction.replace(R.id.settingFragment, newFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
 

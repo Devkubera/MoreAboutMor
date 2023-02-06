@@ -39,6 +39,19 @@
         <item name="cornerSizeBottomLeft">0dp</item>
     </style>
 
+    <style name="CustomCardViewStyle_Field_About" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_card_custom_field_about</item>
+    </style>
+
+
+    <style name="ShapeAppearanceOverlay_card_custom_field_about" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">25dp</item>
+        <item name="cornerSizeTopLeft">25dp</item>
+        <item name="cornerSizeBottomRight">25dp</item>
+        <item name="cornerSizeBottomLeft">25dp</item>
+    </style>
+
     <style name="CustomCardViewStyle_BackMenuComment" parent="@style/Widget.MaterialComponents.CardView">
         <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_card_custom_back_menu_CM</item>
     </style>

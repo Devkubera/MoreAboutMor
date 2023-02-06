@@ -50,10 +50,11 @@
         android:layout_marginTop="80dp"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
-        android:layout_marginBottom="0dp"
+        android:layout_marginBottom="90dp"
         android:layout_below="@+id/profile"
         app:cardBackgroundColor="@color/white"
-        style="@style/CustomCardViewStyle_Field">
+        style="@style/CustomCardViewStyle_Field_About"
+        >
 
 
     <RelativeLayout
@@ -64,9 +65,9 @@
         <!-- info icon -->
         <View
             android:id="@+id/aboutapp_infologo"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"
             android:background="@drawable/ic_info"
             />
@@ -75,15 +76,15 @@
             android:layout_width="286dp"
             android:layout_height="153dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="155dp"
+            android:layout_marginTop="110dp"
             android:background="@drawable/img_appinfo_devs"
             ></View>
 
         <!-- Text Area -->
         <View
             android:layout_width="286dp"
-            android:layout_height="277dp"
-            android:layout_marginTop="335dp"
+            android:layout_height="250dp"
+            android:layout_marginTop="270dp"
             android:layout_centerHorizontal="true"
             android:background="@drawable/img_appinfo_contentbox"
             >
@@ -91,8 +92,8 @@
 
         <ScrollView
             android:layout_width="250dp"
-            android:layout_height="230dp"
-            android:layout_marginTop="360dp"
+            android:layout_height="210dp"
+            android:layout_marginTop="290dp"
             android:layout_centerHorizontal="true"
             >
             <TextView
