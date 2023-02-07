@@ -5,6 +5,7 @@ import static android.view.View.INVISIBLE;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.moreaboutmoreapp.Activities.PostDetailActivity;
+import com.example.moreaboutmoreapp.HomeFragment;
+import com.example.moreaboutmoreapp.Models.PinnerData;
 import com.example.moreaboutmoreapp.Models.Post;
 import com.example.moreaboutmoreapp.Models.PushNotificationTask;
 import com.example.moreaboutmoreapp.Models.TokenStore;
@@ -39,6 +42,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> {
@@ -52,6 +56,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
     // For notification
     // Not used NAJA NotificationClass notificationClass = NotificationClass.getInstance();
+
+    // for tag reset layout
+    public static String changeLayout = "";
 
     public static String tokens, nickname;
 
@@ -198,6 +205,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         return mData.size();
     }
 
+    public void filterList(ArrayList<Post> filterlist) {
+        mData = filterlist;
+        notifyDataSetChanged();
+    }
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         FirebaseDatabase db;
@@ -207,7 +219,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
         BottomSheetDialog bottomSheetDialog, bottomSheetDialogEditPost;
 
-        RelativeLayout layoutEdit, layoutDelete, layoutPin, layoutReport;
+        RelativeLayout layoutEdit, layoutDelete, layoutPin, layoutReport, layoutTag;
 
         Boolean testClick = false;
         Button commentBtn, MoreMenu, EditPostButton;
@@ -251,6 +263,45 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
             likeBtn = itemView.findViewById(R.id.likeBtn);
             commentBtn = itemView.findViewById(R.id.commentBtn);
+
+            // for searching tag with tap layout
+            layoutTag = itemView.findViewById(R.id.layoutTag);
+            layoutTag.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String tag = textTag.getText().toString();
+                    filterTag(tag);
+
+                }
+
+                private void filterTag(String tag) {
+                    ArrayList<Post> filterTag = new ArrayList<>();
+
+                    for (Post item : mData) {
+                        // we check text input by user matching content in any post
+                        // with "contains()" method
+                        if (item.getSelectTag().toLowerCase().contains(tag.toLowerCase())) {
+                            filterTag.add(item);
+                        }
+                    }
+
+
+
+                    Bundle bundle = new Bundle();
+                    changeLayout = "changeLayout";
+                    bundle.putString("message", changeLayout);
+
+                    // Set Fragmentclass Arguments
+                    HomeFragment fragobj = new HomeFragment();
+                    fragobj.setArguments(bundle);
+                    filterList(filterTag);
+
+//                    View newLayout = LayoutInflater.from(mContext.getApplicationContext()).inflate(R.layout.fragment_home,null,false);
+//                    TextView textView = newLayout.findViewById(R.id.textFeeds);
+//                    textView.setText("แท็กที่ค้นหา ");
+
+                }
+            });
 
             /*itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -358,20 +409,75 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                             bottomSheetDialog.setContentView(BottomSheetView);
                             bottomSheetDialog.show();
 
-                        } else {
+                        }
 
+                        else {
                             bottomSheetDialog = new BottomSheetDialog(mContext, R.style.BottomSheetDialog);
                             View BottomSheetView = LayoutInflater.from(mContext)
                                     .inflate(R.layout.bottom_sheet_dialog_more_menu, (RelativeLayout)view.findViewById(R.id.BottomSheetContainerProfile));
 
-
                             bottomSheetDialog.setContentView(BottomSheetView);
                             bottomSheetDialog.show();
 
+                            userID = FirebaseAuth.getInstance().getUid();
+
+                            // Pin post process
+                            layoutPin = BottomSheetView.findViewById(R.id.layoutPin);
+                            layoutPin.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    // get token
+                                    // Notification to owner post
+                                    String type = "pin post";
+                                    String path = "tokens/" + userID + "/";
+                                    tokenReference = FirebaseDatabase.getInstance().getReference(path);
+                                    tokenReference.addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            // tokens = snapshot.getValue().toString();
+                                            TokenStore tokenStore = snapshot.getValue(TokenStore.class);
+                                            tokens = tokenStore.token;
+                                            Log.d("Fetch Token", "Tokens owner post is " + tokens);
+
+                                            // get uid receiver is mean owner content that you make event noty happen
+                                            String uidReceiver = mData.get(position).getUserId();
+
+                                            // We need to create database to store pin request user
+                                            // When We have this we need notice user when target pin post have been comment
+                                            // We need get a token pinner, uid pinner, post id to verify that post id is correct 2 side
+
+                                            String uid = FirebaseAuth.getInstance().getUid();
+                                            String postId = mData.get(position).getPostKey();
+
+                                            PinnerData pinnerData = new PinnerData(uid,postId,tokens);
+
+                                            DatabaseReference PinnerRequest = FirebaseDatabase.getInstance().getReference("PinnerRequest").child(FirebaseAuth.getInstance().getUid()).child(mData.get(position).getPostKey());
+
+                                            PinnerRequest.setValue(pinnerData);
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+                                            Log.d("Fetch Token", "Error to fetching tokens because " + error);
+                                        }
+                                    }); // end of call Real time DB in tokens
+
+
+                                    Toast.makeText(mContext.getApplicationContext(), "ติดตามโพสต์นี้เรียบร้อย", Toast.LENGTH_SHORT).show();
+                                    bottomSheetDialog.dismiss();
+                                }
+                            });
+
+                            layoutReport = BottomSheetView.findViewById(R.id.layoutReport);
+                            layoutReport.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Toast.makeText(mContext.getApplicationContext(), "รายโพสต์นี้เรียบร้อย", Toast.LENGTH_SHORT).show();
+                                    bottomSheetDialog.dismiss();
+                                }
+                            });
+
                         }
-
-
-
                     }
                 });
 
@@ -625,7 +731,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                             if (snapshot.child(postKey).exists()) {
-
                                 commentReference.child(postKey).removeValue();
 
                             } else {
@@ -683,6 +788,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
 
     }
+
 
 
 

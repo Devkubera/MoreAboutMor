@@ -150,7 +150,7 @@
                 android:padding="15dp">
 
                 <android.widget.Button
-                    android:id="@+id/Btn_R"
+                    android:id="@+id/Btn_Rule"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="textStart"

@@ -41,13 +41,13 @@
                 android:id="@+id/textPin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginStart="15dp"
-                android:text="ปักหมุด"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/mitr_light"
+                android:text="ติดตามโพสต์"
                 android:textColor="@color/black"
                 android:textSize="14dp"
-                android:textStyle="bold"
-                android:fontFamily="@font/mitr_light"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textInfoPin"

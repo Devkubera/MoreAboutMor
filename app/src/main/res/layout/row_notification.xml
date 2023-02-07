@@ -19,6 +19,7 @@
             android:src="@drawable/custom_notification_bg" />
 
         <TextView
+            android:textColor="@color/darknight"
             android:id="@+id/row_noty_txtHeader"
             android:layout_width="240dp"
             android:layout_height="wrap_content"

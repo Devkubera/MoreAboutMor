@@ -1,6 +1,8 @@
 package com.example.moreaboutmoreapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,8 +16,10 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.moreaboutmoreapp.Activities.LoginActivity;
+import com.example.moreaboutmoreapp.Activities.MainActivity;
 import com.example.moreaboutmoreapp.Activities.ManagePostActivity;
 import com.example.moreaboutmoreapp.Activities.ProfileActivity;
+import com.example.moreaboutmoreapp.Activities.RulesActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -93,7 +97,7 @@ public class SettingFragment extends Fragment{
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
 
-    Button btn_EP, btn_epc , btn_aa, btn_logout;
+    Button btn_EP, btn_epc , btn_aa, btn_logout, btn_Rule;
     CircleImageView userProfile;
 
     @Override
@@ -180,6 +184,22 @@ public class SettingFragment extends Fragment{
             @Override
             public void onClick(View view) {
                 SingOut();
+            }
+        });
+
+        // Rule page
+        btn_Rule = view.findViewById(R.id.Btn_Rule);
+        btn_Rule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), RulesActivity.class);
+                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("RuleActivity", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("Status", "YES");
+                editor.apply();
+
+                startActivity(intent);
+
             }
         });
 

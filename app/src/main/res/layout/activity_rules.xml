@@ -72,7 +72,7 @@
             android:layout_centerHorizontal="true"
             android:background="@drawable/custom_button_white_v2"
             android:fontFamily="@font/mitr_semibold"
-            android:text="เริ่มต้นใช้งาน"
+            android:text="ฉันเข้าใจแล้ว"
             android:textColor="@color/black"
             android:textSize="20dp"
             android:visibility="invisible"/>

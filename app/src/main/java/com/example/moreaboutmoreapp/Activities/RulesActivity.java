@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.moreaboutmoreapp.Adapters.RulesAdapter;
 import com.example.moreaboutmoreapp.R;
+import com.example.moreaboutmoreapp.SettingFragment;
 
 public class RulesActivity extends AppCompatActivity {
 
@@ -78,9 +80,23 @@ public class RulesActivity extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(RulesActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
+                //Check First User
+                SharedPreferences preferences = getSharedPreferences("RuleActivity", MODE_PRIVATE);
+                String Status = preferences.getString("Status", "");
+
+                if (Status.equals("YES")) {
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("Status", "No");
+                    editor.apply();
+//                    Intent intent = new Intent(RulesActivity.this, SettingFragment.class);
+//                    startActivity(intent);
+                    finish();
+                } else {
+                    Intent intent = new Intent(RulesActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+
             }
         });
 

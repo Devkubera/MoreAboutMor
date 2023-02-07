@@ -337,15 +337,33 @@ public class PostDetailActivity extends AppCompatActivity {
                     bottomSheetDialog.setContentView(BottomSheetView);
                     bottomSheetDialog.show();
 
-                } else {
+                }
+                else {
 
                     bottomSheetDialog = new BottomSheetDialog(PostDetailActivity.this, R.style.BottomSheetDialog);
                     View BottomSheetView = LayoutInflater.from(PostDetailActivity.this)
                             .inflate(R.layout.bottom_sheet_dialog_more_menu, (RelativeLayout)view.findViewById(R.id.BottomSheetContainerProfile));
 
-
                     bottomSheetDialog.setContentView(BottomSheetView);
                     bottomSheetDialog.show();
+
+//                    layoutPin = BottomSheetView.findViewById(R.id.layoutPin);
+//                    layoutPin.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            Toast.makeText(getApplicationContext(), "ติดตามโพสต์นี้เรียบร้อย", Toast.LENGTH_SHORT).show();
+//                            bottomSheetDialog.dismiss();
+//                        }
+//                    });
+//
+//                    layoutReport = BottomSheetView.findViewById(R.id.layoutReport);
+//                    layoutReport.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            Toast.makeText(getApplicationContext(), "รายโพสต์นี้เรียบร้อย", Toast.LENGTH_SHORT).show();
+//                            bottomSheetDialog.dismiss();
+//                        }
+//                    });
 
                 }
             }

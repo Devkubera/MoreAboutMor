@@ -34,9 +34,6 @@
                     android:textColor="@color/white"
                     android:textSize="24dp"
                     android:shadowColor="@color/dark"
-                    android:shadowDx="1"
-                    android:shadowDy="1"
-                    android:shadowRadius="2"
                     android:layout_centerVertical="true"/>
 
                 <ImageView
@@ -56,7 +53,7 @@
 
             </RelativeLayout>
 
-            <!--
+
             <RelativeLayout
                 android:id="@+id/layout_search"
                 android:layout_width="wrap_content"
@@ -64,19 +61,27 @@
                 android:layout_below="@+id/LayoutProfile"
                 android:layout_centerHorizontal="true">
 
-                <SearchView
-                    android:id="@+id/search"
+                <EditText
+                    android:padding="8dp"
+                    android:id="@+id/search_txt"
                     android:layout_width="350dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
                     android:layout_marginTop="15dp"
-                    android:iconifiedByDefault="false"
-                    android:queryHint="ค้นหาโพสที่คุณต้องการได้ที่นี่"
-                    android:searchIcon="@drawable/ic_baseline_search_24"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="15dp"
                     android:background="@drawable/search_view_bg"
-                    android:queryBackground="@null" />
+                    android:fontFamily="@font/mitr_light"
+                    android:hint="ค้นหาโพสที่คุณต้องการได้ที่นี่"
+                    android:iconifiedByDefault="false"
+                    android:queryBackground="@null"
+                    android:drawableLeft="@drawable/ic_baseline_search_24"
+                    android:drawableTint="@color/grey_font"
+                    android:drawablePadding="10dp"
+                    android:textSize="12dp" />
 
             </RelativeLayout>
-            -->
+
 
             <RelativeLayout
                 android:id="@+id/layout_filter"
@@ -84,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="15dp"
-                android:layout_below="@+id/LayoutProfile"
+                android:layout_below="@+id/layout_search"
                 android:layout_centerHorizontal="true">
 
                 <RelativeLayout
@@ -112,6 +117,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:visibility="gone"
                     android:id="@+id/layoutPopularPost"
                     android:layout_width="100dp"
                     android:layout_height="30dp"

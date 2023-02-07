@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.preference.PreferenceManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +25,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
@@ -51,6 +54,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -112,7 +116,7 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
 
     TextView userName, textNoneInfo, textPosts, textPopular, textOld;
     CircleImageView userProfile;
-    SearchView searchView;
+    EditText searchText;
     BottomSheetDialog bottomSheetDialog;
 
     private TextInputLayout STag;
@@ -128,6 +132,9 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
 
     String itemSelectTag;
     String filterPost = "";
+
+    // for searching tag
+    RelativeLayout layoutTag;
 
     SharedPreferences sharedPreferences;
     private static final String SHARED_PROFILE_IMG = "myShared";
@@ -179,6 +186,8 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
     public void onResume() {
         super.onResume();
         backKeyPressedListener = this;
+
+
 
         //Retrieve Last Position RecyclerView onResume
         SharedPreferences getPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -477,9 +486,52 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
         // Create Notification Channel
         // notificationClass.createNotificationChannel(getContext());
 
+        // search text function
+        searchText = view.findViewById(R.id.search_txt);
+        searchText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // we will do here
+                filter(s.toString());
+            }
+        });
+
+        // changeLayout When user tap on tag button
+        // String msg = getArguments().getString("message", "");
+//        if (PostAdapter.changeLayout.equals("changeLayout")) {
+//            TextView textView = getView().findViewById(R.id.textFeeds);
+//            textView.setText("แท็กที่ค้นหา : " + itemSelectTag);
+//            PostAdapter.changeLayout = "no";
+//        }
+
         return view;
 
     } // onCreateView
+
+    private void filter(String text) {
+        ArrayList<Post> filterlist = new ArrayList<>();
+
+        for (Post item : postList) {
+            // we check text input by user matching content in any post
+            // with "contains()" method
+            if (item.getDetailComments().toLowerCase().contains(text.toLowerCase())) {
+                filterlist.add(item);
+            }
+        }
+
+        postAdapter.filterList(filterlist);
+
+    }
 
 
     //Function

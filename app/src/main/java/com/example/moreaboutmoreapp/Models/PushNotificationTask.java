@@ -87,6 +87,8 @@ public class PushNotificationTask extends AsyncTask<String, Void, String> {
             mtype = " ตึงความคิดเห็นของคุณในโพสต์ของเขา";
         } else if (type.equals("post moment")) {
             mtype = " ได้แสดงความคิดเห็นในโพสต์ของคุณ";
+        } else if (type.equals("pin post")) {
+            mtype = " ได้แสดงความคิดเห็นในโพสต์ของคุณ";
         }
 
         return mtype;
