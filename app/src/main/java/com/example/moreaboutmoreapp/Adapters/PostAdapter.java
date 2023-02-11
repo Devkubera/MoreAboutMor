@@ -29,8 +29,10 @@ import com.example.moreaboutmoreapp.HomeFragment;
 import com.example.moreaboutmoreapp.Models.PinnerData;
 import com.example.moreaboutmoreapp.Models.Post;
 import com.example.moreaboutmoreapp.Models.PushNotificationTask;
+import com.example.moreaboutmoreapp.Models.Report;
 import com.example.moreaboutmoreapp.Models.TokenStore;
 import com.example.moreaboutmoreapp.R;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -43,6 +45,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> {
@@ -222,22 +226,33 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         RelativeLayout layoutEdit, layoutDelete, layoutPin, layoutReport, layoutTag;
 
         Boolean testClick = false;
-        Button commentBtn, MoreMenu, EditPostButton;
+        Button commentBtn, MoreMenu, EditPostButton, ReportPostButton;
         ToggleButton likeBtn, dislikeBtn;
-        ProgressBar loadingProgress;
+        ProgressBar loadingProgress, progressBarReportPost;
 
         TextInputLayout Edit_Post;
+        TextInputLayout Report_Post;
         TextInputLayout EditSelectTag;
 
-        AutoCompleteTextView Edit_Tag;
-        ArrayAdapter<String> adapterItem;
-        String itemSelectTag;
+        AlertDialog builderReport;
+
+        AutoCompleteTextView Edit_Tag, Report_Tag;
+        ArrayAdapter<String> adapterItem, adapterItemReport;
+        String itemSelectTag, itemSelectTagReport;
         String[] EditTags = {"ปรึกษาการเรียน",
                 "ลงทะเบียนเรียน",
                 "หาเพื่อนทำงานกลุ่ม",
                 "หาเพื่อนติวหนังสือ",
                 "หาเพื่อนใหม่",
                 "คุยเล่น",
+                "อื่น ๆ"};
+
+        String[] ReportTags = {"การขายที่ไม่ได้รับอนุญาติ",
+                "สแปม",
+                "ความรุนแรง",
+                "คำพูดที่แสดงความเกลียดชัง",
+                "ข้อมูลเท็จ",
+                "การคุกคาม",
                 "อื่น ๆ"};
 
 
@@ -401,7 +416,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                             layoutDelete.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    AlertBox();
+                                    AlertBoxDelete();
                                     bottomSheetDialog.dismiss();
                                 }
                             });
@@ -468,11 +483,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                                 }
                             });
 
+                            // Report post process
                             layoutReport = BottomSheetView.findViewById(R.id.layoutReport);
                             layoutReport.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    Toast.makeText(mContext.getApplicationContext(), "รายโพสต์นี้เรียบร้อย", Toast.LENGTH_SHORT).show();
+                                    AlertBoxReport();
                                     bottomSheetDialog.dismiss();
                                 }
                             });
@@ -644,22 +660,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
         }
 
-        private boolean validateSelectTag() {
-            String tagInput = Edit_Tag.getText().toString().trim();
-
-            if (tagInput.isEmpty()) {
-                EditSelectTag.setError("Required");
-                EditPostButton.setVisibility(View.VISIBLE);
-                loadingProgress.setVisibility(INVISIBLE);
-                return false;
-            } else {
-                EditSelectTag.setError(null);
-                return true;
-            }
-        }
-
         //AlertBox
-        private void AlertBox() {
+        private void AlertBoxDelete() {
 
             LayoutInflater layoutInflater = LayoutInflater.from(mContext);
             View view = layoutInflater.inflate(R.layout.confirm_delete_dialog, null);
@@ -766,6 +768,180 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
         }
 
+        private void AlertBoxReport() {
+
+            LayoutInflater layoutInflater = LayoutInflater.from(mContext);
+            View view = layoutInflater.inflate(R.layout.confirm_report_dialog, null);
+
+            //Create AlertDialog
+            builderReport = new AlertDialog.Builder(mContext)
+                    .setView(view)
+                    .create();
+
+            progressBarReportPost = view.findViewById(R.id.progressBarReportPost);
+
+            Report_Post = view.findViewById(R.id.reportTag);
+            Report_Tag = view.findViewById(R.id.Report_Tag);
+            adapterItemReport = new ArrayAdapter<String>(mContext,R.layout.list_item_tag_report,ReportTags);
+            Report_Tag.setAdapter(adapterItemReport);
+            Report_Tag.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    itemSelectTagReport = parent.getItemAtPosition(position).toString();
+
+                }
+            });
+            //Click To Report Post
+            ReportPostButton = view.findViewById(R.id.okButton);
+            ReportPostButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //Close AlertDialog
+
+
+                    int position = getAdapterPosition();
+                    postKey = mData.get(position).getPostKey();
+
+                    if (!validateSelectTagReport()) {
+                        return;
+                    } else {
+                        Report report = new Report(mData.get(position).getPostKey(), mData.get(position).getDetailComments(), mData.get(position).getUserId(), mData.get(position).getUserName(), mData.get(position).getNickName(), mData.get(position).getSelectTag(), mData.get(position).getTimeStamp(), mData.get(position).getSelectTag(), firebaseUser.getDisplayName(), itemSelectTagReport);
+                        addReport(report);
+                        //DatabaseReference userDataRef = db.getReference("allPost").child(postEditKey);
+
+                        //Update Comment and Tag
+                        //userDataRef.child("detailComments").setValue(updateComment);
+                        //userDataRef.child("selectTag").setValue(itemSelectTag);
+
+                        //bottomSheetDialogEditPost.dismiss();
+
+                    }
+
+                    /*
+
+                    //Remove Value Post
+                    postReference = FirebaseDatabase.getInstance().getReference("allPost");
+                    postReference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                            if (snapshot.child(postKey).exists()) {
+
+                                postReference.child(postKey).removeValue();
+
+                            } else {
+                                //Toast.makeText(mContext, "เกิดข้อผิดพลาด ลองอีกครั้ง", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+                    //Remove Value Like
+                    likeReference = FirebaseDatabase.getInstance().getReference("likes");
+                    likeReference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                            if (snapshot.child(postKey).exists()) {
+
+                                likeReference.child(postKey).removeValue();
+
+                            } else {
+
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+                    //Remove Value Comment
+                    commentReference = FirebaseDatabase.getInstance().getReference("Comment");
+                    commentReference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                            if (snapshot.child(postKey).exists()) {
+                                commentReference.child(postKey).removeValue();
+
+                            } else {
+
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+                     */
+
+                }
+            });
+
+
+
+            builderReport.show();
+
+        }
+
+        private void addReport(Report report) {
+            FirebaseDatabase db = FirebaseDatabase.getInstance();
+            DatabaseReference myRef = db.getReference("allReport").push();
+
+            //Add post data to firebase database
+            myRef.setValue(report).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                    //showMessage("Post added successfully");
+                    ReportPostButton.setVisibility(INVISIBLE);
+                    progressBarReportPost.setVisibility(View.VISIBLE);
+
+                    builderReport.dismiss();
+                    Toast.makeText(mContext, "รายงานโพสต์นี้เรียบร้อย", Toast.LENGTH_SHORT).show();
+
+                }
+            });
+        }
+
+        private boolean validateSelectTag() {
+            String tagInput = Edit_Tag.getText().toString().trim();
+
+            if (tagInput.isEmpty()) {
+                EditSelectTag.setError("Required");
+                EditPostButton.setVisibility(View.VISIBLE);
+                loadingProgress.setVisibility(INVISIBLE);
+                return false;
+            } else {
+                EditSelectTag.setError(null);
+                return true;
+            }
+        }
+
+        private boolean validateSelectTagReport() {
+            String tagInput = Report_Tag.getText().toString().trim();
+
+            if (tagInput.isEmpty()) {
+                Report_Post.setError("Required");
+                ReportPostButton.setVisibility(View.VISIBLE);
+                progressBarReportPost.setVisibility(INVISIBLE);
+                return false;
+            } else {
+                Report_Post.setError(null);
+                return true;
+            }
+        }
+
         private void updateCommentTag(String updateComment, String itemSelectTag) {
 
             if (!validateSelectTag()) {
@@ -788,8 +964,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
 
     }
-
-
 
 
     private static final int SECOND_MILLIS = 1000;
