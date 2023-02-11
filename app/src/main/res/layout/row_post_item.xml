@@ -5,8 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <TextView
+        android:id="@+id/tagStatus"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/mitr_regular"
+        android:text="ท่านกำลังค้นหา Tag ..."
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="16dp" />
 
     <androidx.cardview.widget.CardView
+        android:layout_below="@+id/tagStatus"
         android:id="@+id/CV_Row_Post"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

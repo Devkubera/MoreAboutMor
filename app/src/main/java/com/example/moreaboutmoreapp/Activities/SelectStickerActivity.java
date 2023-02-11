@@ -241,7 +241,7 @@ public class SelectStickerActivity extends AppCompatActivity {
                     // Not do anything
                 } else {
                     PushNotificationTask pushNotificationTask = new PushNotificationTask();
-                    pushNotificationTask.execute(tokens, user_nickname, type, uidReceiver);
+                    pushNotificationTask.execute(tokens, user_nickname, type, uidReceiver, postKey);
                 }
             }
 

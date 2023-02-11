@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/subjectList_addSubjectView"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_picture"
+    tools:context=".Activities.SubjectListSearchActivity">
+
+    <!-- Header -->
+    <RelativeLayout
+        android:id="@+id/CV_BackAddSubject"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:layout_marginTop="-10dp"
+        android:layout_centerHorizontal="true">
+
+        <!-- BTN BACK -->
+        <ImageView
+            android:id="@+id/Btn_BackAddSubject"
+            android:layout_centerVertical="true"
+            android:layout_width="40dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="28dp"
+            android:src="@drawable/back_circle_button" />
+
+        <RelativeLayout
+            android:id="@+id/LayoutFont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/Btn_BackAddSubject">
+
+            <TextView
+                android:id="@+id/imgAddSubject"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginStart="25dp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/mitr_regular"
+                android:textSize="24dp"
+                android:text="เพิ่มรายวิชา"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:visibility="visible"
+        android:id="@+id/layout_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/CV_BackAddSubject"
+        android:layout_centerHorizontal="true">
+
+        <RelativeLayout
+            android:id="@+id/subject_addBox_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:enabled="true"
+                android:id="@+id/subject_addBox1"
+                android:padding="8dp"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/search_view_fill"
+                android:fontFamily="@font/mitr_light"
+                android:hint="ค้นหารายวิชาด้วยชื่อหรือรหัสวิชา"
+                android:textColorHint="@color/dark_gray"
+                android:iconifiedByDefault="false"
+                android:queryBackground="@null"
+                android:drawableLeft="@drawable/ic_baseline_search_24"
+                android:drawableTint="@color/dark_gray"
+                android:drawablePadding="10dp"
+                android:textColor="@color/white"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/subject_addBox2"
+                android:layout_below="@+id/subject_addBox1"
+                android:padding="8dp"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/search_view_fill"
+                android:fontFamily="@font/mitr_light"
+                android:hint="ค้นหารายวิชาด้วยชื่อหรือรหัสวิชา"
+                android:textColorHint="@color/dark_gray"
+                android:iconifiedByDefault="false"
+                android:queryBackground="@null"
+                android:drawableLeft="@drawable/ic_baseline_search_24"
+                android:drawableTint="@color/dark_gray"
+                android:drawablePadding="10dp"
+                android:textColor="@color/white"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/subject_addBox3"
+                android:layout_below="@+id/subject_addBox2"
+                android:padding="8dp"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/search_view_fill"
+                android:fontFamily="@font/mitr_light"
+                android:hint="ค้นหารายวิชาด้วยชื่อหรือรหัสวิชา"
+                android:textColorHint="@color/dark_gray"
+                android:iconifiedByDefault="false"
+                android:queryBackground="@null"
+                android:drawableLeft="@drawable/ic_baseline_search_24"
+                android:drawableTint="@color/dark_gray"
+                android:drawablePadding="10dp"
+                android:textColor="@color/white"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/subject_addBox4"
+                android:layout_below="@+id/subject_addBox3"
+                android:padding="8dp"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/search_view_fill"
+                android:fontFamily="@font/mitr_light"
+                android:hint="ค้นหารายวิชาด้วยชื่อหรือรหัสวิชา"
+                android:textColorHint="@color/dark_gray"
+                android:iconifiedByDefault="false"
+                android:queryBackground="@null"
+                android:drawableLeft="@drawable/ic_baseline_search_24"
+                android:drawableTint="@color/dark_gray"
+                android:drawablePadding="10dp"
+                android:textColor="@color/white"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/subject_addBox5"
+                android:layout_below="@+id/subject_addBox4"
+                android:padding="8dp"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/search_view_fill"
+                android:fontFamily="@font/mitr_light"
+                android:hint="ค้นหารายวิชาด้วยชื่อหรือรหัสวิชา"
+                android:textColorHint="@color/dark_gray"
+                android:iconifiedByDefault="false"
+                android:queryBackground="@null"
+                android:drawableLeft="@drawable/ic_baseline_search_24"
+                android:drawableTint="@color/dark_gray"
+                android:drawablePadding="10dp"
+                android:textColor="@color/white"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/subject_addBox_status"
+                android:layout_below="@+id/subject_addBox5"
+                android:layout_width="350dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="15dp"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:background="@drawable/custom_selected_status"
+                android:fontFamily="@font/mitr_regular"
+                android:textColor="@color/white"
+                android:text="กรุณาเลือกอย่างน้อย 3 รายวิชา เพื่อรับ more point"
+                android:textSize="14dp" />
+
+            <android.widget.Button
+                android:id="@+id/Btn_AddSubject"
+                android:layout_below="@+id/subject_addBox_status"
+                android:layout_width="355dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/mitr_medium"
+                android:textColor="@color/nav_color"
+                android:gravity="center"
+                android:backgroundTint="@color/white"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="15dp"
+                android:text="ตกลง"
+                android:textSize="18dp" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

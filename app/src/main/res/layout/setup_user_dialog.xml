@@ -44,7 +44,7 @@
                android:layout_centerHorizontal="true"
                android:layout_below="@+id/pic_setup_hi"
                android:text="มาเริ่มใช้งานแอปพลิเคชันด้วยการอ่านกติกา"
-               android:textSize="17dp"
+               android:textSize="16dp"
                android:textColor="@color/dark"
                android:fontFamily="@font/mitr_light"/>
 
@@ -56,7 +56,7 @@
                android:layout_centerHorizontal="true"
                android:layout_below="@+id/text_InfoSetup02"
                android:text="การใช้งานแอปพลิเคชันกันเลย :)"
-               android:textSize="17dp"
+               android:textSize="16dp"
                android:textColor="@color/dark"
                android:fontFamily="@font/mitr_light"/>
 

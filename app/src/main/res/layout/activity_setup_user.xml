@@ -134,7 +134,7 @@
                 android:fontFamily="@font/mitr_medium"
                 android:text="ตั้งชื่อ"
                 android:textColor="@color/white"
-                android:textSize="18dp" />
+                android:textSize="16dp" />
 
             <ProgressBar
                 android:id="@+id/progressBar"

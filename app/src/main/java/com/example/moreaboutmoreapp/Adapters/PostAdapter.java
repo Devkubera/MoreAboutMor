@@ -1,10 +1,12 @@
 package com.example.moreaboutmoreapp.Adapters;
 
+import static android.content.Context.MODE_PRIVATE;
 import static android.view.View.INVISIBLE;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -53,6 +55,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
     DatabaseReference postReference, likeReference, commentReference, tokenReference;
     FirebaseUser firebaseUser;
     FirebaseAuth firebaseAuth;
+    public static TextView showStatusText;
 
     // For notification
     // Not used NAJA NotificationClass notificationClass = NotificationClass.getInstance();
@@ -60,7 +63,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
     // for tag reset layout
     public static String changeLayout = "";
 
-    public static String tokens, nickname;
+    public static String tokens;
+    String nickname;
+
+    // for reset tag
+    public static ArrayList<Post> filterResetTag;
 
     //CardView CV_Row_Post;
 
@@ -207,6 +214,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
     public void filterList(ArrayList<Post> filterlist) {
         mData = filterlist;
+        if (mData.isEmpty()) {
+            Toast.makeText(mContext, "ไม่มีโพสต์ที่ท่านกำลังค้นหาอยู่ในขณะนี้", Toast.LENGTH_LONG).show();
+        }
         notifyDataSetChanged();
     }
 
@@ -246,9 +256,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
             super(itemView);
 
             //CV_Row_Post = itemView.findViewById(R.id.CV_Row_Post);
-
+             filterResetTag = new ArrayList<>();
 
             db = FirebaseDatabase.getInstance();
+
+            // for reset tag search
+            showStatusText = itemView.findViewById(R.id.tagStatus);
 
             textTag = itemView.findViewById(R.id.textPosts);
             imgUser = itemView.findViewById(R.id.userProfile);
@@ -271,7 +284,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                 public void onClick(View v) {
                     String tag = textTag.getText().toString();
                     filterTag(tag);
-
                 }
 
                 private void filterTag(String tag) {
@@ -283,23 +295,33 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                         if (item.getSelectTag().toLowerCase().contains(tag.toLowerCase())) {
                             filterTag.add(item);
                         }
+                        filterResetTag.add(item);
                     }
 
+                    // showing textview
+                    int position = getAdapterPosition();
+                    showStatusText.setText("Tag : " + mData.get(position).getSelectTag());
+                    showStatusText.setVisibility(View.VISIBLE);
 
+//                    Bundle bundle = new Bundle();
+//                    changeLayout = "changeLayout";
+//                    bundle.putString("message", changeLayout);
+//
+//                    // Set Fragmentclass Arguments
+//                    HomeFragment fragobj = new HomeFragment();
+//                    fragobj.setArguments(bundle);
 
-                    Bundle bundle = new Bundle();
-                    changeLayout = "changeLayout";
-                    bundle.putString("message", changeLayout);
-
-                    // Set Fragmentclass Arguments
-                    HomeFragment fragobj = new HomeFragment();
-                    fragobj.setArguments(bundle);
                     filterList(filterTag);
 
-//                    View newLayout = LayoutInflater.from(mContext.getApplicationContext()).inflate(R.layout.fragment_home,null,false);
-//                    TextView textView = newLayout.findViewById(R.id.textFeeds);
-//                    textView.setText("แท็กที่ค้นหา ");
+                }
+            });
 
+//             unit test in reset tag selected
+            showStatusText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    filterList(filterResetTag);
+                    showStatusText.setVisibility(View.GONE);
                 }
             });
 
@@ -492,10 +514,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                     userID = mData.get(position).getUserId();
 
                     // get nickname from firebase
-                    String nickname = getNickName();
 
-                    // set type notification
-                    String type = "like post";
+//                    do {
+//                        nickname = getNickName();
+//                        Log.d("Check nickname", "onCancelled: " + nickname);
+//                    } while (nickname == null);
+
+
 
 
                     likeReference = FirebaseDatabase.getInstance().getReference("likes");
@@ -511,7 +536,19 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                                     likeReference.child(postKeyLike).child(firebaseUser.getUid()).removeValue();
                                     testClick = false;
 
+                                    String nickname = getNickName();
+
                                 } else {
+                                    String nickname;
+                                    nickname = getNickName();
+                                    // Log.d("Check nickname", "onCancelled: " + nickname);
+
+                                    SharedPreferences pref = mContext.getSharedPreferences("nicknameFirebase",MODE_PRIVATE);
+                                    String finalNickname = pref.getString("names", getNickName());
+                                    Log.d("Check nickname", "final nickname: " + finalNickname);
+                                    // set type notification
+                                    String type = "like post";
+
                                     //Set Value Like
                                     likeReference.child(postKeyLike).child(firebaseUser.getUid()).setValue("true");
                                     testClick = false;
@@ -530,13 +567,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                                             // get uid receiver is mean owner content that you make event noty happen
                                             String uidReceiver = mData.get(position).getUserId();
 
+                                            // get post key
+                                            String postKey = mData.get(position).getPostKey();
+
                                             // if an pusher and receiver notification is a same user
                                             // notification should not show on display
                                             if (FirebaseAuth.getInstance().getUid().equals(uidReceiver)) {
                                                 // Not do anything
                                             } else {
                                                 PushNotificationTask pushNotificationTask = new PushNotificationTask();
-                                                pushNotificationTask.execute(tokens, nickname, type, uidReceiver);
+                                                pushNotificationTask.execute(tokens, finalNickname, type, uidReceiver, postKey);
                                             }
                                         }
 
@@ -561,15 +601,19 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                 }
 
                 public String getNickName() {
-
-                    String uid = firebaseAuth.getUid();
+                    String uid = FirebaseAuth.getInstance().getUid();
                     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("userData").child(uid).child("name");
-                    System.out.println(databaseReference);
+                    //System.out.println(databaseReference);
                     databaseReference.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             nickname = snapshot.getValue().toString();
-                            //Toast.makeText(mContext, nickname, Toast.LENGTH_SHORT).show();
+                            SharedPreferences pref = mContext.getSharedPreferences("nicknameFirebase", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = pref.edit();
+                            editor.putString("names", nickname);
+                            editor.apply();
+                            Toast.makeText(mContext, pref.getString("names","OMG"), Toast.LENGTH_SHORT).show();
+
                         }
 
                         @Override
@@ -577,7 +621,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                             Log.d("get nick name", "onCancelled: " + error);
                         }
                     });
-                    //Log.d("CHECK NICKNAME", "getNickName: " + nickname);
+                    Log.d("CHECK NICKNAME", "getNickName: " + nickname);
                     return nickname;
                 }
             });

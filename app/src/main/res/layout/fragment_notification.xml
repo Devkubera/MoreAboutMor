@@ -11,6 +11,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/textGONE"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="28dp"
+            android:fontFamily="@font/mitr_regular"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:text="ยังไม่มีแจ้งเตือนในขณะนี้"
+            android:textColor="@color/white"
+            android:alpha="0.5" />
+
         <RelativeLayout
             android:id="@+id/LayoutProfile"
             android:layout_width="wrap_content"

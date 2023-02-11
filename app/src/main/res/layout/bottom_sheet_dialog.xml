@@ -15,8 +15,8 @@
         android:layout_marginTop="15dp"
         android:layout_centerHorizontal="true"
         android:text="เขียนโพสต์"
-        android:textColor="@color/black"
-        android:textSize="20dp"
+        android:textColor="@color/darknight"
+        android:textSize="16dp"
         android:fontFamily="@font/mitr_medium"/>
 
     <!-- Line Top-->
@@ -50,10 +50,10 @@
             android:layout_height="200dp"
             android:hint="เขียนโพสต์ของคุณ..."
             android:gravity="top|start"
-            android:textColor="@color/black"
-            android:textSize="18dp"
+            android:textColor="@color/darknight"
+            android:textSize="14dp"
             android:inputType="textMultiLine"
-            android:fontFamily="@font/mitr_medium">
+            android:fontFamily="@font/mitr_regular">
         </com.google.android.material.textfield.TextInputEditText>
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -91,7 +91,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/mitr_light"
-            android:textColor="@color/black"
+            android:textColor="@color/darknight"
             android:textSize="14dp"
             android:inputType="none"/>
 
@@ -107,7 +107,7 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:text="โพสต์"
-        android:textSize="20dp"
+        android:textSize="16dp"
         android:textColor="@color/white"
         android:background="@color/nav_color"
         android:fontFamily="@font/mitr_medium"/>

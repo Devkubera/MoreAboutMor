@@ -49,7 +49,7 @@
             android:fontFamily="@font/mitr_medium"
             android:text="เริ่มต้นใช้งาน"
             android:textColor="@color/white"
-            android:textSize="18dp"
+            android:textSize="16dp"
             android:visibility="invisible"/>
 
     </RelativeLayout>
