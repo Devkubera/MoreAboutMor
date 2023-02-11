@@ -25,6 +25,7 @@ import com.example.moreaboutmoreapp.Activities.LoginActivity;
 import com.example.moreaboutmoreapp.Activities.ManagePostActivity;
 import com.example.moreaboutmoreapp.Adapters.ManagePostAdapter;
 import com.example.moreaboutmoreapp.Models.Post;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -87,6 +88,12 @@ public class ManagePostFragment extends Fragment implements BackKeyPressedListen
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        showBottomNavigationView();
     }
 
     @Override
@@ -225,9 +232,25 @@ public class ManagePostFragment extends Fragment implements BackKeyPressedListen
             }
         });
 
+        hideBottomNavigationView();
 
         return view;
     }
 
+    private void hideBottomNavigationView() {
+        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.nav);
+        bottomNavigationView.setVisibility(View.GONE);
+
+        View shadowNav = getActivity().findViewById(R.id.shadowNav);
+        shadowNav.setVisibility(View.GONE);
+    }
+
+    private void showBottomNavigationView() {
+        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.nav);
+        bottomNavigationView.setVisibility(View.VISIBLE);
+
+        View shadowNav = getActivity().findViewById(R.id.shadowNav);
+        shadowNav.setVisibility(View.VISIBLE);
+    }
 
 }
