@@ -64,10 +64,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
     //CardView CV_Row_Post;
 
+
+
     public PostAdapter(Context mContext, List<Post> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
+
 
     @NonNull
     @Override
@@ -215,7 +218,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
         FirebaseDatabase db;
 
         ImageView imgUser;
-        TextView textTag, textUser, textTime, textPost, textViewMore, textCountLike, textCountDisLike, commentCount;
+        TextView textFeed ,textTag, textUser, textTime, textPost, textViewMore, textCountLike, textCountDisLike, commentCount;
 
         BottomSheetDialog bottomSheetDialog, bottomSheetDialogEditPost;
 
@@ -272,6 +275,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                     String tag = textTag.getText().toString();
                     filterTag(tag);
 
+
                 }
 
                 private void filterTag(String tag) {
@@ -295,6 +299,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                     HomeFragment fragobj = new HomeFragment();
                     fragobj.setArguments(bundle);
                     filterList(filterTag);
+
+
 
 //                    View newLayout = LayoutInflater.from(mContext.getApplicationContext()).inflate(R.layout.fragment_home,null,false);
 //                    TextView textView = newLayout.findViewById(R.id.textFeeds);
