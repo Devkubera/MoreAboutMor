@@ -2,11 +2,8 @@ package com.example.moreaboutmoreapp.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -22,10 +19,10 @@ import com.example.moreaboutmoreapp.MenuFragment;
 import com.example.moreaboutmoreapp.Models.GeLink;
 import com.example.moreaboutmoreapp.Models.ModelFacultyData;
 import com.example.moreaboutmoreapp.Models.NotificationCenter;
+import com.example.moreaboutmoreapp.Models.SubjectModel;
 import com.example.moreaboutmoreapp.Models.User;
 import com.example.moreaboutmoreapp.NotificationFragment;
 import com.example.moreaboutmoreapp.R;
-import com.example.moreaboutmoreapp.RegisterFragment;
 import com.example.moreaboutmoreapp.SettingFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -38,7 +35,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.inappmessaging.FirebaseInAppMessaging;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 
@@ -47,6 +43,7 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -60,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     // For Api
     private static String studyApiURL = "https://script.google.com/macros/s/AKfycbwKcPctrw2a_L90xtp32dXMr30XRNRoQ9OIw2-gMKhk83pU23Vv25XEsEAvFLfWEPkO/exec";
     private static String geApiURL = "https://script.google.com/macros/s/AKfycbyZWz1QLjtkmWBnDPHE1r5YSYUK8owLJJlEZhXRbklL49Mhx01GWaK5oC9PZIIuKHF1/exec";
+    private static String subjectAPI = "https://script.google.com/macros/s/AKfycbx3lL_w-eojKyxW4pIVOkutcxGGn0Ao525k-9GLG8rNXbG7E0dVCm_ivZuvRuyPs5Yc/exec";
 
     // For FCM
     NotificationCenter notificationCenter;
@@ -98,6 +96,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         // CALL API GE
         FetchingGeAPI ge = new FetchingGeAPI();
         ge.execute(geApiURL);
+
+        // CALL SUBJECT API
+        FetchingSubjectAPI fetchingSubjectAPI = new FetchingSubjectAPI();
+        fetchingSubjectAPI.execute(subjectAPI);
 
         /** get token for FCM */
         getTokenFCM();
@@ -220,7 +222,52 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     }
 
-    // For Menu Study Plan, GE and Study Course Description
+    // For Menu Study Plan, GE and Study Course Description, and fetching subject data
+    private class FetchingSubjectAPI extends AsyncTask<String, Void, String> {
+        protected String doInBackground(String... urls) {
+            BufferedReader reader;
+            try {
+                URL url = new URL(urls[0]);
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                try {
+                    String[] arrayCut = new String[1];
+
+                    // Read the response from the API
+                    reader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                    StringBuilder result = new StringBuilder();
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        result.append(line).append("\n");
+                    }
+                    reader.close();
+
+                    // parse json to string
+                    Gson gson = new Gson();
+                    Type itemListType = new TypeToken<List<SubjectModel>>() {}.getType();
+                    List<SubjectModel> items = gson.fromJson(result.toString(), itemListType);
+                    List<SubjectModel> saveToSharePref = new ArrayList<>();
+                    // fetch data from api and store in variable
+                    for (SubjectModel data : items) {
+                        saveToSharePref.add(data);
+                        //System.out.println("Subject data : " + data.getName());
+                    }
+                    // add to sqlite
+                    sqLiteSubject(saveToSharePref);
+
+
+                } finally {
+                    urlConnection.disconnect();
+                }
+            } catch (Exception e) {
+                Log.e("Error fetching subject API : ", e.getMessage(), e);
+                return null;
+            }
+            return reader.toString();
+        }
+        protected void onPostExecute (String response) {
+
+        }
+    }
 
     private class FetchingFacultyAPI extends AsyncTask<String, Void, String> {
         protected String doInBackground(String... urls) {
@@ -358,6 +405,28 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         String x = sharedPreferences.getString("Major", "หาไม่เจอจ้า");
 //        System.out.println("x " + x);
+    }
+
+    private void sqLiteSubject(List<SubjectModel> data) {
+        // Declare SharePreference
+        SharedPreferences sharedPreferences = getSharedPreferences("subjectData", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        // make array to json
+        Gson gson = new Gson();
+        String json = gson.toJson(data);
+
+//        editor.putString("id", data.getId());
+//        editor.putString("faculty", data.getFaculty());
+//        editor.putString("branch", data.getBranch());
+//        editor.putString("passcode", data.getPasscode());
+//        editor.putString("name", data.getName());
+//        editor.putString("source", data.getSource());
+        editor.putString("dataSet", json);
+        editor.apply();
+
+        Log.d("TAG", "sqLiteSubject: " + json);
+        Log.d("TAG", "Get sharepreference: " + sharedPreferences.getString("dataSet", "null"));
     }
 
     private void sqLiteGe(String link) {

@@ -97,7 +97,7 @@ public class SettingFragment extends Fragment{
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
 
-    Button btn_EP, btn_epc , btn_aa, btn_logout, btn_Rule;
+    Button btn_EP, btn_epc , btn_aa, btn_logout, btn_Rule, btn_SubjectList;
     CircleImageView userProfile;
 
     @Override
@@ -200,6 +200,16 @@ public class SettingFragment extends Fragment{
 
                 startActivity(intent);
 
+            }
+        });
+
+        // Subject List
+        btn_SubjectList = view.findViewById(R.id.Btn_SL);
+        btn_SubjectList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), com.example.moreaboutmoreapp.Activities.subjectListActivity.class);
+                startActivity(intent);
             }
         });
 

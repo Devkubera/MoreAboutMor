@@ -31,8 +31,8 @@
         android:layout_marginTop="15dp"
         android:layout_centerHorizontal="true"
         android:text="เลือกสติ๊กเกอร์"
-        android:textColor="@color/black"
-        android:textSize="20dp"
+        android:textColor="@color/darknight"
+        android:textSize="16dp"
         android:fontFamily="@font/mitr_medium"/>
 
     <View
@@ -93,7 +93,7 @@
             android:textSize="16dp"
             android:textColor="@color/white"
             android:background="@color/nav_color"
-            android:fontFamily="@font/mitr_regular" />
+            android:fontFamily="@font/mitr_medium" />
 
         <ProgressBar
             android:id="@+id/progressBarSticker"

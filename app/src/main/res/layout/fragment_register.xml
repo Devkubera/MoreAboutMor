@@ -275,7 +275,7 @@
                 android:fontFamily="@font/mitr_medium"
                 android:text="สมัคร"
                 android:textColor="@color/white"
-                android:textSize="18dp" />
+                android:textSize="16dp" />
 
 
         </com.google.android.material.card.MaterialCardView>

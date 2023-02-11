@@ -7,10 +7,51 @@
     android:background="@color/nav_color"
     tools:context=".HomeFragment">
 
+
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+<!--        <androidx.coordinatorlayout.widget.CoordinatorLayout-->
+<!--            xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--            xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--            android:id="@+id/coordinator_layout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent">-->
+
+<!--            <LinearLayout-->
+<!--                android:id="@+id/top_sheet"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="#FFFFFF"-->
+<!--                android:orientation="vertical"-->
+<!--                app:layout_behavior="com.example.moreaboutmoreapp.TopSheetBehavior">-->
+
+<!--                &lt;!&ndash; Your top sheet content goes here &ndash;&gt;-->
+<!--                <EditText-->
+<!--                    android:layout_centerHorizontal="true"-->
+<!--                    android:padding="8dp"-->
+<!--                    android:id="@+id/top_search"-->
+<!--                    android:layout_width="350dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="15dp"-->
+<!--                    android:layout_marginTop="15dp"-->
+<!--                    android:layout_marginEnd="15dp"-->
+<!--                    android:layout_marginBottom="15dp"-->
+<!--                    android:background="@drawable/search_view_bg"-->
+<!--                    android:fontFamily="@font/mitr_light"-->
+<!--                    android:hint="ค้นหาโพสต์ที่คุณต้องการได้ที่นี่"-->
+<!--                    android:iconifiedByDefault="false"-->
+<!--                    android:queryBackground="@null"-->
+<!--                    android:drawableLeft="@drawable/ic_baseline_search_24"-->
+<!--                    android:drawableTint="@color/grey_font"-->
+<!--                    android:drawablePadding="10dp"-->
+<!--                    android:textSize="12dp" />-->
+
+<!--            </LinearLayout>-->
+
+<!--        </androidx.coordinatorlayout.widget.CoordinatorLayout>-->
 
         <RelativeLayout
             android:id="@+id/LayoutTop"
@@ -26,7 +67,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/textFeeds"
+                    android:id="@+id/homeHeader"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/mitr_regular"
@@ -37,7 +78,8 @@
                     android:layout_centerVertical="true"/>
 
                 <ImageView
-                    android:id="@+id/se"
+                    android:visibility="gone"
+                    android:id="@+id/search_circle_btn"
                     android:layout_width="39dp"
                     android:layout_height="39dp"
                     android:layout_marginEnd="10dp"
@@ -55,6 +97,7 @@
 
 
             <RelativeLayout
+                android:visibility="visible"
                 android:id="@+id/layout_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -64,13 +107,13 @@
                 <EditText
                     android:padding="8dp"
                     android:id="@+id/search_txt"
-                    android:layout_width="350dp"
+                    android:layout_width="390dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginEnd="15dp"
                     android:layout_marginBottom="15dp"
-                    android:background="@drawable/search_view_bg"
+                    android:background="@drawable/search_view_fill"
                     android:fontFamily="@font/mitr_light"
                     android:hint="ค้นหาโพสที่คุณต้องการได้ที่นี่"
                     android:iconifiedByDefault="false"
@@ -78,7 +121,7 @@
                     android:drawableLeft="@drawable/ic_baseline_search_24"
                     android:drawableTint="@color/grey_font"
                     android:drawablePadding="10dp"
-                    android:textSize="12dp" />
+                    android:textSize="14dp" />
 
             </RelativeLayout>
 
@@ -92,6 +135,7 @@
                 android:layout_below="@+id/layout_search"
                 android:layout_centerHorizontal="true">
 
+                <!-- Lasted filter post -->
                 <RelativeLayout
                     android:id="@+id/layoutNewPost"
                     android:layout_width="100dp"
@@ -116,6 +160,7 @@
 
                 </RelativeLayout>
 
+                <!-- Oldest filter post -->
                 <RelativeLayout
                     android:visibility="gone"
                     android:id="@+id/layoutPopularPost"
@@ -142,6 +187,7 @@
 
                 </RelativeLayout>
 
+                <!-- Popular filter post -->
                 <RelativeLayout
                     android:id="@+id/layoutOldPost"
                     android:layout_width="100dp"
@@ -167,6 +213,54 @@
 
                 </RelativeLayout>
 
+                <!-- Spinner that not usage. -->
+                <RelativeLayout
+                    android:visibility="visible"
+                    android:background="@drawable/custom_filter"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@+id/layoutOldPost"
+                    android:id="@+id/layoutFilterTag"
+                    android:layout_width="300dp"
+                    android:layout_height="30dp">
+
+                    <Spinner
+                        android:id="@+id/spinner_tag"
+                        android:textAlignment="textStart"
+                        android:layout_centerVertical="true"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:spinnerMode="dropdown" />
+
+                </RelativeLayout>
+
+                <!-- Select box layout -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:visibility="gone"
+                    android:id="@+id/filterBoxTag"
+                    android:layout_marginTop="-5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/layoutOldPost"
+                    android:hint="โพสต์ทั้งหมด"
+                    app:endIconTint="@color/dark"
+                    android:textColorHint="@color/dark"
+                    app:startIconTint="@color/dark"
+                    app:errorEnabled="true"
+                    style="@style/DropdownMenuLayoutStyle">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/filterSelectTag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/mitr_regular"
+                        android:textColor="@color/darknight"
+                        android:textSize="14dp"
+                        android:inputType="none"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
 
             </RelativeLayout>
 

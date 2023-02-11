@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,17 +27,22 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.moreaboutmoreapp.Activities.ProfileActivity;
 import com.example.moreaboutmoreapp.Activities.SetupUserActivity;
 import com.example.moreaboutmoreapp.Adapters.PostAdapter;
+import com.example.moreaboutmoreapp.Adapters.TagAdapter;
 import com.example.moreaboutmoreapp.Models.Post;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputLayout;
@@ -117,7 +123,10 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
     TextView userName, textNoneInfo, textPosts, textPopular, textOld;
     CircleImageView userProfile;
     EditText searchText;
-    BottomSheetDialog bottomSheetDialog;
+    BottomSheetDialog bottomSheetDialog, bottomSearchDialog;
+
+    // for search circle image
+    ImageView search_btn;
 
     private TextInputLayout STag;
     AutoCompleteTextView selectTag;
@@ -136,12 +145,17 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
     // for searching tag
     RelativeLayout layoutTag;
 
+    // for spinner tag work with filter post new and old
+    public static String spinnerTagStatus, spinnerTagValue;
+
     SharedPreferences sharedPreferences;
     private static final String SHARED_PROFILE_IMG = "myShared";
     private static final String KEY_IMG = "myURI";
 
     private boolean isPaused = false;
 
+    // for top sheet search
+    BottomSheetBehavior topSheetSearch;
 
 
 
@@ -157,6 +171,7 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+            HomeFragment homeFragment = new HomeFragment();
         }
 
     }
@@ -214,8 +229,6 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
             }
 
         }
-
-
     }
 
 
@@ -486,7 +499,7 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
         // Create Notification Channel
         // notificationClass.createNotificationChannel(getContext());
 
-        // search text function
+        // old search text function
         searchText = view.findViewById(R.id.search_txt);
         searchText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -502,9 +515,101 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
             @Override
             public void afterTextChanged(Editable s) {
                 // we will do here
-                filter(s.toString());
+                filter(s.toString(), "");
             }
         });
+
+
+        // new search text function
+        search_btn = view.findViewById(R.id.search_circle_btn);
+        search_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // make bottom sheet
+                BottomSheetDialog bottomSheetSearch  = new BottomSheetDialog(getActivity(), R.style.BottomSheetDialogNew);
+
+                View searchSheetView = LayoutInflater.from(getActivity())
+                        .inflate(R.layout.top_sheets, (RelativeLayout) view.findViewById(R.id.BottomSheetContainerSearch));
+                searchSheetView.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+
+
+                // show bottom sheets
+                bottomSheetSearch.setContentView(searchSheetView);
+                bottomSheetSearch.show();
+
+                EditText searchEditText = searchSheetView.findViewById(R.id.search_box);
+                // display result of search
+                searchEditText.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        // we will do here
+                        filter(s.toString(), "");
+                    }
+                });
+
+                // dismiss the bottom sheet
+                Button closeBtn = searchSheetView.findViewById(R.id.btn_search);
+                closeBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        bottomSheetSearch.dismiss();
+                    }
+                });
+            }
+        });
+
+        /** spinner for tag */
+        Spinner spinnerTag = view.findViewById(R.id.spinner_tag);
+
+        // set value of spinner
+        List<String> options = new ArrayList<>();
+        options.add("แท็กทั้งหมด");
+        options.add("ปรึกษาการเรียน");
+        options.add("ลงทะเบียนเรียน");
+        options.add("หาเพื่อนทำงานกลุ่ม");
+        options.add("หาเพื่อนติวหนังสือ");
+        options.add("หาเพื่อนใหม่");
+        options.add("คุยเล่น");
+        options.add("อื่น ๆ");
+
+        // create adapter to get selected value
+//        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, options);
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        spinnerTag.setAdapter(adapter);
+
+        Typeface font = ResourcesCompat.getFont(getActivity(), R.font.mitr_regular);
+        TagAdapter adapter = new TagAdapter(getActivity(), R.layout.spinner_item, options, font);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerTag.setAdapter(adapter);
+
+        // Set the default value
+        spinnerTag.setSelection(options.indexOf("แท็กทั้งหมด"));
+
+        // create event get value selected
+        spinnerTag.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedValue = options.get(position);
+                // Toast.makeText(getContext(), selectedValue, Toast.LENGTH_SHORT).show();
+                String tag = "TAG";
+                filter(selectedValue,tag);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Do nothing
+            }
+        });
+
 
         // changeLayout When user tap on tag button
         // String msg = getArguments().getString("message", "");
@@ -518,19 +623,34 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
 
     } // onCreateView
 
-    private void filter(String text) {
-        ArrayList<Post> filterlist = new ArrayList<>();
-
-        for (Post item : postList) {
+    public void filter(String text, String type) {
+        if (postList != null) {
+            ArrayList<Post> filterlist = new ArrayList<>();
+            Log.d("CHECK FILTER", "filter: " + text + " " + type);
             // we check text input by user matching content in any post
             // with "contains()" method
-            if (item.getDetailComments().toLowerCase().contains(text.toLowerCase())) {
-                filterlist.add(item);
+
+            if (type == "TAG") {
+                for (Post item : postList) {
+                    if (text == "แท็กทั้งหมด") {
+                        filterlist.add(item);
+                    } else if (item.getSelectTag().toLowerCase().contains(text.toLowerCase())) {
+                        filterlist.add(item);
+                        spinnerTagStatus = "ON";
+                        spinnerTagValue = text.toString();
+                    }
+                }
+            } else {
+                for (Post item : postList) {
+                    if (item.getDetailComments().toLowerCase().contains(text.toLowerCase()) || item.getSelectTag().toLowerCase().contains(text.toLowerCase())) {
+                        filterlist.add(item);
+                    }
+                }
             }
+            postAdapter.filterList(filterlist);
+        } else {
+            Log.d("ERROR", "postList is null");
         }
-
-        postAdapter.filterList(filterlist);
-
     }
 
 
@@ -554,12 +674,31 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
                     if (snapshot.exists()) {
 
                         postList = new ArrayList<>();
-                        for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
+//                        if (spinnerTagStatus != null) {
+//                            if (spinnerTagStatus == "ON") {
+//                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+//                                    Post post = dataSnapshot.getValue(Post.class);
+//                                    if (post.getSelectTag() == spinnerTagValue) {
+//
+//                                        postList.add(post);
+//                                    }
+//                                }
+//                                spinnerTagStatus = "OFF";
+//                            } else {
+//                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+//                                    Post post = dataSnapshot.getValue(Post.class);
+//                                    postList.add(post);
+//                                }
+//                            }
+//                        } else {
+//                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+//                                Post post = dataSnapshot.getValue(Post.class);
+//                                postList.add(post);
+//                            }
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                             Post post = dataSnapshot.getValue(Post.class);
                             postList.add(post);
                         }
-
-
                         //Sort Post by TimeStamp
                         Collections.sort(postList, new Comparator<Post>() {
                             @Override
@@ -567,6 +706,7 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
                                 return post.getTimeStamp().toString().compareToIgnoreCase(t1.getTimeStamp().toString());
                             }
                         });
+                        // make a spinner tag function can work with this function
 
                         //Collections.reverse(postList);
                         postAdapter = new PostAdapter(getActivity(),postList);
@@ -591,7 +731,8 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
                 }
             });
 
-        } else if (filterPost.equals("PopularPost")) {
+        }
+        else if (filterPost.equals("PopularPost")) {
             //Get List Posts Form The Database
             loadingProgressData.setVisibility(View.VISIBLE);
             addPost.setVisibility(INVISIBLE);
@@ -689,8 +830,10 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
                 }
             });
 
-        } else {
-
+        }
+        // newest post
+        else
+        {
             //Get List Posts Form The Database
             loadingProgressData.setVisibility(View.VISIBLE);
             addPost.setVisibility(INVISIBLE);
@@ -702,11 +845,34 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
                     if (snapshot.exists()) {
 
                         postList = new ArrayList<>();
-                        for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
+
+//                        if (spinnerTagStatus != null) {
+//                            if (spinnerTagStatus.equals("ON")) {
+//                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+//                                    Post post = dataSnapshot.getValue(Post.class);
+//                                    if (post.getSelectTag() == spinnerTagValue) {
+//                                        Toast.makeText(getContext(), "do", Toast.LENGTH_SHORT).show();
+//                                        postList.add(post);
+//                                    }
+//                                }
+//                                spinnerTagStatus = "OFF";
+//                            } else {
+//                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+//                                    Post post = dataSnapshot.getValue(Post.class);
+//                                    postList.add(post);
+//                                }
+//                            }
+//                        } else {
+//                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+//                                Post post = dataSnapshot.getValue(Post.class);
+//                                postList.add(post);
+//                            }
+//                        }
+
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                             Post post = dataSnapshot.getValue(Post.class);
                             postList.add(post);
                         }
-
 
                         //Sort Post by TimeStamp
                         Collections.sort(postList, new Comparator<Post>() {

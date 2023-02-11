@@ -14,8 +14,8 @@
         android:layout_marginTop="15dp"
         android:layout_centerHorizontal="true"
         android:text="เขียนความคิดเห็น"
-        android:textColor="@color/black"
-        android:textSize="20dp"
+        android:textColor="@color/darknight"
+        android:textSize="16dp"
         android:fontFamily="@font/mitr_medium"/>
 
     <View
@@ -49,14 +49,15 @@
             android:hint="เขียนความคิดเห็นของคุณ..."
             android:gravity="top|start"
             android:textColor="@color/black"
-            android:textSize="18dp"
+            android:textSize="14dp"
             android:inputType="textMultiLine"
-            android:fontFamily="@font/mitr_medium">
+            android:fontFamily="@font/mitr_regular">
         </com.google.android.material.textfield.TextInputEditText>
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <View
+        android:visibility="gone"
         android:id="@+id/lineBottom"
         android:layout_width="match_parent"
         android:layout_height="1dp"

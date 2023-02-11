@@ -59,6 +59,7 @@
             android:layout_below="@+id/CV_BackMenu">
 
             <androidx.cardview.widget.CardView
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp">
@@ -71,6 +72,7 @@
 
                     <!-- Line Top -->
                     <View
+                        android:visibility="gone"
                         android:id="@+id/lineTop"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
@@ -81,10 +83,11 @@
 
                     <!-- UserPhoto -->
                     <RelativeLayout
+
                         android:id="@+id/layoutUser"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="10dp"
                         android:layout_marginStart="10dp"
                         android:layout_below="@id/lineTop">
 
@@ -117,7 +120,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="B6XXXXX"
-                                android:textColor="@color/black"
+                                android:textColor="@color/darknight"
                                 android:fontFamily="@font/mitr_medium"/>
 
                             <TextView
@@ -127,7 +130,7 @@
                                 android:layout_below="@+id/textUser"
                                 android:text="เวลา"
                                 android:textColor="@color/dark_gray"
-                                android:fontFamily="@font/mitr_medium"/>
+                                android:fontFamily="@font/mitr_regular"/>
 
                         </RelativeLayout>
 
@@ -180,8 +183,8 @@
                             android:justificationMode="inter_word"
                             android:lineSpacingExtra="4sp"
                             android:textColor="@color/black"
-                            android:textSize="15dp"
-                            android:fontFamily="@font/sarabun_medium"/>
+                            android:textSize="14dp"
+                            android:fontFamily="@font/mitr_light"/>
 
                         <pl.droidsonroids.gif.GifImageView
                             android:id="@+id/stickerComment"
@@ -215,6 +218,7 @@
                     </RelativeLayout>
 
                     <View
+                        android:visibility="gone"
                         android:id="@+id/lineBottom"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"

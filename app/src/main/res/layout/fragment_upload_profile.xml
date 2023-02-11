@@ -87,7 +87,7 @@
                 android:fontFamily="@font/mitr_regular"
                 android:text="แตะเพื่อเปลี่ยนรูป"
                 android:textColor="@color/black"
-                android:textSize="18dp" />
+                android:textSize="16dp" />
 
         </RelativeLayout>
 
@@ -110,7 +110,7 @@
                 android:fontFamily="@font/mitr_semibold"
                 android:text="ตกลง"
                 android:textColor="@color/white"
-                android:textSize="18dp" />
+                android:textSize="16dp" />
 
             <ProgressBar
                 android:id="@+id/progressBar"
