@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_picture"
+    tools:context=".Activities.SearchNewPageActivity">
+
+    <!-- Header -->
+    <RelativeLayout
+        android:id="@+id/CV_BackSearchSubject"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:layout_marginTop="-10dp"
+        android:layout_centerHorizontal="true">
+
+        <!-- BTN BACK -->
+        <ImageView
+            android:id="@+id/Btn_BackSearchSubject"
+            android:layout_centerVertical="true"
+            android:layout_width="40dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="28dp"
+            android:src="@drawable/back_circle_button" />
+
+        <RelativeLayout
+            android:id="@+id/LayoutFontSearchSubject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/Btn_BackSearchSubject">
+
+            <TextView
+                android:id="@+id/imgAddSubject"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginStart="25dp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/mitr_regular"
+                android:textSize="24dp"
+                android:text="ค้นหารายวิชา"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/search_new_page_box"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/CV_BackSearchSubject"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="-20dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/search_view_fill"
+        android:drawableLeft="@drawable/ic_baseline_search_24"
+        android:drawablePadding="10dp"
+        android:drawableTint="@color/dark_gray"
+        android:fontFamily="@font/mitr_light"
+        android:hint="ค้นหารายวิชาด้วยชื่อหรือรหัสวิชา"
+        android:iconifiedByDefault="false"
+        android:padding="8dp"
+        android:queryBackground="@null"
+        android:textColor="@color/white"
+        android:textColorHint="@color/dark_gray"
+        android:textSize="14dp" />
+
+
+</RelativeLayout>

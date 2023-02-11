@@ -14,8 +14,8 @@
         android:layout_marginTop="15dp"
         android:layout_centerHorizontal="true"
         android:text="แก้ไขชื่อของคุณ"
-        android:textColor="@color/black"
-        android:textSize="20dp"
+        android:textColor="@color/darknight"
+        android:textSize="16dp"
         android:fontFamily="@font/mitr_medium"/>
 
     <View
@@ -51,7 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="ชื่อเล่น"
-                android:textColor="@color/black"
+                android:textColor="@color/darknight"
                 android:textSize="14dp"
                 android:inputType="textPersonName"
                 android:fontFamily="@font/mitr_light">
@@ -82,7 +82,7 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:text="บันทึก"
-        android:textSize="25dp"
+        android:textSize="16dp"
         android:textColor="@color/white"
         android:background="@color/nav_color"
         android:fontFamily="@font/mitr_medium"/>

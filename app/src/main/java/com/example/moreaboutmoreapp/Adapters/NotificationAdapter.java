@@ -67,11 +67,11 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
         String TypeNotification = mData.get(position).getTypes();
         if (TypeNotification.equals("like post") || TypeNotification.equals("like comment")) {
-            holder.imgIcon.setImageResource(R.drawable.ic_round_thumb_up_alt_24);
+            holder.imgIcon.setImageResource(R.drawable.ic_outline_thumb_up_24);
         } else if (TypeNotification.equals("pin comment")) {
-            holder.imgIcon.setImageResource(R.drawable.ic_round_push_pin_24);
+            holder.imgIcon.setImageResource(R.drawable.ic_outline_push_pin_24);
         } else if (TypeNotification.equals("post moment")) {
-            holder.imgIcon.setImageResource(R.drawable.ic_round_mode_comment_24);
+            holder.imgIcon.setImageResource(R.drawable.ic_outline_mode_comment_24);
         }
 
         String uid = mData.get(position).getUidPusher();
@@ -106,16 +106,18 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                     // > b to B
                     String toUppercase = Email.toUpperCase();
                     // > B6x - NickName
-                    String ID_NAME = toUppercase + email.substring(1, 3) + " - " + nickname;
+                    String ID_NAME = toUppercase + email.substring(1, 3) + " - ";
 
-                    String sumText = ID_NAME + "  " + type[1] + " " +timer;
+                    /** DO NOT PUT ARRAY IN TYPE IF YOU DO IT NOTIFICATION WILL DISPLAY ONLY ONE STATEMENT REPEATING AND CASHING TO YOUR FACE */
+                    //String sumText = ID_NAME + "  " + type + " " + timer;
+                    String sumText = ID_NAME + Title + " " + timer;
                     holder.tvContent.setText(sumText);
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                
             }
         });
 

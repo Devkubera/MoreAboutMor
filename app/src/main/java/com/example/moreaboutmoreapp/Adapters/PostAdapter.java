@@ -53,6 +53,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
     DatabaseReference postReference, likeReference, commentReference, tokenReference;
     FirebaseUser firebaseUser;
     FirebaseAuth firebaseAuth;
+    public static TextView showStatusText;
 
     // For notification
     // Not used NAJA NotificationClass notificationClass = NotificationClass.getInstance();
@@ -61,6 +62,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
     public static String changeLayout = "";
 
     public static String tokens, nickname;
+
+    // for reset tag
+    public static ArrayList<Post> filterResetTag;
 
     //CardView CV_Row_Post;
 
@@ -207,6 +211,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
     public void filterList(ArrayList<Post> filterlist) {
         mData = filterlist;
+        if (mData.isEmpty()) {
+            Toast.makeText(mContext, "ไม่มีโพสต์ที่ท่านกำลังค้นหาอยู่ในขณะนี้", Toast.LENGTH_LONG).show();
+        }
         notifyDataSetChanged();
     }
 
@@ -246,9 +253,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
             super(itemView);
 
             //CV_Row_Post = itemView.findViewById(R.id.CV_Row_Post);
-
+             filterResetTag = new ArrayList<>();
 
             db = FirebaseDatabase.getInstance();
+
+            // for reset tag search
+            showStatusText = itemView.findViewById(R.id.tagStatus);
 
             textTag = itemView.findViewById(R.id.textPosts);
             imgUser = itemView.findViewById(R.id.userProfile);
@@ -271,7 +281,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                 public void onClick(View v) {
                     String tag = textTag.getText().toString();
                     filterTag(tag);
-
                 }
 
                 private void filterTag(String tag) {
@@ -283,23 +292,33 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                         if (item.getSelectTag().toLowerCase().contains(tag.toLowerCase())) {
                             filterTag.add(item);
                         }
+                        filterResetTag.add(item);
                     }
 
+                    // showing textview
+                    int position = getAdapterPosition();
+                    showStatusText.setText("Tag : " + mData.get(position).getSelectTag());
+                    showStatusText.setVisibility(View.VISIBLE);
 
+//                    Bundle bundle = new Bundle();
+//                    changeLayout = "changeLayout";
+//                    bundle.putString("message", changeLayout);
+//
+//                    // Set Fragmentclass Arguments
+//                    HomeFragment fragobj = new HomeFragment();
+//                    fragobj.setArguments(bundle);
 
-                    Bundle bundle = new Bundle();
-                    changeLayout = "changeLayout";
-                    bundle.putString("message", changeLayout);
-
-                    // Set Fragmentclass Arguments
-                    HomeFragment fragobj = new HomeFragment();
-                    fragobj.setArguments(bundle);
                     filterList(filterTag);
 
-//                    View newLayout = LayoutInflater.from(mContext.getApplicationContext()).inflate(R.layout.fragment_home,null,false);
-//                    TextView textView = newLayout.findViewById(R.id.textFeeds);
-//                    textView.setText("แท็กที่ค้นหา ");
+                }
+            });
 
+//             unit test in reset tag selected
+            showStatusText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    filterList(filterResetTag);
+                    showStatusText.setVisibility(View.GONE);
                 }
             });
 
