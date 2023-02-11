@@ -69,6 +69,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
     // for reset tag
     public static ArrayList<Post> filterResetTag;
 
+
     //CardView CV_Row_Post;
 
     public PostAdapter(Context mContext, List<Post> mData) {
