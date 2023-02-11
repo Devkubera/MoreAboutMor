@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/BottomSheetContainerSearch"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:orientation="horizontal"
+        app:layout_behavior="com.example.moreaboutmoreapp.TopSheetBehavior">
+
+        <!-- Your top sheet content goes here -->
+        <EditText
+            android:id="@+id/search_box"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/search_view_bg"
+            android:drawableLeft="@drawable/ic_baseline_search_24"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/grey_font"
+            android:fontFamily="@font/mitr_regular"
+            android:hint="พิมพ์อะไรก็ได้"
+            android:iconifiedByDefault="false"
+            android:padding="10dp"
+            android:queryBackground="@null"
+            android:textSize="16dp" />
+
+        <Button
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:fontFamily="@font/mitr_regular"
+            android:text="ค้นหา"
+            android:layout_marginHorizontal="15dp"
+            android:id="@+id/btn_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/search_box"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

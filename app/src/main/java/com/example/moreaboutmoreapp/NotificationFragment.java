@@ -87,6 +87,9 @@ public class NotificationFragment extends Fragment {
 
     CircleImageView userProfile;
 
+    // subject list declaration
+
+
     // Notification
     private static final String CHANNEL_ID = String.valueOf(R.string.channel_id);
     private static final String CHANNEL_NAME = String.valueOf(R.string.channel_name);

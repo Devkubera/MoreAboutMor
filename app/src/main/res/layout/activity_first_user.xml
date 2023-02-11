@@ -46,7 +46,7 @@
             android:fontFamily="@font/mitr_medium"
             android:text="ต่อไป"
             android:textColor="@color/white"
-            android:textSize="18dp" />
+            android:textSize="16dp" />
 
         <android.widget.Button
             android:id="@+id/startButtonInfo"
@@ -57,7 +57,7 @@
             android:fontFamily="@font/mitr_medium"
             android:text="เริ่มต้นใช้งาน"
             android:textColor="@color/white"
-            android:textSize="18dp"
+            android:textSize="16dp"
             android:visibility="invisible"/>
 
 

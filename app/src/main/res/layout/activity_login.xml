@@ -163,7 +163,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="30dp"
                     android:text="เข้าสู่ระบบ"
-                    android:textSize="18dp"
+                    android:textSize="16dp"
                     android:textColor="@color/white"
                     android:background="@drawable/custom_button_blue"
                     android:fontFamily="@font/mitr_medium"/>

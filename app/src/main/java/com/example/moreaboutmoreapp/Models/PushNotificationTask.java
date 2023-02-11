@@ -31,7 +31,7 @@ public class PushNotificationTask extends AsyncTask<String, Void, String> {
 
             // find type
             String topic = seperateType(type);
-            title = title + topic;
+            title = title + mtype;
 
             // make body...
             String body = "testing in message";

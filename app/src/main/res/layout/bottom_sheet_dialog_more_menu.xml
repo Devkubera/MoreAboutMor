@@ -12,8 +12,8 @@
         android:layout_marginTop="15dp"
         android:layout_centerHorizontal="true"
         android:text="เมนู"
-        android:textColor="@color/black"
-        android:textSize="20dp"
+        android:textColor="@color/darknight"
+        android:textSize="16dp"
         android:fontFamily="@font/mitr_medium"/>
 
     <!-- Pin -->

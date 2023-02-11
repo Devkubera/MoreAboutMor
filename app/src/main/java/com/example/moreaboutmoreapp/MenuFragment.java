@@ -68,6 +68,8 @@ public class MenuFragment extends Fragment {
     Button btn_studyPlan;
     Button btn_courseDes;
     Button btn_GE;
+    Button btn_calendar;
+    Button btn_ranking;
 
     // Declare String to store sharepreference 3 Menu study plan, courseDescription, GE
     public static String link_studyplan;
@@ -161,6 +163,17 @@ public class MenuFragment extends Fragment {
                 getPref("geApi");
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(link_geApi));
+                startActivity(intent);
+            }
+        });
+
+        btn_calendar = view.findViewById(R.id.Btn_C);
+        btn_calendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://reg3.sut.ac.th/registrar/calendar.asp?schedulegroupid=101&acadyear=2565&semester=3";
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
                 startActivity(intent);
             }
         });
