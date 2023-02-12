@@ -13,33 +13,50 @@
         android:id="@+id/app_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_picture"
-        >
-        <!-- logo -->
-        <ImageView
-            android:id="@+id/aboutapp_logo"
-            android:layout_width="31dp"
-            android:layout_height="31dp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="32dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="24dp"
-            android:background="@drawable/bg_logo"
-            />
+        android:background="@drawable/bg_picture">
 
-        <!-- เกี่ยวกับแอพ -->
-        <TextView
-            android:id="@+id/some_id"
-            android:layout_width="240dp"
-            android:layout_height="53dp"
-            android:fontFamily="@font/mitr_regular"
-            android:gravity="center"
-            android:layout_alignLeft="@id/aboutapp_logo"
-            android:layout_marginLeft="-15dp"
-            android:layout_marginTop="16dp"
-            android:text="เกี่ยวกับแอพ"
-            android:textColor="@color/white"
-            android:textSize="24dp" />
+        <RelativeLayout
+            android:id="@+id/CV_BackAboutApp"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:layout_marginTop="-10dp"
+            android:layout_centerHorizontal="true">
+
+            <ImageView
+                android:id="@+id/Btn_BackAboutApp"
+                android:layout_centerVertical="true"
+                android:layout_width="40dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="28dp"
+                android:src="@drawable/back_circle_button" />
+
+            <RelativeLayout
+                android:id="@+id/LayoutFont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="5dp"
+                android:layout_toEndOf="@id/Btn_BackAboutApp">
+
+
+                <TextView
+                    android:id="@+id/some_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/mitr_regular"
+                    android:text="เกี่ยวกับแอพ"
+                    android:textColor="@color/white"
+                    android:textSize="24dp" />
+
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+
+
 
     </RelativeLayout>
 

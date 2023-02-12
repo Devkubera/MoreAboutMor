@@ -1,23 +1,17 @@
 package com.example.moreaboutmoreapp.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
+import android.app.AlertDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,18 +30,22 @@ import java.util.List;
 public class SubjectListSearchActivity extends AppCompatActivity {
 
     ImageView btn_back;
-    Button btn_addSubject;
+    Button btn_addSubject,btn_summit;
     TextView add_subjectBox1;
     TextView add_subjectBox2;
     TextView add_subjectBox3;
     TextView add_subjectBox4;
     TextView add_subjectBox5;
 
-    public static String getSubjectBox1;
-    public static String getSubjectBox2;
-    public static String getSubjectBox3;
-    public static String getSubjectBox4;
-    public static String getSubjectBox5;
+    List<SubjectModel> storeValue = new ArrayList<>();
+
+    public static String getSubjectBox1 = "default";
+    public static String getSubjectBox2 = "default";
+    public static String getSubjectBox3 = "default";
+    public static String getSubjectBox4 = "default";
+    public static String getSubjectBox5 = "default";
+
+    public static int position1;
 
 
 
@@ -56,6 +54,7 @@ public class SubjectListSearchActivity extends AppCompatActivity {
     // use for save array list
     List<SubjectModel> subjectModels = new ArrayList<>();
     // use for get selected list value
+
     Object selectedArray = new ArrayList<>();
     // sharepreference Key
     final String shareprefKey = "subjectData";
@@ -63,20 +62,37 @@ public class SubjectListSearchActivity extends AppCompatActivity {
     ListView subjectLV;
     BottomSheetDialog bottomSheetDialog;
 
+    // create array to check btn enable
+    List<String> arrJectData = new ArrayList<String>();
+
     List<SubjectModel> suggestions = new ArrayList<>();
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subject_list_search);
 
+        // clear data in array check btn
+        arrJectData.clear();
+
         // back to subject list page
         btn_back = findViewById(R.id.Btn_BackAddSubject);
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                if (arrJectData.size() >= 1) {
+                    AlertBox("back");
+                } else {
+                    finish();
+                }
+
+                // test sections
+                // AlertBox("back");
             }
         });
 
@@ -85,9 +101,17 @@ public class SubjectListSearchActivity extends AppCompatActivity {
         btn_addSubject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                // check data.size() >= 3 to submit
+                if (arrJectData.size() >= 3) {
+                    AlertBox("Submit");
+//                    finish();
+                } else {
+                    Toast.makeText(SubjectListSearchActivity.this, "กรุณาเลือกรายวิชาอย่างน้อย 3 รายวิชา", Toast.LENGTH_LONG).show();
+                }
+
             }
         });
+
 
         // search subject 1
         add_subjectBox1 = findViewById(R.id.subject_addBox1);
@@ -115,20 +139,19 @@ public class SubjectListSearchActivity extends AppCompatActivity {
                 ArrayList<SubjectModel> subjectModelArrayList = new ArrayList<>();
                 // Create the adapter to convert the array to views
                 SubjectAdapter adapter = new SubjectAdapter(getApplicationContext(), subjectModelArrayList);
+
                 // Attach the adapter to a ListView
                 subjectLV.setAdapter(adapter);
+
+                // clear
                 adapter.clear();
+                items.clear();
+                subjectModels.clear();
 
                 items = loadArrayList(shareprefKey);
                 // set data to model
                 for (SubjectModel data : items) {
-//                    if (getSubjectBox1 != null) {
-//                        if (data.getName().equals(getSubjectBox1)) {} else {
-//                            subjectModels.add(data);
-//                        }
-//                    }
                     subjectModels.add(data);
-
                 }
                 // add all data
                 adapter.addAll(items);
@@ -174,12 +197,28 @@ public class SubjectListSearchActivity extends AppCompatActivity {
                         Toast.makeText(SubjectListSearchActivity.this, "Selected word: " + model.getName(), Toast.LENGTH_SHORT).show();
                         Log.d("SELECTED LIST", "onItemClick: " + model.getName());
 
+                        // set value to array list
+                        storeValue.add(model);
+
+                        // check user update value section
+                        if (getSubjectBox1 != "default") {
+                            int x = arrJectData.indexOf(getSubjectBox1);
+                            arrJectData.remove(x);
+                            Log.d("OnFire", "onItemClick: " + x);
+                        } else {
+                            getSubjectBox1 = model.getName().toString();
+                            position1 = position;
+                        }
+
+
                         // set value to variable
                         String sumText = model.getPasscode().toString() + " " + model.getName().toString();
-                        getSubjectBox1 = model.getName().toString();
+
+
                         // set text to text view
                         add_subjectBox1.setTextColor(getResources().getColor(R.color.darknight));
                         add_subjectBox1.setText("วิชาที่ 1: " + sumText);
+                        arrJectData.add(sumText);
                         bottomSheetDialog.dismiss();
                     }
                 });
@@ -218,22 +257,25 @@ public class SubjectListSearchActivity extends AppCompatActivity {
                 SubjectAdapter adapter = new SubjectAdapter(getApplicationContext(), subjectModelArrayList);
                 // Attach the adapter to a ListView
                 subjectLV.setAdapter(adapter);
+
+                // clear
                 adapter.clear();
+                items.clear();
+                subjectModels.clear();
 
                 items = loadArrayList(shareprefKey);
                 // set data to model
+                int i = 0;
                 for (SubjectModel data : items) {
-                    if (getSubjectBox1 != null) {
-                        int index = items.indexOf(getSubjectBox1);
-                        if (index != -1)
-                        {
-                            items.remove(index);
-                        }
-                        else
-                        {
-                            subjectModels.add(data);
-                        }
-                    }
+//                    if (getSubjectBox1 != null) {
+//                        if (data.getName().toLowerCase().equals(getSubjectBox1.toLowerCase())) {
+//                            items.remove(i);
+//                        } else {
+//                            subjectModels.add(data);
+//                        }
+//                    }
+//                    i++;
+                    subjectModels.add(data);
                 }
                 // add all data
                 adapter.addAll(items);
@@ -285,6 +327,10 @@ public class SubjectListSearchActivity extends AppCompatActivity {
                         // set text to text view
                         add_subjectBox2.setTextColor(getResources().getColor(R.color.darknight));
                         add_subjectBox2.setText("วิชาที่ 2: " + sumText);
+                        arrJectData.add(sumText);
+                        // reset this value from arrayList
+                        items.remove(position);
+
                         bottomSheetDialog.dismiss();
                     }
                 });
@@ -324,7 +370,11 @@ public class SubjectListSearchActivity extends AppCompatActivity {
                 SubjectAdapter adapter = new SubjectAdapter(getApplicationContext(), subjectModelArrayList);
                 // Attach the adapter to a ListView
                 subjectLV.setAdapter(adapter);
+
+                // clear
                 adapter.clear();
+                items.clear();
+                subjectModels.clear();
 
                 items = loadArrayList(shareprefKey);
                 // set data to model
@@ -381,6 +431,7 @@ public class SubjectListSearchActivity extends AppCompatActivity {
                         // set text to text view
                         add_subjectBox3.setTextColor(getResources().getColor(R.color.darknight));
                         add_subjectBox3.setText("วิชาที่ 3: " + sumText);
+                        arrJectData.add(sumText);
                         bottomSheetDialog.dismiss();
                     }
                 });
@@ -420,7 +471,11 @@ public class SubjectListSearchActivity extends AppCompatActivity {
                 SubjectAdapter adapter = new SubjectAdapter(getApplicationContext(), subjectModelArrayList);
                 // Attach the adapter to a ListView
                 subjectLV.setAdapter(adapter);
+
+                // clear
                 adapter.clear();
+                items.clear();
+                subjectModels.clear();
 
                 items = loadArrayList(shareprefKey);
                 // set data to model
@@ -477,6 +532,7 @@ public class SubjectListSearchActivity extends AppCompatActivity {
                         // set text to text view
                         add_subjectBox4.setTextColor(getResources().getColor(R.color.darknight));
                         add_subjectBox4.setText("วิชาที่ 4: " + sumText);
+                        arrJectData.add(sumText);
                         bottomSheetDialog.dismiss();
                     }
                 });
@@ -516,7 +572,11 @@ public class SubjectListSearchActivity extends AppCompatActivity {
                 SubjectAdapter adapter = new SubjectAdapter(getApplicationContext(), subjectModelArrayList);
                 // Attach the adapter to a ListView
                 subjectLV.setAdapter(adapter);
+
+                // clear
                 adapter.clear();
+                items.clear();
+                subjectModels.clear();
 
                 items = loadArrayList(shareprefKey);
                 // set data to model
@@ -574,6 +634,7 @@ public class SubjectListSearchActivity extends AppCompatActivity {
                         // set text to text view
                         add_subjectBox5.setTextColor(getResources().getColor(R.color.darknight));
                         add_subjectBox5.setText("วิชาที่ 5: " + sumText);
+                        arrJectData.add(sumText);
                         bottomSheetDialog.dismiss();
                     }
                 });
@@ -585,6 +646,94 @@ public class SubjectListSearchActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void AlertBox(String type) {
+        LayoutInflater layoutInflater = LayoutInflater.from(this);
+        View view = layoutInflater.inflate(R.layout.noty_confirm_del_dialog, null);
+
+        if (type.equals("Submit")) {
+            // reuse layout
+            TextView header = view.findViewById(R.id.text_delete);
+            header.setText("ยืนยันรายวิชา");
+            TextView detail = view.findViewById(R.id.text_InfoDelete);
+            String line = "";
+            for (int i = 0; i<arrJectData.size(); i++) {
+                if (line.equals("") && i==0) {
+                    line = arrJectData.get(i) + "\n";
+                }
+
+                line = line + arrJectData.get(i) + "\n";
+            }
+            detail.setText(line);
+
+            //Create AlertDialog
+            AlertDialog builder = new AlertDialog.Builder(this)
+                    .setView(view)
+                    .create();
+
+            // show alert box
+            builder.show();
+
+            //Click Ok To back
+            Button click_ok = view.findViewById(R.id.Btn_noty_del);
+            click_ok.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //Close AlertDialog
+                    builder.dismiss();
+                    finish();
+                } // oN click
+            });
+
+            //Click Cancel To back
+            Button click_cancel = view.findViewById(R.id.Btn_noty_cancel);
+            click_cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //Close AlertDialog
+                    builder.dismiss();
+                } // oN click
+            });
+        }
+        if (type.equals("back")) {
+            // reuse layout
+            TextView header = view.findViewById(R.id.text_delete);
+            header.setText("กลับไปก่อนหน้า");
+            TextView detail = view.findViewById(R.id.text_InfoDelete);
+            detail.setText("คุณยังไม่ได้บันทึกข้อมูล ! จะกลับไปก่อนหน้าหรือไม่");
+
+            //Create AlertDialog
+            AlertDialog builder = new AlertDialog.Builder(this)
+                    .setView(view)
+                    .create();
+
+            // show alert box
+            builder.show();
+
+            //Click Ok To back
+            Button click_ok = view.findViewById(R.id.Btn_noty_del);
+            click_ok.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //Close AlertDialog
+                    builder.dismiss();
+                    finish();
+                } // oN click
+            });
+
+            //Click Cancel To back
+            Button click_cancel = view.findViewById(R.id.Btn_noty_cancel);
+            click_cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //Close AlertDialog
+                    builder.dismiss();
+                } // oN click
+            });
+        }
+
+        //
     }
 
     private ArrayList<SubjectModel> loadArrayList(String key){

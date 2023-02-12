@@ -472,8 +472,6 @@ public class PostDetailActivity extends AppCompatActivity {
                         loadingProgress.setVisibility(View.VISIBLE);
                         // Add Text Comment Go To Firebase
                         addCommentBtn();
-
-
                     }
                 });
 
