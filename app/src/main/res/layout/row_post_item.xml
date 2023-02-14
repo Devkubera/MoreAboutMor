@@ -54,7 +54,7 @@
                     android:justificationMode="inter_word"
                     android:textColor="@color/white"
                     android:textSize="13dp"
-                    android:fontFamily="@font/mitr_light"/>
+                    android:fontFamily="@font/mitr_regular"/>
 
 
             </RelativeLayout>
@@ -135,8 +135,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/textUser"
                     android:text="เวลา"
-                    android:textColor="@color/dark_gray"
-                    android:fontFamily="@font/mitr_regular"/>
+                    android:textColor="@color/grey_font_v3"
+                    android:fontFamily="@font/mitr_light"/>
 
             </RelativeLayout>
 

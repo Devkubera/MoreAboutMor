@@ -96,4 +96,10 @@
         <item name="android:background">@android:color/transparent</item>
     </style>
 
+    <!-- Custom Font BottomNavigation  -->
+    <style name="BottomNavigationViewFont">
+        <item name="fontFamily">@font/mitr_regular</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
 </resources>

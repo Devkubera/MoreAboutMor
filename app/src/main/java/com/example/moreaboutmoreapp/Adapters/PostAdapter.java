@@ -332,7 +332,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                 }
             });
 
-//             unit test in reset tag selected
+            //unit test in reset tag selected
             showStatusText.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

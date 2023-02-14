@@ -25,6 +25,38 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_close_w" />
 -->
+
+            <RelativeLayout
+                android:id="@+id/info_succeed"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/text_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_centerHorizontal="true"
+                    android:text="การสมัครสมาชิกเสร็จสมบูรณ์"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/dark"
+                    android:fontFamily="@font/mitr_regular"/>
+
+                <!-- Line Top-->
+                <View
+                    android:id="@+id/lineTop"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@+id/text_delete"
+                    android:background="@color/colorDivider" />
+
+            </RelativeLayout>
+
+            <!--
             <TextView
                 android:id="@+id/text_verified"
                 android:layout_width="wrap_content"
@@ -38,45 +70,47 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:fontFamily="@font/mitr_medium"/>
+                -->
 
             <ImageView
                 android:id="@+id/pic_timeline"
-                android:layout_width="175dp"
-                android:layout_height="175dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_verified"
-                app:srcCompat="@drawable/ic_baseline_email_24black" />
+                app:layout_constraintTop_toBottomOf="@+id/info_succeed"
+                app:srcCompat="@drawable/ic_baseline_email_24black"
+                app:tint="@color/nav_color"/>
 
             <TextView
                 android:id="@+id/text_de"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="Check your email to verified your account!"
+                android:text="กรุณายืนยันตัวตนผ่านอีเมลที่ใช้สมัครสมาชิก"
                 android:textSize="13dp"
                 android:textColor="@color/dark"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/pic_timeline"
-                android:fontFamily="@font/mitr_medium" />
+                android:fontFamily="@font/mitr_light" />
 
             <android.widget.Button
                 android:id="@+id/click_ok"
                 android:layout_width="175dp"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/button_select2"
-                android:text="OK"
-                android:textColor="@color/white"
+                android:text="ตกลง"
                 android:textSize="20dp"
+                android:textColor="@color/white"
+                android:background="@color/nav_color"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_de"
-                android:fontFamily="@font/mitr_medium"/>
+                android:fontFamily="@font/mitr_regular"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

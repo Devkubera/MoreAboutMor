@@ -25,6 +25,7 @@
                             app:srcCompat="@drawable/ic_close_w" />
             -->
             <TextView
+                android:visibility="gone"
                 android:id="@+id/text_verified"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -40,39 +41,40 @@
 
             <ImageView
                 android:id="@+id/pic_timeline"
-                android:layout_width="175dp"
-                android:layout_height="175dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_verified"
-                app:srcCompat="@drawable/ic_baseline_wifi_off_24" />
+                app:srcCompat="@drawable/ic_baseline_wifi_off_24"
+                app:tint="@color/nav_color"/>
 
             <TextView
                 android:id="@+id/text_de"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="No Internet Connection"
+                android:text="ไม่มีการเชื่อมต่ออินเทอร์เน็ต"
                 android:textSize="13dp"
                 android:textColor="@color/dark"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/pic_timeline"
-                android:fontFamily="@font/mitr_medium"/>
+                android:fontFamily="@font/mitr_light"/>
 
             <TextView
                 android:id="@+id/text_de2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="Please check your connection"
+                android:text="กรุณาตรวจสอบการเชื่อมต่อของคุณ"
                 android:textSize="13dp"
                 android:textColor="@color/dark"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_de"
-                android:fontFamily="@font/mitr_medium"/>
+                android:fontFamily="@font/mitr_light"/>
 
             <!--<android.widget.Button
                 android:id="@+id/click_retry"
@@ -93,17 +95,18 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/click_retry"
                 android:layout_width="175dp"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/button_select2"
-                android:text="Retry"
-                android:textColor="@color/white"
+                android:text="ลองอีกครั้ง"
                 android:textSize="20dp"
+                android:textColor="@color/white"
+                android:background="@color/nav_color"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_de2" />
+                app:layout_constraintTop_toBottomOf="@+id/text_de2"
+                android:fontFamily="@font/mitr_regular"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
