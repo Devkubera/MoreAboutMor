@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.moreaboutmoreapp.Activities.MainActivity;
@@ -50,6 +51,7 @@ public class NotificationFragment extends Fragment {
     RecyclerView recyclerView;
     NotificationAdapter notificationAdapter;
     List<NotificationData> notificationDataList;
+    TextView textView;
 
     // for searching uidReceiver
     public static String firebaseKey;
@@ -150,6 +152,9 @@ public class NotificationFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
 
+        textView = view.findViewById(R.id.textGONE);
+
+
         // Declare Firebase Here
 
         // Android Notification Example
@@ -173,7 +178,7 @@ public class NotificationFragment extends Fragment {
         // Get Notification List from Firebase
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         uidReceiver = firebaseAuth.getUid();
-        databaseReference = firebaseDatabase.getReference("NotificationCenter");
+        databaseReference = firebaseDatabase.getReference("NotificationCenter/"+uidReceiver);
 
         // Search Data in Firebase
         databaseReference.orderByChild("uidReceiver").equalTo(uidReceiver).addValueEventListener(new ValueEventListener() {
@@ -190,9 +195,14 @@ public class NotificationFragment extends Fragment {
 
                     notificationAdapter = new NotificationAdapter(getActivity(), notificationDataList);
                     recyclerView.setAdapter(notificationAdapter);
+                    textView.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
                 }
                 else {
-                    Toast.makeText(getContext(), "ขณะนี้ยังไม่มีแจ้งเตือนค่ะ", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(), "ขณะนี้ยังไม่มีแจ้งเตือนค่ะ", Toast.LENGTH_SHORT).show();
+                    textView.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
+
                 }
             }
 

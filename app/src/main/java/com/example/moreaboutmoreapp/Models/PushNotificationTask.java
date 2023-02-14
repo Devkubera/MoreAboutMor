@@ -28,6 +28,7 @@ public class PushNotificationTask extends AsyncTask<String, Void, String> {
             String title = params[1]; // is mean receive nick name string variable to make nickname in title of notification
             String type =  params[2];
             String uidReceiver = params[3];
+            String postKey = params[4];
 
             // find type
             String topic = seperateType(type);
@@ -65,7 +66,7 @@ public class PushNotificationTask extends AsyncTask<String, Void, String> {
 
                 // push to firebase
                 System.out.println("CHECK TITLE PLEASE " + title);
-                pushToFirebase(type,title,body,uidReceiver,topic);
+                pushToFirebase(type,title,body,uidReceiver,topic,postKey);
 
                 return scanner.useDelimiter("\\A").next();
             } else {
@@ -94,22 +95,24 @@ public class PushNotificationTask extends AsyncTask<String, Void, String> {
         return mtype;
     }
 
-    public void pushToFirebase(String type, String title, String subtitle, String uidReceiver, String topic) {
+    public void pushToFirebase(String type, String title, String subtitle, String uidReceiver, String topic, String postKey) {
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
         String uidPusher = firebaseAuth.getUid();
 
-        databaseReference = firebaseDatabase.getReference("NotificationCenter");
+        databaseReference = firebaseDatabase.getReference("NotificationCenter/"+uidReceiver);
 
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm");
         String dateTime = formatter.format(new Date());
 
-        NotificationData notificationData = new NotificationData(type,title,subtitle,dateTime,uidPusher,uidReceiver, topic);
-
         // auto generate id
         DatabaseReference newRef = databaseReference.push();
+        String key = newRef.getKey();
+
+        NotificationData notificationData = new NotificationData(type,title,subtitle,dateTime,uidPusher,uidReceiver, topic, key, postKey);
+
         newRef.setValue(notificationData);
 
-        String key = newRef.getKey();
+
     }
 }

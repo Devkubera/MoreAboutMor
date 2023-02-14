@@ -8,10 +8,12 @@ public class NotificationData {
     public String uidPusher;
     public String uidReceiver;
     public String topic;
+    public String id;
+    public String postKey;
 
     public NotificationData() {}
 
-    public NotificationData(String types, String title, String detail, String timer, String uidPusher, String uidReceiver, String topic) {
+    public NotificationData(String types, String title, String detail, String timer, String uidPusher, String uidReceiver, String topic, String id, String postKey) {
         this.types = types;
         this.title = title;
         this.detail = detail;
@@ -19,6 +21,24 @@ public class NotificationData {
         this.uidPusher = uidPusher;
         this.uidReceiver = uidReceiver;
         this.topic = topic;
+        this.id = id;
+        this.postKey = postKey;
+    }
+
+    public String getPostKey() {
+        return postKey;
+    }
+
+    public void setPostKey(String postKey) {
+        this.postKey = postKey;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTopic() {

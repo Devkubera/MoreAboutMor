@@ -472,8 +472,6 @@ public class PostDetailActivity extends AppCompatActivity {
                         loadingProgress.setVisibility(View.VISIBLE);
                         // Add Text Comment Go To Firebase
                         addCommentBtn();
-
-
                     }
                 });
 
@@ -751,15 +749,18 @@ public class PostDetailActivity extends AppCompatActivity {
         String uid = uidReceiver; // get receiver_uid
         String user_nickname = getNickName();
         int check_error_on_fetching_name = 0;
-        if (user_nickname.isEmpty()) {
-            check_error_on_fetching_name++;
+        do {
             user_nickname = getNickName();
-            if (user_nickname.isEmpty()) {
-                check_error_on_fetching_name++;
-                user_nickname = getNickName();
-            }
-            Log.d("Checking error on fetch name", "pushNotification: " + check_error_on_fetching_name);
-        }
+        } while (!(user_nickname.isEmpty()));
+//        if (user_nickname.isEmpty()) {
+//            check_error_on_fetching_name++;
+//
+//            if (user_nickname.isEmpty()) {
+//                check_error_on_fetching_name++;
+//                user_nickname = getNickName();
+//            }
+//            Log.d("Checking error on fetch name", "pushNotification: " + check_error_on_fetching_name);
+//        }
         String finalUser_nickname = user_nickname;
         String type = "post moment"; // identify type notification
         String path = "tokens/" + uid + "/";
@@ -775,13 +776,16 @@ public class PostDetailActivity extends AppCompatActivity {
                 // get uid receiver is mean owner content that you make event noty happen
                 String uidReceiver = uid;
 
+                // get post key here
+
+
                 // if an pusher and receiver notification is a same user
                 // notification should not show on display
                 if (FirebaseAuth.getInstance().getUid().equals(uidReceiver)) {
                     // Not do anything
                 } else {
                     PushNotificationTask pushNotificationTask = new PushNotificationTask();
-                    pushNotificationTask.execute(tokens, finalUser_nickname, type, uidReceiver);
+                    pushNotificationTask.execute(tokens, finalUser_nickname, type, uidReceiver, postKey);
                 }
             }
 

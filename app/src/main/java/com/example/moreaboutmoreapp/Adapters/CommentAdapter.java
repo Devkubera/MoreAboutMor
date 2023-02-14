@@ -430,13 +430,16 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
                                             // get uid receiver is mean owner content that you make event noty happen
                                             String uidReceiver = mData.get(position).getUid();
 
+                                            // get post key
+                                            String postKey = mData.get(position).getPostKey();
+
                                             // if an pusher and receiver notification is a same user
                                             // notification should not show on display
                                             if (FirebaseAuth.getInstance().getUid().equals(uidReceiver)) {
                                                 // Not do anything
                                             } else {
                                                 PushNotificationTask pushNotificationTask = new PushNotificationTask();
-                                                pushNotificationTask.execute(tokens, nickname, type, uidReceiver);
+                                                pushNotificationTask.execute(tokens, nickname, type, uidReceiver, postKey);
                                             }
                                         }
 
@@ -562,13 +565,16 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
                                                 // get uid receiver is mean owner content that you make event noty happen
                                                 String uidReceiver = mData.get(position).getUid();
 
+                                                // get post key
+                                                String postKey = mData.get(position).getPostKey();
+
                                                 // if an pusher and receiver notification is a same user
                                                 // notification should not show on display
                                                 if (FirebaseAuth.getInstance().getUid().equals(uidReceiver)) {
                                                     // Not do anything
                                                 } else {
                                                     PushNotificationTask pushNotificationTask = new PushNotificationTask();
-                                                    pushNotificationTask.execute(tokens, nickname, type, uidReceiver);
+                                                    pushNotificationTask.execute(tokens, nickname, type, uidReceiver, postKey);
                                                 }
                                             }
 

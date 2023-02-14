@@ -1,17 +1,27 @@
 package com.example.moreaboutmoreapp.Adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.moreaboutmoreapp.Activities.MainActivity;
+import com.example.moreaboutmoreapp.ForgetPassFragment;
 import com.example.moreaboutmoreapp.Models.NotificationData;
 import com.example.moreaboutmoreapp.Models.Post;
 import com.example.moreaboutmoreapp.R;
@@ -37,6 +47,9 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     String type[];
     String email;
+
+    // delete del
+    ImageView btn_Del;
 
     // get uid
     public static String user_Id;
@@ -161,6 +174,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
         TextView tvContent;
         ImageView imgProfile, imgIcon;
+        RelativeLayout row_noty_overview;
 
 
         public MyViewHolder(@NonNull View itemView) {
@@ -169,6 +183,74 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             tvContent = itemView.findViewById(R.id.row_noty_txtHeader);
             imgProfile = itemView.findViewById(R.id.row_noty_profile);
             imgIcon = itemView.findViewById(R.id.row_noty_icon);
+
+
+            // delete notification
+            btn_Del = itemView.findViewById(R.id.row_noty_icon_Del);
+            btn_Del.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // alertView
+                    AlertBox();
+                }
+            });
+
+
+            /** scroll to position */
+            row_noty_overview = itemView.findViewById(R.id.row_noty_overview);
+            row_noty_overview.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    FragmentTransaction fragmentTransaction = v.getSupportFragmentManager().beginTransaction();
+//                    fragmentTransaction.replace(R.id.frag, new ForgetPassFragment()).commit();
+                    int position = getAdapterPosition();
+                    String postKey = mData.get(position).getPostKey();
+                    Intent intent = new Intent(mContext, MainActivity.class);
+                    mContext.startActivity(intent);
+                }
+            });
+
+
+        }
+
+        private void AlertBox() {
+            LayoutInflater layoutInflater = LayoutInflater.from(mContext);
+            View view = layoutInflater.inflate(R.layout.noty_confirm_del_dialog, null);
+
+            //Create AlertDialog
+            AlertDialog builder = new AlertDialog.Builder(mContext)
+                    .setView(view)
+                    .create();
+
+            // show alert box
+            builder.show();
+
+            //Click To Delete Post
+            Button click_ok = view.findViewById(R.id.Btn_noty_del);
+            click_ok.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //Close AlertDialog
+                    builder.dismiss();
+
+                    int position = getAdapterPosition();
+                    String key = mData.get(position).getId();
+                    String uid = mData.get(position).getUidReceiver();
+                    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+
+                    DatabaseReference refDelNotification = firebaseDatabase.getReference("NotificationCenter/").child(uid).child(key);
+                    Log.d("REFERENCE", "onClick: " + refDelNotification);
+                    refDelNotification.removeValue(new DatabaseReference.CompletionListener() {
+                        @Override
+                        public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                            Toast.makeText(mContext, "ลบแจ้งเตือนสำเร็จ", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+
+
+                } // oN click
+            });
         }
     }
 }
