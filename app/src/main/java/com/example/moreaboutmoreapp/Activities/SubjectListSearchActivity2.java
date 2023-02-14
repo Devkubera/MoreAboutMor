@@ -2,9 +2,11 @@ package com.example.moreaboutmoreapp.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.app.AlertDialog;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -158,7 +160,17 @@ public class SubjectListSearchActivity2 extends AppCompatActivity {
 
                 // declaration
                 subjectLV = (ListView) BottomSheetView.findViewById(R.id.subjectLV);
+
+                //SearchView custom font
                 SearchView searchBox = BottomSheetView.findViewById(R.id.search_boxs);
+                int id = searchBox.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+
+                TextView searchText = (TextView) searchBox.findViewById(id);
+                Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.mitr_light);
+                searchText.setTypeface(typeface);
+                searchText.setTextColor(getResources().getColor(R.color.black));
+                searchText.setHintTextColor(getResources().getColor(R.color.dark_gray));
+
                 TextView header = BottomSheetView.findViewById(R.id.text_header);
                 //Button btn_select = bottomSheetDialog.findViewById(R.id.search_box);
 
