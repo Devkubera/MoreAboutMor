@@ -16,14 +16,14 @@
         >
         <!-- logo -->
         <ImageView
-            android:id="@+id/aboutapp_logo"
+            android:id="@+id/Btn_Back21"
             android:layout_width="31dp"
             android:layout_height="31dp"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="32dp"
             android:layout_alignParentTop="true"
             android:layout_marginTop="24dp"
-            android:background="@drawable/bg_logo"
+            android:background="@drawable/back_circle_button"
             />
 
         <!-- เกี่ยวกับแอพ -->
@@ -31,7 +31,7 @@
             android:id="@+id/some_id"
             android:layout_width="300dp"
             android:layout_height="53dp"
-            android:layout_alignLeft="@id/aboutapp_logo"
+            android:layout_alignLeft="@id/Btn_Back21"
             android:layout_marginLeft="42dp"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/mitr_regular"
@@ -71,8 +71,9 @@
                     android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/introduce"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:textColor="@color/black"
                     android:text="@string/twentyone"
                     android:textSize="12dp"
@@ -81,59 +82,165 @@
                     />
 
                     <ImageView
+                        android:id="@+id/g1"
                         android:layout_width="180dp"
                         android:layout_height="60dp"
                         android:layout_centerHorizontal="true"
                         android:background="@drawable/img_firsttwentyone"
-                        android:layout_marginTop="95dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_below="@+id/introduce"
+                        />
+
+                    <TextView
+                        android:layout_marginTop="20dp"
+                        android:id="@+id/firstText"
+                        android:layout_below="@+id/g1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="@string/twentyone_first"
+                        android:textSize="12dp"
+                        android:fontFamily="@font/mitr_light"
+                        android:lineSpacingMultiplier="1.1"
                         />
 
                     <ImageView
+                        android:id="@+id/g2"
+                        android:layout_below="@+id/firstText"
                         android:layout_width="180dp"
                         android:layout_height="60dp"
                         android:layout_centerHorizontal="true"
                         android:background="@drawable/img_secondtwentyone"
-                        android:layout_marginTop="340dp"
+                        android:layout_marginTop="20dp"
+                        />
+
+                    <TextView
+                        android:layout_marginTop="20dp"
+                        android:id="@+id/secondText"
+                        android:layout_below="@+id/g2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="@string/twentyone_second"
+                        android:textSize="12dp"
+                        android:fontFamily="@font/mitr_light"
+                        android:lineSpacingMultiplier="1.1"
                         />
 
                     <ImageView
+                        android:id="@+id/g3"
+                        android:layout_below="@+id/secondText"
                         android:layout_width="180dp"
                         android:layout_height="60dp"
                         android:layout_centerHorizontal="true"
                         android:background="@drawable/img_thirdtwentyone"
-                        android:layout_marginTop="460dp"
+                        android:layout_marginTop="20dp"
+                        />
+
+                    <TextView
+                        android:layout_marginTop="20dp"
+                        android:id="@+id/thirdText"
+                        android:layout_below="@+id/g3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="@string/twentyone_third"
+                        android:textSize="12dp"
+                        android:fontFamily="@font/mitr_light"
+                        android:lineSpacingMultiplier="1.1"
                         />
 
                     <ImageView
+                        android:id="@+id/g4"
+                        android:layout_below="@+id/thirdText"
                         android:layout_width="180dp"
                         android:layout_height="60dp"
                         android:layout_centerHorizontal="true"
                         android:background="@drawable/img_forthtwentyone"
-                        android:layout_marginTop="590dp"
+                        android:layout_marginTop="20dp"
+                        />
+
+                    <TextView
+                        android:layout_marginTop="20dp"
+                        android:id="@+id/fourthText"
+                        android:layout_below="@+id/g4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="@string/twentyone_fourth"
+                        android:textSize="12dp"
+                        android:fontFamily="@font/mitr_light"
+                        android:lineSpacingMultiplier="1.1"
                         />
 
                     <ImageView
+                        android:id="@+id/g5"
+                        android:layout_below="@+id/fourthText"
                         android:layout_width="180dp"
                         android:layout_height="60dp"
                         android:layout_centerHorizontal="true"
                         android:background="@drawable/img_fifthtwentyone"
-                        android:layout_marginTop="710dp"
+                        android:layout_marginTop="20dp"
+                        />
+
+                    <TextView
+                        android:layout_marginTop="20dp"
+                        android:id="@+id/fifthText"
+                        android:layout_below="@+id/g5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="@string/twentyone_fifth"
+                        android:textSize="12dp"
+                        android:fontFamily="@font/mitr_light"
+                        android:lineSpacingMultiplier="1.1"
                         />
 
                     <ImageView
+                        android:id="@+id/g6"
+                        android:layout_below="@+id/fifthText"
                         android:layout_width="180dp"
                         android:layout_height="60dp"
                         android:layout_centerHorizontal="true"
                         android:background="@drawable/img_sixthtwentyone"
-                        android:layout_marginTop="850dp"
+                        android:layout_marginTop="20dp"
+                        />
+
+                    <TextView
+                        android:layout_marginTop="20dp"
+                        android:id="@+id/sixthText"
+                        android:layout_below="@+id/g6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="@string/twentyone_sixth"
+                        android:textSize="12dp"
+                        android:fontFamily="@font/mitr_light"
+                        android:lineSpacingMultiplier="1.1"
                         />
 
                     <ImageView
+                        android:id="@+id/g7"
+                        android:layout_below="@+id/sixthText"
                         android:layout_width="180dp"
                         android:layout_height="60dp"
                         android:layout_centerHorizontal="true"
                         android:background="@drawable/img_seventhtwentyone"
-                        android:layout_marginTop="1050dp"
+                        android:layout_marginTop="20dp"
+                        />
+
+                    <TextView
+                        android:layout_marginTop="20dp"
+                        android:id="@+id/seventhText"
+                        android:layout_below="@+id/g7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:text="@string/twentyone_seven"
+                        android:textSize="12dp"
+                        android:fontFamily="@font/mitr_light"
+                        android:lineSpacingMultiplier="1.1"
+                        android:layout_marginBottom="50dp"
                         />
 
                 </RelativeLayout>
