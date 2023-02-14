@@ -148,6 +148,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
            //CV_Row_Post.setVisibility(View.GONE);
        }
 
+
         //Get Comment Count
         DatabaseReference commentRef = firebaseDatabase.getReference("Comment").child(mData.get(position).getPostKey());
         commentRef.addValueEventListener(new ValueEventListener() {
@@ -268,8 +269,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
 
 
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+
 
             //CV_Row_Post = itemView.findViewById(R.id.CV_Row_Post);
              filterResetTag = new ArrayList<>();
@@ -422,6 +425,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                                         public void onClick(View view) {
                                             String updateComment = Edit_Post.getEditText().getText().toString().trim();
                                             updateCommentTag(updateComment, itemSelectTag);
+
                                         }
                                     });
 
@@ -721,8 +725,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
             click_ok.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //Close AlertDialog
-                    builder.dismiss();
 
                     int position = getAdapterPosition();
                     postKey = mData.get(position).getPostKey();
@@ -791,6 +793,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
 
                         }
                     });
+
+                    //notifyDataSetChanged();
+                    //notifyItemRemoved(position);
+                    //Close AlertDialog
+                    builder.dismiss();
 
 
                 }
@@ -1001,7 +1008,24 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                 userDataRef.child("detailComments").setValue(updateComment);
                 userDataRef.child("selectTag").setValue(itemSelectTag);
 
+                //Set updateCommentTag
+                textPost.setText(updateComment);
+                textTag.setText(itemSelectTag);
+
+                if (updateComment.length() > 155) {
+                    updateComment = updateComment.substring(0,155) + " ...";
+                    textPost.setText(updateComment);
+                    textViewMore.setVisibility(View.VISIBLE);
+
+                } else {
+                    textViewMore.setVisibility(View.INVISIBLE);
+                    textPost.setText(updateComment);
+                }
+
+
                 bottomSheetDialogEditPost.dismiss();
+                //notifyDataSetChanged();
+
 
             }
 
