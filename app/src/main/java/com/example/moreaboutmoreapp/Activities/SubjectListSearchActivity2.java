@@ -36,7 +36,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SubjectListSearchActivity extends AppCompatActivity {
+public class SubjectListSearchActivity2 extends AppCompatActivity {
 
     ImageView btn_back;
     Button btn_addSubject,btn_summit;
@@ -132,13 +132,13 @@ public class SubjectListSearchActivity extends AppCompatActivity {
                     AlertBox("Submit");
 //                    finish();
                 } else {
-                    Toast.makeText(SubjectListSearchActivity.this, "กรุณาเลือกรายวิชาอย่างน้อย 3 รายวิชา", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SubjectListSearchActivity2.this, "กรุณาเลือกรายวิชาอย่างน้อย 3 รายวิชา", Toast.LENGTH_LONG).show();
                 }
 
             }
         });
 
-        pullRankingSubject("MajorSkillBranch");
+        pullRankingSubject("GeRelax");
 
 
         // search subject 1
@@ -152,8 +152,8 @@ public class SubjectListSearchActivity extends AppCompatActivity {
                 //bottomSheet
 
                 // set bottom sheet
-                bottomSheetDialog = new BottomSheetDialog(SubjectListSearchActivity.this, R.style.BottomSheetDialog);
-                View BottomSheetView = LayoutInflater.from(SubjectListSearchActivity.this)
+                bottomSheetDialog = new BottomSheetDialog(SubjectListSearchActivity2.this, R.style.BottomSheetDialog);
+                View BottomSheetView = LayoutInflater.from(SubjectListSearchActivity2.this)
                         .inflate(R.layout.bottom_sheet_search, v.findViewById(R.id.BottomSheetContainerNewSearch));
 
                 // declaration
@@ -270,8 +270,8 @@ public class SubjectListSearchActivity extends AppCompatActivity {
 //                startActivity(intent);
 
                 // set bottom sheet
-                bottomSheetDialog = new BottomSheetDialog(SubjectListSearchActivity.this, R.style.BottomSheetDialog);
-                View BottomSheetView = LayoutInflater.from(SubjectListSearchActivity.this)
+                bottomSheetDialog = new BottomSheetDialog(SubjectListSearchActivity2.this, R.style.BottomSheetDialog);
+                View BottomSheetView = LayoutInflater.from(SubjectListSearchActivity2.this)
                         .inflate(R.layout.bottom_sheet_search, v.findViewById(R.id.BottomSheetContainerNewSearch));
 
                 // declaration
@@ -397,8 +397,8 @@ public class SubjectListSearchActivity extends AppCompatActivity {
 //                startActivity(intent);
 
                 // set bottom sheet
-                bottomSheetDialog = new BottomSheetDialog(SubjectListSearchActivity.this, R.style.BottomSheetDialog);
-                View BottomSheetView = LayoutInflater.from(SubjectListSearchActivity.this)
+                bottomSheetDialog = new BottomSheetDialog(SubjectListSearchActivity2.this, R.style.BottomSheetDialog);
+                View BottomSheetView = LayoutInflater.from(SubjectListSearchActivity2.this)
                         .inflate(R.layout.bottom_sheet_search, v.findViewById(R.id.BottomSheetContainerNewSearch));
 
                 // declaration
@@ -511,8 +511,8 @@ public class SubjectListSearchActivity extends AppCompatActivity {
 //                startActivity(intent);
 
                 // set bottom sheet
-                bottomSheetDialog = new BottomSheetDialog(SubjectListSearchActivity.this, R.style.BottomSheetDialog);
-                View BottomSheetView = LayoutInflater.from(SubjectListSearchActivity.this)
+                bottomSheetDialog = new BottomSheetDialog(SubjectListSearchActivity2.this, R.style.BottomSheetDialog);
+                View BottomSheetView = LayoutInflater.from(SubjectListSearchActivity2.this)
                         .inflate(R.layout.bottom_sheet_search, v.findViewById(R.id.BottomSheetContainerNewSearch));
 
                 // declaration
@@ -627,8 +627,8 @@ public class SubjectListSearchActivity extends AppCompatActivity {
 //                startActivity(intent);
 
                 // set bottom sheet
-                bottomSheetDialog = new BottomSheetDialog(SubjectListSearchActivity.this, R.style.BottomSheetDialog);
-                View BottomSheetView = LayoutInflater.from(SubjectListSearchActivity.this)
+                bottomSheetDialog = new BottomSheetDialog(SubjectListSearchActivity2.this, R.style.BottomSheetDialog);
+                View BottomSheetView = LayoutInflater.from(SubjectListSearchActivity2.this)
                         .inflate(R.layout.bottom_sheet_search, v.findViewById(R.id.BottomSheetContainerNewSearch));
 
                 // declaration
@@ -931,7 +931,7 @@ public class SubjectListSearchActivity extends AppCompatActivity {
 
             private void uploadSubject(User user) {
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("allSubject/")
-                        .child("MajorSkillBranch")
+                        .child("GeRelax")
                         .child(user.getMajor())
                         .child(user.getSubMajor())
                         .child(user.getUserId());

@@ -272,7 +272,7 @@
                     android:fontFamily="@font/mitr_light"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="80dp"
-                    android:text="1st 1101040 ชุดวิชาแอนดรอย"
+                    android:text="1st -"
                     android:textColor="@color/white"
                     android:textSize="16dp" />
 
@@ -285,7 +285,7 @@
                     android:fontFamily="@font/mitr_light"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
-                    android:text="1st 1101040 ชุดวิชาแอนดรอย"
+                    android:text="2nd -"
                     android:textColor="@color/white"
                     android:textSize="16dp" />
 
@@ -298,7 +298,7 @@
                     android:fontFamily="@font/mitr_light"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
-                    android:text="1st 1101040 ชุดวิชาแอนดรอย"
+                    android:text="3rd -"
                     android:textColor="@color/white"
                     android:textSize="16dp" />
 
@@ -311,7 +311,7 @@
                     android:fontFamily="@font/mitr_light"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
-                    android:text="1st 1101040 ชุดวิชาแอนดรอย"
+                    android:text="4th -"
                     android:textColor="@color/white"
                     android:textSize="16dp" />
 
@@ -324,7 +324,7 @@
                     android:fontFamily="@font/mitr_light"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
-                    android:text="1st 1101040 ชุดวิชาแอนดรอย"
+                    android:text="5th -"
                     android:textColor="@color/white"
                     android:textSize="16dp" />
 

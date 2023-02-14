@@ -31,6 +31,7 @@ public class subjectListActivity extends AppCompatActivity {
     ImageView btn_back;
     RelativeLayout
             btn_addData1,
+            btn_addData2,
             subject_faculty_list,
             subject_faculty_list2,
             subject_faculty_bg,
@@ -41,6 +42,8 @@ public class subjectListActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+        ChangeUI("1");
+        ChangeUI("2");
         super.onResume();
     }
 
@@ -66,6 +69,13 @@ public class subjectListActivity extends AppCompatActivity {
         noDrawable2 = findViewById(R.id.subject_txt2);
 
         drawable2 = findViewById(R.id.subject_edit_btn2);
+        drawable2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SubjectListSearchActivity2.class);
+                startActivity(intent);
+            }
+        });
 
 
         // Relative layout text list in Faculty Skill
@@ -101,6 +111,18 @@ public class subjectListActivity extends AppCompatActivity {
             }
         });
 
+        // go to new activity to search subject
+        btn_addData2 = findViewById(R.id.subject_background_default2);
+        btn_addData2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SubjectListSearchActivity2.class);
+                startActivity(intent);
+                // finish();
+
+            }
+        });
+
 
     }
 
@@ -123,7 +145,7 @@ public class subjectListActivity extends AppCompatActivity {
         //
     }
 
-    private void getUserData(DatabaseReference ref, String s) {
+    private void getUserData(DatabaseReference ref, String sx) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         DatabaseReference userData = FirebaseDatabase.getInstance().getReference("userData").child(auth.getUid());
 
@@ -162,7 +184,7 @@ public class subjectListActivity extends AppCompatActivity {
                             TextView textView5;
 
                             // check type that we work
-                            if (s.equals("1")) {
+                            if (sx.equals("1")) {
                                 // set button and alpha text is gone
                                 subject_faculty_bg.setVisibility(View.GONE);
                                 // set text faculty list text is show
@@ -194,7 +216,9 @@ public class subjectListActivity extends AppCompatActivity {
                                 textView1.setText("1st " + subjectNameModel.getName1());
                                 textView2.setText("2nd " + subjectNameModel.getName2());
                                 textView3.setText("3rd " + subjectNameModel.getName3());
-                            } else {
+                            }
+                            else
+                            {
                                 // set button and alpha text is gone
                                 subject_faculty_bg2.setVisibility(View.GONE);
                                 // set text faculty list text is show

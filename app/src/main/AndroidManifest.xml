@@ -48,6 +48,13 @@
         android:theme="@style/SplashScreen"
         tools:targetApi="31">
         <activity
+            android:name=".Activities.SubjectListSearchActivity2"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Activities.SearchNewPageActivity"
             android:exported="false">
             <meta-data

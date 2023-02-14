@@ -3,11 +3,14 @@ package com.example.moreaboutmoreapp;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,19 +63,49 @@ public class TwentyoneFragment extends Fragment {
     }
 
     @Override
+    public void onDestroyView() {
+        showBottomNavigationView();
+        super.onDestroyView();
+    }
+
+
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_twentyone, container, false);
 
+        hideBottomNavigationView();
+
         btn_Back = view.findViewById(R.id.Btn_Back21);
         btn_Back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().popBackStack();
+                Fragment newFragment = new MenuFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.menuFragment, newFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 
         return view;
+    }
+
+    private void hideBottomNavigationView() {
+        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.nav);
+        bottomNavigationView.setVisibility(View.GONE);
+
+        View shadowNav = getActivity().findViewById(R.id.shadowNav);
+        shadowNav.setVisibility(View.GONE);
+    }
+
+    private void showBottomNavigationView() {
+        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.nav);
+        bottomNavigationView.setVisibility(View.VISIBLE);
+
+        View shadowNav = getActivity().findViewById(R.id.shadowNav);
+        shadowNav.setVisibility(View.VISIBLE);
     }
 }
