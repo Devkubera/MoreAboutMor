@@ -13,43 +13,83 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- Card View BackMenu -->
-        <com.google.android.material.card.MaterialCardView
+        <RelativeLayout
             android:id="@+id/CV_BackMenu"
-            android:layout_width="wrap_content"
-            android:layout_height="70dp"
-            android:layout_marginTop="20dp"
-            app:cardBackgroundColor="@color/back_color"
-            style="@style/CustomCardViewStyle_BackMenuComment">
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:layout_marginTop="-10dp"
+            android:layout_centerHorizontal="true">
+
+            <ImageView
+                android:id="@+id/Btn_BackManageComment"
+                android:layout_centerVertical="true"
+                android:layout_width="40dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="28dp"
+                android:src="@drawable/back_circle_button" />
 
             <RelativeLayout
-                android:id="@+id/LayoutBack"
-                android:layout_width="145dp"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/Btn_BackPost"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/ic_baseline_arrow_white_ios_35" />
+                android:id="@+id/LayoutFont"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/Btn_BackManageComment">
 
                 <TextView
-                    android:id="@+id/textCreate"
+                    android:id="@+id/imgManageComment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toEndOf="@id/Btn_BackPost"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginStart="25dp"
                     android:textColor="@color/white"
-                    android:layout_marginStart="5dp"
-                    android:textSize="30dp"
-                    android:text="กลับ"
-                    android:layout_centerVertical="true"
-                    android:fontFamily="@font/mitr_regular"/>
+                    android:fontFamily="@font/mitr_regular"
+                    android:textSize="24dp"
+                    android:text="จัดการความคิดเห็น"/>
+
 
             </RelativeLayout>
 
-        </com.google.android.material.card.MaterialCardView>
+
+        </RelativeLayout>
+
+<!--        &lt;!&ndash; Card View BackMenu &ndash;&gt;-->
+<!--        <com.google.android.material.card.MaterialCardView-->
+<!--            android:id="@+id/CV_BackMenu"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="70dp"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            app:cardBackgroundColor="@color/back_color"-->
+<!--            style="@style/CustomCardViewStyle_BackMenuComment">-->
+
+<!--            <RelativeLayout-->
+<!--                android:id="@+id/LayoutBack"-->
+<!--                android:layout_width="145dp"-->
+<!--                android:layout_height="match_parent">-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/Btn_BackPost"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="15dp"-->
+<!--                    android:layout_centerVertical="true"-->
+<!--                    android:src="@drawable/ic_baseline_arrow_white_ios_35" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/textCreate"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_toEndOf="@id/Btn_BackPost"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:layout_marginStart="5dp"-->
+<!--                    android:textSize="30dp"-->
+<!--                    android:text="กลับ"-->
+<!--                    android:layout_centerVertical="true"-->
+<!--                    android:fontFamily="@font/mitr_regular"/>-->
+
+<!--            </RelativeLayout>-->
+
+<!--        </com.google.android.material.card.MaterialCardView>-->
 
         <!-- Layout Post -->
         <RelativeLayout
@@ -59,7 +99,6 @@
             android:layout_below="@+id/CV_BackMenu">
 
             <androidx.cardview.widget.CardView
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp">
@@ -392,7 +431,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
                                 android:layout_marginStart="15dp"
-                                android:text="แก้ไขโพสต์"
+                                android:text="แก้ไขความคิดเห็น"
                                 android:textColor="@color/black"
                                 android:textSize="14dp"
                                 android:textStyle="bold"
@@ -404,7 +443,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="15dp"
                                 android:layout_below="@+id/textEdit"
-                                android:text="แก้ไขโพสต์ของคุณ"
+                                android:text="แก้ไขความคิดเห็นของคุณ"
                                 android:textColor="@color/grey_font_v3"
                                 android:textSize="12dp"
                                 android:fontFamily="@font/mitr_light"/>
@@ -440,7 +479,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
                                 android:layout_marginStart="15dp"
-                                android:text="ลบโพสต์"
+                                android:text="ลบความคิดเห็น"
                                 android:textColor="@color/black"
                                 android:textSize="14dp"
                                 android:textStyle="bold"
@@ -452,7 +491,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="15dp"
                                 android:layout_below="@+id/textDelete"
-                                android:text="ลบการเผยแพร่โพสต์นี้"
+                                android:text="ลบการเผยแพร่ความคิดเห็นนี้"
                                 android:textColor="@color/grey_font_v3"
                                 android:textSize="12dp"
                                 android:fontFamily="@font/mitr_light"/>

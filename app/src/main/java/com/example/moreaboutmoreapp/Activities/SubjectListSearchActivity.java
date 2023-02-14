@@ -1,5 +1,6 @@
 package com.example.moreaboutmoreapp.Activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
@@ -18,9 +19,17 @@ import android.widget.Toast;
 
 import com.example.moreaboutmoreapp.Adapters.SubjectAdapter;
 import com.example.moreaboutmoreapp.Models.SubjectModel;
+import com.example.moreaboutmoreapp.Models.User;
+import com.example.moreaboutmoreapp.Models.subjectNameModel;
 import com.example.moreaboutmoreapp.R;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.common.reflect.TypeToken;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
 import java.lang.reflect.Type;
@@ -39,6 +48,17 @@ public class SubjectListSearchActivity extends AppCompatActivity {
 
     List<SubjectModel> storeValue = new ArrayList<>();
 
+    public static String getName1 = "default";
+    public static String getName2 = "default";
+    public static String getName3 = "default";
+    public static String getName4 = "default";
+    public static String getName5 = "default";
+    public static String getCode1 = "default";
+    public static String getCode2 = "default";
+    public static String getCode3 = "default";
+    public static String getCode4 = "default";
+    public static String getCode5 = "default";
+
     public static String getSubjectBox1 = "default";
     public static String getSubjectBox2 = "default";
     public static String getSubjectBox3 = "default";
@@ -46,6 +66,10 @@ public class SubjectListSearchActivity extends AppCompatActivity {
     public static String getSubjectBox5 = "default";
 
     public static int position1;
+    public static int position2;
+    public static int position3;
+    public static int position4;
+    public static int position5;
 
 
 
@@ -53,7 +77,6 @@ public class SubjectListSearchActivity extends AppCompatActivity {
     List<SubjectModel> items = new ArrayList<>();
     // use for save array list
     List<SubjectModel> subjectModels = new ArrayList<>();
-    // use for get selected list value
 
     Object selectedArray = new ArrayList<>();
     // sharepreference Key
@@ -63,9 +86,11 @@ public class SubjectListSearchActivity extends AppCompatActivity {
     BottomSheetDialog bottomSheetDialog;
 
     // create array to check btn enable
-    List<String> arrJectData = new ArrayList<String>();
+    List<String> arrJectData = new ArrayList<>();
 
     List<SubjectModel> suggestions = new ArrayList<>();
+
+    subjectNameModel nameModel = new subjectNameModel();
 
     @Override
     protected void onResume() {
@@ -79,6 +104,7 @@ public class SubjectListSearchActivity extends AppCompatActivity {
 
         // clear data in array check btn
         arrJectData.clear();
+        setDefaultValue();
 
         // back to subject list page
         btn_back = findViewById(R.id.Btn_BackAddSubject);
@@ -112,6 +138,8 @@ public class SubjectListSearchActivity extends AppCompatActivity {
             }
         });
 
+        pullRankingSubject();
+
 
         // search subject 1
         add_subjectBox1 = findViewById(R.id.subject_addBox1);
@@ -120,6 +148,8 @@ public class SubjectListSearchActivity extends AppCompatActivity {
             public void onClick(View v) {
 //                Intent intent = new Intent(getApplicationContext(), SearchNewPageActivity.class);
 //                startActivity(intent);
+
+                //bottomSheet
 
                 // set bottom sheet
                 bottomSheetDialog = new BottomSheetDialog(SubjectListSearchActivity.this, R.style.BottomSheetDialog);
@@ -194,17 +224,17 @@ public class SubjectListSearchActivity extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         //String selectedWord = parent.getAdapter().getItem(position).toString();
                         SubjectModel model = (SubjectModel) parent.getItemAtPosition(position);
-                        Toast.makeText(SubjectListSearchActivity.this, "Selected word: " + model.getName(), Toast.LENGTH_SHORT).show();
-                        Log.d("SELECTED LIST", "onItemClick: " + model.getName());
+//                        Toast.makeText(SubjectListSearchActivity.this, "Selected word: " + model.getName(), Toast.LENGTH_SHORT).show();
+//                        Log.d("SELECTED LIST", "onItemClick: " + model.getName());
 
                         // set value to array list
                         storeValue.add(model);
 
                         // check user update value section
-                        if (getSubjectBox1 != "default") {
-                            int x = arrJectData.indexOf(getSubjectBox1);
-                            arrJectData.remove(x);
-                            Log.d("OnFire", "onItemClick: " + x);
+                        if (!getSubjectBox1.equals("default")) {
+                            String x = String.valueOf(arrJectData.remove(position1));
+                            Log.d("OnFire1", "onItemClick: " + x);
+                            getSubjectBox1 = "default";
                         } else {
                             getSubjectBox1 = model.getName().toString();
                             position1 = position;
@@ -212,13 +242,15 @@ public class SubjectListSearchActivity extends AppCompatActivity {
 
 
                         // set value to variable
+                        getName1 = model.getName().toString();
+                        getCode1 = model.getPasscode().toString();
+                        // set text to text view
                         String sumText = model.getPasscode().toString() + " " + model.getName().toString();
 
-
-                        // set text to text view
                         add_subjectBox1.setTextColor(getResources().getColor(R.color.darknight));
                         add_subjectBox1.setText("วิชาที่ 1: " + sumText);
                         arrJectData.add(sumText);
+                        nameModel.setName1(sumText);
                         bottomSheetDialog.dismiss();
                     }
                 });
@@ -318,18 +350,32 @@ public class SubjectListSearchActivity extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         //String selectedWord = parent.getAdapter().getItem(position).toString();
                         SubjectModel model = (SubjectModel) parent.getItemAtPosition(position);
-                        Toast.makeText(SubjectListSearchActivity.this, "Selected word: " + model.getName(), Toast.LENGTH_SHORT).show();
-                        Log.d("SELECTED LIST", "onItemClick: " + model.getName());
+//                        Toast.makeText(SubjectListSearchActivity.this, "Selected word: " + model.getName(), Toast.LENGTH_SHORT).show();
+//                        Log.d("SELECTED LIST", "onItemClick: " + model.getName());
+
+                        // check user update value section
+                        if (!getSubjectBox2.equals("default")) {
+                            String x = arrJectData.remove(position2);
+                            Log.d("OnFire2", "onItemClick: " + x);
+                            getSubjectBox2 = "default";
+                        } else {
+                            getSubjectBox2 = model.getName().toString();
+                            position2 = position;
+                        }
 
                         // set value to variable
-                        String sumText = model.getPasscode().toString() + " " + model.getName().toString();
-                        getSubjectBox2 = model.getName().toString();
+                        getName2 = model.getName().toString();
+                        getCode2 = model.getPasscode().toString();
+
                         // set text to text view
+                        String sumText = model.getPasscode().toString() + " " + model.getName().toString();
+
                         add_subjectBox2.setTextColor(getResources().getColor(R.color.darknight));
                         add_subjectBox2.setText("วิชาที่ 2: " + sumText);
                         arrJectData.add(sumText);
+                        nameModel.setName2(sumText);
                         // reset this value from arrayList
-                        items.remove(position);
+                        // items.remove(position);
 
                         bottomSheetDialog.dismiss();
                     }
@@ -362,7 +408,7 @@ public class SubjectListSearchActivity extends AppCompatActivity {
                 //Button btn_select = bottomSheetDialog.findViewById(R.id.search_box);
 
                 // set text header
-                header.setText("วิชาที่ 1");
+                header.setText("วิชาที่ 3");
 
                 // new code
                 ArrayList<SubjectModel> subjectModelArrayList = new ArrayList<>();
@@ -422,16 +468,29 @@ public class SubjectListSearchActivity extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         //String selectedWord = parent.getAdapter().getItem(position).toString();
                         SubjectModel model = (SubjectModel) parent.getItemAtPosition(position);
-                        Toast.makeText(SubjectListSearchActivity.this, "Selected word: " + model.getName(), Toast.LENGTH_SHORT).show();
-                        Log.d("SELECTED LIST", "onItemClick: " + model.getName());
+//                        Toast.makeText(SubjectListSearchActivity.this, "Selected word: " + model.getName(), Toast.LENGTH_SHORT).show();
+//                        Log.d("SELECTED LIST", "onItemClick: " + model.getName());
+
+                        // check user update value section
+                        if (!getSubjectBox3.equals("default")) {
+                            String x = arrJectData.remove(position3);
+                            Log.d("OnFire3", "onItemClick: " + x);
+                            getSubjectBox3 = "default";
+                        } else {
+                            getSubjectBox3 = model.getName().toString();
+                            position3 = position;
+                        }
 
                         // set value to variable
-                        String sumText = model.getPasscode().toString() + " " + model.getName().toString();
-                        getSubjectBox3 = model.getName().toString();
+                        getName3 = model.getName().toString();
+                        getCode3 = model.getPasscode().toString();
                         // set text to text view
+                        String sumText = model.getPasscode().toString() + " " + model.getName().toString();
+
                         add_subjectBox3.setTextColor(getResources().getColor(R.color.darknight));
                         add_subjectBox3.setText("วิชาที่ 3: " + sumText);
                         arrJectData.add(sumText);
+                        nameModel.setName3(sumText);
                         bottomSheetDialog.dismiss();
                     }
                 });
@@ -463,7 +522,7 @@ public class SubjectListSearchActivity extends AppCompatActivity {
                 //Button btn_select = bottomSheetDialog.findViewById(R.id.search_box);
 
                 // set text header
-                header.setText("วิชาที่ 1");
+                header.setText("วิชาที่ 4");
 
                 // new code
                 ArrayList<SubjectModel> subjectModelArrayList = new ArrayList<>();
@@ -523,16 +582,31 @@ public class SubjectListSearchActivity extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         //String selectedWord = parent.getAdapter().getItem(position).toString();
                         SubjectModel model = (SubjectModel) parent.getItemAtPosition(position);
-                        Toast.makeText(SubjectListSearchActivity.this, "Selected word: " + model.getName(), Toast.LENGTH_SHORT).show();
-                        Log.d("SELECTED LIST", "onItemClick: " + model.getName());
+
+                        // Toast.makeText(SubjectListSearchActivity.this, "คุณเลือกวิชา : " + model.getName(), Toast.LENGTH_SHORT).show();
+                        // Log.d("SELECTED LIST", "onItemClick: " + model.getName());
+
+                        // check user update value section
+                        if (getSubjectBox4 != "default") {
+                            String x = arrJectData.remove(position4);
+                            Log.d("OnFire4", "onItemClick: " + x);
+                            getSubjectBox4 = "default";
+                        } else {
+                            getSubjectBox4 = model.getName().toString();
+                            position4 = position;
+                        }
 
                         // set value to variable
-                        String sumText = model.getPasscode().toString() + " " + model.getName().toString();
-                        getSubjectBox4 = model.getName().toString();
+                        getName4 = model.getName().toString();
+                        getCode4 = model.getPasscode().toString();
+
                         // set text to text view
+                        String sumText = model.getPasscode().toString() + " " + model.getName().toString();
+
                         add_subjectBox4.setTextColor(getResources().getColor(R.color.darknight));
                         add_subjectBox4.setText("วิชาที่ 4: " + sumText);
                         arrJectData.add(sumText);
+                        nameModel.setName4(sumText);
                         bottomSheetDialog.dismiss();
                     }
                 });
@@ -564,7 +638,7 @@ public class SubjectListSearchActivity extends AppCompatActivity {
                 //Button btn_select = bottomSheetDialog.findViewById(R.id.search_box);
 
                 // set text header
-                header.setText("วิชาที่ 1");
+                header.setText("วิชาที่ 5");
 
                 // new code
                 ArrayList<SubjectModel> subjectModelArrayList = new ArrayList<>();
@@ -624,17 +698,32 @@ public class SubjectListSearchActivity extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         //String selectedWord = parent.getAdapter().getItem(position).toString();
                         SubjectModel model = (SubjectModel) parent.getItemAtPosition(position);
-                        Toast.makeText(SubjectListSearchActivity.this, "Selected word: " + model.getName(), Toast.LENGTH_SHORT).show();
-                        Log.d("SELECTED LIST", "onItemClick: " + model.getName());
+
+                        // show result
+//                        Toast.makeText(SubjectListSearchActivity.this, "Selected word: " + model.getName(), Toast.LENGTH_SHORT).show();
+//                        Log.d("SELECTED LIST", "onItemClick: " + model.getName());
+
+                        // check user update value section
+                        if (getSubjectBox5 != "default") {
+                            String x = arrJectData.remove(position5);
+                            Log.d("OnFire5", "onItemClick: " + x);
+                            getSubjectBox5 = "default";
+                        } else {
+                            getSubjectBox5 = model.getName().toString();
+                            position5 = position;
+                        }
 
                         // set value to variable
-                        // set value to variable
-                        String sumText = model.getPasscode().toString() + " " + model.getName().toString();
-                        getSubjectBox5 = model.getName().toString();
+                        getName5 = model.getName().toString();
+                        getCode5 = model.getPasscode().toString();
+
                         // set text to text view
+                        String sumText = model.getPasscode().toString() + " " + model.getName().toString();
+
                         add_subjectBox5.setTextColor(getResources().getColor(R.color.darknight));
                         add_subjectBox5.setText("วิชาที่ 5: " + sumText);
                         arrJectData.add(sumText);
+                        nameModel.setName5(sumText);
                         bottomSheetDialog.dismiss();
                     }
                 });
@@ -648,6 +737,35 @@ public class SubjectListSearchActivity extends AppCompatActivity {
 
     }
 
+    private void pullRankingSubject() {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        DatabaseReference userData = FirebaseDatabase.getInstance().getReference("userData").child(auth.getUid());
+
+        userData.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    User user = snapshot.getValue(User.class);
+                    
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        });
+    }
+
+    private void setDefaultValue() {
+        getSubjectBox1 = "default";
+        getSubjectBox2 = "default";
+        getSubjectBox3 = "default";
+        getSubjectBox4 = "default";
+        getSubjectBox5 = "default";
+    }
+
     private void AlertBox(String type) {
         LayoutInflater layoutInflater = LayoutInflater.from(this);
         View view = layoutInflater.inflate(R.layout.noty_confirm_del_dialog, null);
@@ -657,15 +775,19 @@ public class SubjectListSearchActivity extends AppCompatActivity {
             TextView header = view.findViewById(R.id.text_delete);
             header.setText("ยืนยันรายวิชา");
             TextView detail = view.findViewById(R.id.text_InfoDelete);
+            /** get selected subject code */
             String line = "";
             for (int i = 0; i<arrJectData.size(); i++) {
                 if (line.equals("") && i==0) {
                     line = arrJectData.get(i) + "\n";
+                } else {
+                    line = line + arrJectData.get(i) + "\n";
                 }
-
-                line = line + arrJectData.get(i) + "\n";
+                Log.d("Array list of selected", "AlertBox: " + arrJectData.get(i));
             }
             detail.setText(line);
+
+            //detail.setText("ยืนยันการเลือกรายวิชาใช่หรือไม่");
 
             //Create AlertDialog
             AlertDialog builder = new AlertDialog.Builder(this)
@@ -681,6 +803,7 @@ public class SubjectListSearchActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     //Close AlertDialog
+                    getUserData();
                     builder.dismiss();
                     finish();
                 } // oN click
@@ -734,6 +857,44 @@ public class SubjectListSearchActivity extends AppCompatActivity {
         }
 
         //
+    }
+
+    private void getUserData() {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        DatabaseReference userData = FirebaseDatabase.getInstance().getReference("userData").child(auth.getUid());
+
+        userData.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    User user = snapshot.getValue(User.class);
+                    uploadSubject(user);
+                }
+            }
+
+            private void uploadSubject(User user) {
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("allSubject/")
+                        .child("MajorSkillBranch")
+                        .child(user.getMajor())
+                        .child(user.getSubMajor())
+                        .child(user.getUserId());
+
+                ref.setValue(nameModel);
+
+                // auto generate id
+//                DatabaseReference newRef = ref.push();
+//                String key = newRef.getKey();
+
+//        upSubjectToFirebase subjectToFirebase = new upSubjectToFirebase(get);
+//        newRef.setValue();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     private ArrayList<SubjectModel> loadArrayList(String key){

@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_picture"
+    android:id="@+id/rankingFragment"
     tools:context=".Activities.subjectListActivity">
 
     <!-- Header -->
@@ -18,7 +19,7 @@
 
         <!-- BTN BACK -->
         <ImageView
-            android:id="@+id/Btn_BackSubjectList"
+            android:id="@+id/Btn_BackRanking"
             android:layout_centerVertical="true"
             android:layout_width="40dp"
             android:layout_height="34dp"
@@ -31,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toEndOf="@id/Btn_BackSubjectList">
+            android:layout_toEndOf="@id/Btn_BackRanking">
 
             <TextView
                 android:id="@+id/imgManagePost"
@@ -68,27 +69,75 @@
                 android:layout_width="match_parent"
                 android:layout_height="260dp">
 
-            <TextView
-                android:id="@+id/subject_background_txt1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="100dp"
-                android:alpha="0.7"
-                android:fontFamily="@font/mitr_light"
-                android:text="เพิ่มรายวิชาที่เกี่ยวข้องเพื่อรับ more point"
-                android:textColor="@color/white"
-                android:textSize="16dp" />
+                <TextView
+                    android:id="@+id/subject_background_txt1"
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="70dp"
+                    android:alpha="1"
+                    android:fontFamily="@font/mitr_light"
+                    android:textAlignment="textStart"
+                    android:text="1st 1101040 ชุดวิชาแอนดรอย"
+                    android:textColor="@color/white"
+                    android:textSize="16dp" />
 
-            <ImageView
-                android:id="@+id/subject_background_img1"
-                android:layout_below="@+id/subject_background_txt1"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:alpha="0.5"
-                android:src="@drawable/ic_round_add_circle_outline_24" />
+                <TextView
+                    android:id="@+id/subject_background_txt1_2"
+                    android:layout_below="@+id/subject_background_txt1"
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:alpha="1"
+                    android:fontFamily="@font/mitr_light"
+                    android:textAlignment="textStart"
+                    android:text="2nd 1101011 เทคโนโลยีดิจิทัลเบื้องต้น"
+                    android:textColor="@color/white"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/subject_background_txt1_3"
+                    android:layout_below="@+id/subject_background_txt1_2"
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:alpha="1"
+                    android:fontFamily="@font/mitr_light"
+                    android:textAlignment="textStart"
+                    android:text="3rd 1101101 การโปรแกรมภาษาสคริปต์"
+                    android:textColor="@color/white"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/subject_background_txt1_4"
+                    android:layout_below="@+id/subject_background_txt1_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:alpha="1"
+                    android:fontFamily="@font/mitr_light"
+                    android:textAlignment="textStart"
+                    android:text="4th 1101131 การพัฒนาโปรแกรมประยุก..."
+                    android:textColor="@color/white"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/subject_background_txt1_5"
+                    android:layout_below="@+id/subject_background_txt1_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:alpha="1"
+                    android:fontFamily="@font/mitr_light"
+                    android:textAlignment="textStart"
+                    android:text="5th 1101911 โครงงานเทคโนโลยีดิจิทัล 1"
+                    android:textColor="@color/white"
+                    android:textSize="16dp" />
+
 
             </RelativeLayout>
 
@@ -99,19 +148,17 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:maxLines="1"
                     android:id="@+id/subject_list_inbox_1"
                     android:layout_width="310dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/mitr_light"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="80dp"
-                    android:text="-"
+                    android:text="1st 1101040 ชุดวิชาแอนดรอย"
                     android:textColor="@color/white"
                     android:textSize="16dp" />
 
                 <TextView
-                    android:maxLines="1"
                     android:layout_below="@+id/subject_list_inbox_1"
                     android:id="@+id/subject_list_inbox_2"
                     android:layout_width="310dp"
@@ -119,12 +166,11 @@
                     android:fontFamily="@font/mitr_light"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
-                    android:text="-"
+                    android:text="1st 1101040 ชุดวิชาแอนดรอย"
                     android:textColor="@color/white"
                     android:textSize="16dp" />
 
                 <TextView
-                    android:maxLines="1"
                     android:layout_below="@+id/subject_list_inbox_2"
                     android:id="@+id/subject_list_inbox_3"
                     android:layout_width="310dp"
@@ -132,12 +178,11 @@
                     android:fontFamily="@font/mitr_light"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
-                    android:text="-"
+                    android:text="1st 1101040 ชุดวิชาแอนดรอย"
                     android:textColor="@color/white"
                     android:textSize="16dp" />
 
                 <TextView
-                    android:maxLines="1"
                     android:layout_below="@+id/subject_list_inbox_3"
                     android:id="@+id/subject_list_inbox_4"
                     android:layout_width="310dp"
@@ -145,12 +190,11 @@
                     android:fontFamily="@font/mitr_light"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
-                    android:text="4th -"
+                    android:text="1st 1101040 ชุดวิชาแอนดรอย"
                     android:textColor="@color/white"
                     android:textSize="16dp" />
 
                 <TextView
-                    android:maxLines="1"
                     android:layout_below="@+id/subject_list_inbox_4"
                     android:id="@+id/subject_list_inbox_5"
                     android:layout_width="310dp"
@@ -158,7 +202,7 @@
                     android:fontFamily="@font/mitr_light"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
-                    android:text="5th -"
+                    android:text="1st 1101040 ชุดวิชาแอนดรอย"
                     android:textColor="@color/white"
                     android:textSize="16dp" />
 
@@ -175,23 +219,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
-        <View
-            android:id="@+id/subject_header_rectangle1"
-            android:layout_width="350dp"
-            android:layout_height="50dp"
-            android:background="@drawable/custom_button_white" />
+            <View
+                android:id="@+id/subject_header_rectangle1"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:background="@drawable/custom_button_white" />
 
-        <TextView
-            android:visibility="visible"
-            android:id="@+id/subject_txt1"
-            android:layout_width="310dp"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:fontFamily="@font/mitr_medium"
-            android:textSize="16dp"
-            android:textColor="@color/nav_color"
-            android:text="วิชาที่พัฒนาทักษะในสาขาวิชาของคุณ" />
+            <TextView
+                android:visibility="visible"
+                android:id="@+id/subject_txt1"
+                android:layout_width="310dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/mitr_medium"
+                android:textSize="16dp"
+                android:textColor="@color/nav_color"
+                android:text="วิชาที่พัฒนาทักษะในสาขาวิชาของคุณ" />
 
             <TextView
                 android:visibility="gone"
@@ -236,25 +280,73 @@
 
                 <TextView
                     android:id="@+id/subject_background_txt2"
-                    android:layout_width="wrap_content"
+                    android:layout_width="280dp"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="100dp"
-                    android:alpha="0.7"
+                    android:layout_marginTop="70dp"
+                    android:alpha="1"
                     android:fontFamily="@font/mitr_light"
-                    android:text="เพิ่มรายวิชาที่เกี่ยวข้องเพื่อรับ more point"
+                    android:textAlignment="textStart"
+                    android:text="1st IST20 2002 มนุษย์กับเศรษฐกิจ..."
                     android:textColor="@color/white"
                     android:textSize="16dp" />
 
-                <ImageView
-                    android:id="@+id/subject_background_img2"
+                <TextView
+                    android:id="@+id/subject_background_txt2_2"
                     android:layout_below="@+id/subject_background_txt2"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="20dp"
-                    android:alpha="0.5"
-                    android:src="@drawable/ic_round_add_circle_outline_24" />
+                    android:layout_marginTop="10dp"
+                    android:alpha="1"
+                    android:fontFamily="@font/mitr_light"
+                    android:textAlignment="textStart"
+                    android:text="2nd IST20 1504 กฎหมายในชีวิตประ..."
+                    android:textColor="@color/white"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/subject_background_txt2_3"
+                    android:layout_below="@+id/subject_background_txt2_2"
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:alpha="1"
+                    android:fontFamily="@font/mitr_light"
+                    android:textAlignment="textStart"
+                    android:text="3rd IST20 2503 อาเซียนศึกษา"
+                    android:textColor="@color/white"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/subject_background_txt2_4"
+                    android:layout_below="@+id/subject_background_txt2_3"
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:alpha="1"
+                    android:fontFamily="@font/mitr_light"
+                    android:textAlignment="textStart"
+                    android:text="4th IST20 2504 การคิดเชิงออกแบบ"
+                    android:textColor="@color/white"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/subject_background_txt2_5"
+                    android:layout_below="@+id/subject_background_txt2_4"
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:alpha="1"
+                    android:fontFamily="@font/mitr_light"
+                    android:textAlignment="textStart"
+                    android:text="5th IST20 2505 ฮักเจ้าของ"
+                    android:textColor="@color/white"
+                    android:textSize="16dp" />
+
 
             </RelativeLayout>
 
@@ -265,7 +357,6 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:maxLines="1"
                     android:id="@+id/subject_list_inbox_1_2"
                     android:layout_width="310dp"
                     android:layout_height="wrap_content"
@@ -277,7 +368,6 @@
                     android:textSize="16dp" />
 
                 <TextView
-                    android:maxLines="1"
                     android:layout_below="@+id/subject_list_inbox_1_2"
                     android:id="@+id/subject_list_inbox_2_2"
                     android:layout_width="310dp"
@@ -290,7 +380,6 @@
                     android:textSize="16dp" />
 
                 <TextView
-                    android:maxLines="1"
                     android:layout_below="@+id/subject_list_inbox_2_2"
                     android:id="@+id/subject_list_inbox_3_2"
                     android:layout_width="310dp"
@@ -303,7 +392,6 @@
                     android:textSize="16dp" />
 
                 <TextView
-                    android:maxLines="1"
                     android:layout_below="@+id/subject_list_inbox_3_2"
                     android:id="@+id/subject_list_inbox_4_2"
                     android:layout_width="310dp"
@@ -316,7 +404,6 @@
                     android:textSize="16dp" />
 
                 <TextView
-                    android:maxLines="1"
                     android:layout_below="@+id/subject_list_inbox_4_2"
                     android:id="@+id/subject_list_inbox_5_2"
                     android:layout_width="310dp"
@@ -371,7 +458,7 @@
                 android:fontFamily="@font/mitr_medium"
                 android:textSize="16dp"
                 android:textColor="@color/nav_color"
-                android:text="วิชาเสรีสำหรับสายชิลล์" />
+                android:text="วิชาที่พัฒนาทักษะในสาขาวิชาของคุณ" />
 
         </RelativeLayout>
 

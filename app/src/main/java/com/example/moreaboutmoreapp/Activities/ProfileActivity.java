@@ -169,7 +169,7 @@ public class ProfileActivity extends AppCompatActivity {
         storageReferencePic = FirebaseStorage.getInstance().getReference().child("Profile Pic");
 
 
-        Btn_BackProfilePage = findViewById(R.id.Btn_BackProfilePage);
+        Btn_BackProfilePage = findViewById(R.id.Btn_BackProfile);
         Btn_BackProfilePage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
