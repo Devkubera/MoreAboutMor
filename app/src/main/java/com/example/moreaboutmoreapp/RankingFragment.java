@@ -8,8 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -66,6 +70,8 @@ public class RankingFragment extends Fragment {
     }
 
     ImageView btn_back;
+    Spinner spinnerFaculty;
+    List<String> options = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -81,6 +87,13 @@ public class RankingFragment extends Fragment {
                 getFragmentManager().popBackStack();
             }
         });
+
+        // spinner faculty
+        spinnerFaculty = view.findViewById(R.id.spinner_faculty);
+        // add value to spinner
+        options.add("ระดับสำนักวิชา");
+        options.add("ระดับสาขาวิชา");
+
 
 
         return view;

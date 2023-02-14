@@ -49,10 +49,31 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_below="@+id/CV_BackSubjectList"
+        android:visibility="visible"
+        android:background="@drawable/custom_filter"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="30dp"
+        android:id="@+id/layoutFilterTag"
+        android:layout_width="200dp"
+        android:layout_height="30dp">
+
+        <Spinner
+            android:id="@+id/spinner_faculty"
+            android:textAlignment="textStart"
+            android:layout_centerVertical="true"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dropdown" />
+
+    </RelativeLayout>
+
     <!-- first box -->
     <RelativeLayout
+        android:layout_marginTop="30dp"
         android:id="@+id/box_subject_1"
-        android:layout_below="@+id/CV_BackSubjectList"
+        android:layout_below="@+id/layoutFilterTag"
         android:layout_centerHorizontal="true"
         android:layout_width="350dp"
         android:layout_height="wrap_content" >
