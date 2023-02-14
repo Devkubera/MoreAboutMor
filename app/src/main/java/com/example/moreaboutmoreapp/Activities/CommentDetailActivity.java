@@ -84,7 +84,7 @@ public class CommentDetailActivity extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
 
         //Back To Post Detail Activity
-        Btn_BackPost = findViewById(R.id.Btn_BackPost);
+        Btn_BackPost = findViewById(R.id.Btn_BackManageComment);
         Btn_BackPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

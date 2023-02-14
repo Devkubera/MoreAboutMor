@@ -159,7 +159,7 @@ public class PostDetailActivity extends AppCompatActivity {
         textComments = findViewById(R.id.textComments);
 
         //Back To Home Activity
-        Btn_BackPost = findViewById(R.id.Btn_BackPost);
+        Btn_BackPost = findViewById(R.id.Btn_BackPostDetails);
         Btn_BackPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -727,7 +727,7 @@ public class PostDetailActivity extends AppCompatActivity {
 
         String uid = firebaseAuth.getUid();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("userData").child(uid).child("name");
-        System.out.println(databaseReference);
+        //System.out.println(databaseReference);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -749,9 +749,9 @@ public class PostDetailActivity extends AppCompatActivity {
         String uid = uidReceiver; // get receiver_uid
         String user_nickname = getNickName();
         int check_error_on_fetching_name = 0;
-        do {
-            user_nickname = getNickName();
-        } while (!(user_nickname.isEmpty()));
+//        do {
+//            user_nickname = getNickName();
+//        } while (!(user_nickname.isEmpty()));
 //        if (user_nickname.isEmpty()) {
 //            check_error_on_fetching_name++;
 //

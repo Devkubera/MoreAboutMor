@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,6 +71,7 @@ public class MenuFragment extends Fragment {
     Button btn_GE;
     Button btn_calendar;
     Button btn_ranking;
+    Button btn_21;
 
     // Declare String to store sharepreference 3 Menu study plan, courseDescription, GE
     public static String link_studyplan;
@@ -175,6 +177,30 @@ public class MenuFragment extends Fragment {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(url));
                 startActivity(intent);
+            }
+        });
+
+        btn_ranking = view.findViewById(R.id.Btn_PC);
+        btn_ranking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment newFragment = new RankingFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.menuFragment, newFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+
+        btn_21 = view.findViewById(R.id.Btn_SS);
+        btn_21.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment newFragment = new TwentyoneFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.menuFragment, newFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 

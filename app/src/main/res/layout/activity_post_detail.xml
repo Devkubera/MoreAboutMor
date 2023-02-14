@@ -5,50 +5,93 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/nav_color"
+    android:background="@drawable/bg_picture"
     tools:context=".Activities.PostDetailActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- Card View BackMenu -->
-        <com.google.android.material.card.MaterialCardView
+
+
+<!--        &lt;!&ndash; Card View BackMenu &ndash;&gt;-->
+<!--        <com.google.android.material.card.MaterialCardView-->
+<!--            android:id="@+id/CV_BackMenu"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="70dp"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            app:cardBackgroundColor="@color/back_color"-->
+<!--            style="@style/CustomCardViewStyle_BackMenuComment">-->
+
+<!--            <RelativeLayout-->
+<!--                android:id="@+id/LayoutBack"-->
+<!--                android:layout_width="145dp"-->
+<!--                android:layout_height="match_parent">-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/Btn_BackPost"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="15dp"-->
+<!--                    android:layout_centerVertical="true"-->
+<!--                    android:src="@drawable/ic_baseline_arrow_white_ios_35" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/textCreate"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_toEndOf="@id/Btn_BackPost"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:layout_marginStart="5dp"-->
+<!--                    android:textSize="30dp"-->
+<!--                    android:text="กลับ"-->
+<!--                    android:layout_centerVertical="true"-->
+<!--                    android:fontFamily="@font/mitr_regular"/>-->
+
+<!--            </RelativeLayout>-->
+
+<!--        </com.google.android.material.card.MaterialCardView>-->
+
+        <!-- Header -->
+        <!-- High Default = 110dp       -->
+        <RelativeLayout
             android:id="@+id/CV_BackMenu"
-            android:layout_width="wrap_content"
-            android:layout_height="70dp"
-            android:layout_marginTop="20dp"
-            app:cardBackgroundColor="@color/back_color"
-            style="@style/CustomCardViewStyle_BackMenuComment">
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:layout_marginTop="-10dp"
+            android:layout_centerHorizontal="true">
+
+            <!-- BTN BACK -->
+            <ImageView
+                android:id="@+id/Btn_BackPostDetails"
+                android:layout_centerVertical="true"
+                android:layout_width="40dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="28dp"
+                android:src="@drawable/back_circle_button" />
 
             <RelativeLayout
-                android:id="@+id/LayoutBack"
-                android:layout_width="145dp"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/Btn_BackPost"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/ic_baseline_arrow_white_ios_35" />
+                android:id="@+id/LayoutFont"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/Btn_BackPostDetails">
 
                 <TextView
-                    android:id="@+id/textCreate"
+                    android:id="@+id/imgManagePost"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toEndOf="@id/Btn_BackPost"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/mitr_regular"
+                    android:text="Ranking Subject"
                     android:textColor="@color/white"
-                    android:layout_marginStart="5dp"
-                    android:textSize="30dp"
-                    android:text="กลับ"
-                    android:layout_centerVertical="true"
-                    android:fontFamily="@font/mitr_regular"/>
+                    android:textSize="24dp"
+                    android:visibility="gone" />
 
             </RelativeLayout>
 
-        </com.google.android.material.card.MaterialCardView>
+        </RelativeLayout>
 
 
 
@@ -57,6 +100,7 @@
             android:id="@+id/cardComment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="-30dp"
             android:layout_below="@+id/CV_BackMenu">
 
             <androidx.cardview.widget.CardView
@@ -89,8 +133,8 @@
                             android:text="Tag"
                             android:justificationMode="inter_word"
                             android:textColor="@color/white"
-                            android:textSize="15dp"
-                            android:fontFamily="@font/mitr_regular"/>
+                            android:textSize="13dp"
+                            android:fontFamily="@font/mitr_light" />
 
 
                     </RelativeLayout>
@@ -117,8 +161,6 @@
                         android:id="@+id/lineTop"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginEnd="15dp"
                         android:layout_marginTop="10dp"
                         android:layout_below="@+id/layoutTag"
                         android:background="@color/colorDivider" />
@@ -161,7 +203,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="B6XXXXX"
-                                android:textColor="@color/black"
+                                android:textColor="@color/darknight"
                                 android:fontFamily="@font/mitr_medium"/>
 
                             <TextView
@@ -171,7 +213,7 @@
                                 android:layout_below="@+id/textUser"
                                 android:text="เวลา"
                                 android:textColor="@color/dark_gray"
-                                android:fontFamily="@font/mitr_medium"/>
+                                android:fontFamily="@font/mitr_regular"/>
 
                         </RelativeLayout>
 
@@ -223,9 +265,9 @@
                             android:text="Comments"
                             android:justificationMode="inter_word"
                             android:lineSpacingExtra="4sp"
-                            android:textColor="@color/black"
-                            android:textSize="15dp"
-                            android:fontFamily="@font/sarabun_medium"/>
+                            android:textColor="@color/darknight"
+                            android:textSize="14dp"
+                            android:fontFamily="@font/mitr_light"/>
 
                     </RelativeLayout>
 
@@ -251,6 +293,7 @@
                     </RelativeLayout>
 
                     <View
+                        android:visibility="gone"
                         android:id="@+id/lineBottom"
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
@@ -288,7 +331,7 @@
                             android:layout_toEndOf="@id/likeBtn"
                             android:layout_centerVertical="true"
                             android:text="0"
-                            android:textColor="@color/black"
+                            android:textColor="@color/darknight"
                             android:fontFamily="@font/sarabun_bold"/>
 
                         <!-- DisLike -->
@@ -334,7 +377,7 @@
                             android:layout_toEndOf="@id/commentBtn"
                             android:layout_centerVertical="true"
                             android:text="0"
-                            android:textColor="@color/black"
+                            android:textColor="@color/darknight"
                             android:fontFamily="@font/sarabun_bold"/>
 
                     </RelativeLayout>
@@ -409,7 +452,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="15dp"
                     android:layout_centerVertical="true"
                     android:text="เขียนความคิดเห็น..."
                     android:textColor="@color/dark_gray"
