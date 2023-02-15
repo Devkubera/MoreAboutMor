@@ -175,7 +175,7 @@ public class SetupUserActivity extends AppCompatActivity {
             setNameButton.setVisibility(View.VISIBLE);
             loadingProgress.setVisibility(INVISIBLE);
             return false;
-        } else if (nameInput.equals("default")) {
+        } else if (nameInput.equals("")) {
             setName.setError("Can't use this name");
             setNameButton.setVisibility(View.VISIBLE);
             loadingProgress.setVisibility(INVISIBLE);

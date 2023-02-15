@@ -14,7 +14,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.example.moreaboutmoreapp.AboutAppFragment;
 import com.example.moreaboutmoreapp.HomeFragment;
+import com.example.moreaboutmoreapp.ManagePostFragment;
 import com.example.moreaboutmoreapp.MenuFragment;
 import com.example.moreaboutmoreapp.Models.GeLink;
 import com.example.moreaboutmoreapp.Models.ModelFacultyData;
@@ -211,12 +213,23 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
 
 
-        } else {
+        } else if(ManagePostFragment.backKeyPressedListener != null) {
+            super.onBackPressed();
+
+        } else if(AboutAppFragment.backKeyPressedListener != null) {
+            super.onBackPressed();
+
+        }
+
+        else {
             bottomNavigationView.setSelectedItemId(R.id.nav_Home);
             //moveTaskToBack(true);
         }
 
-        getFragmentManager().popBackStack();
+
+
+
+        //getFragmentManager().popBackStack();
 
 
 

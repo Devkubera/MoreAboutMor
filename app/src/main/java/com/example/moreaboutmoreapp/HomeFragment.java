@@ -923,8 +923,8 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
                 Log.d("SHOW UID value is ", snapshot.getValue().toString());
                 String name = snapshot.getValue().toString();
 
-                if(name.equals("default")) {
-                    showMessage(name);
+                if(name.equals("")) {
+                    //showMessage(name);
                     Intent setupUserActivity = new Intent(getActivity(), SetupUserActivity.class);
                     startActivity(setupUserActivity);
                 }
@@ -944,7 +944,7 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
                 String uri = snapshot.getValue().toString();
 
                 if(uri.equals("default")) {
-                    showMessage(uri);
+                    //showMessage(uri);
                     Intent setupUserActivity = new Intent(getActivity(), SetupUserActivity.class);
                     startActivity(setupUserActivity);
                 }

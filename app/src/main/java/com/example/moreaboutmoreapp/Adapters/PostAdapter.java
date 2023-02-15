@@ -633,7 +633,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                             SharedPreferences.Editor editor = pref.edit();
                             editor.putString("names", nickname);
                             editor.apply();
-                            Toast.makeText(mContext, pref.getString("names","OMG"), Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(mContext, pref.getString("names","OMG"), Toast.LENGTH_SHORT).show();
 
                         }
 

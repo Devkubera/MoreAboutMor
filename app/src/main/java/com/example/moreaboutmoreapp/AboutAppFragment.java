@@ -17,7 +17,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
  * Use the {@link AboutAppFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AboutAppFragment extends Fragment {
+public class AboutAppFragment extends Fragment implements BackKeyPressedListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,6 +27,8 @@ public class AboutAppFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    public static BackKeyPressedListener backKeyPressedListener;
 
     public AboutAppFragment() {
         // Required empty public constructor
@@ -63,6 +65,25 @@ public class AboutAppFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        backKeyPressedListener = null;
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        backKeyPressedListener = this;
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        getFragmentManager().popBackStack();
     }
 
     @Override
@@ -107,6 +128,7 @@ public class AboutAppFragment extends Fragment {
         View shadowNav = getActivity().findViewById(R.id.shadowNav);
         shadowNav.setVisibility(View.VISIBLE);
     }
+
 
 }
 

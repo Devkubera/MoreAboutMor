@@ -98,6 +98,7 @@ public class ManagePostFragment extends Fragment implements BackKeyPressedListen
 
     @Override
     public void onBackPressed() {
+        getFragmentManager().popBackStack();
     }
 
     @Override
@@ -113,6 +114,8 @@ public class ManagePostFragment extends Fragment implements BackKeyPressedListen
         backKeyPressedListener = this;
 
     }
+
+
 
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
