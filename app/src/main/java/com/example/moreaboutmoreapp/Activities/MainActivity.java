@@ -25,7 +25,9 @@ import com.example.moreaboutmoreapp.Models.SubjectModel;
 import com.example.moreaboutmoreapp.Models.User;
 import com.example.moreaboutmoreapp.NotificationFragment;
 import com.example.moreaboutmoreapp.R;
+import com.example.moreaboutmoreapp.RankingFragment;
 import com.example.moreaboutmoreapp.SettingFragment;
+import com.example.moreaboutmoreapp.TwentyoneFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -219,9 +221,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         } else if(AboutAppFragment.backKeyPressedListener != null) {
             super.onBackPressed();
 
-        }
+        } else if(RankingFragment.backKeyPressedListener != null) {
+            super.onBackPressed();
 
-        else {
+        } else if(TwentyoneFragment.backKeyPressedListener != null) {
+            super.onBackPressed();
+
+        } else {
             bottomNavigationView.setSelectedItemId(R.id.nav_Home);
             //moveTaskToBack(true);
         }
