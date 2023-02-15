@@ -69,11 +69,17 @@ public class SubjectListSearchActivity2 extends AppCompatActivity {
     public static String getSubjectBox4 = "default";
     public static String getSubjectBox5 = "default";
 
-    public static int position1;
-    public static int position2;
-    public static int position3;
-    public static int position4;
-    public static int position5;
+    public static int position1 = -1;
+    public static int position2 = -1;
+    public static int position3 = -1;
+    public static int position4 = -1;
+    public static int position5 = -1;
+
+    public String sumText1;
+    public String sumText2;
+    public String sumText3;
+    public String sumText4;
+    public String sumText5;
 
 
 
@@ -270,6 +276,8 @@ public class SubjectListSearchActivity2 extends AppCompatActivity {
                         // set value to variable
                         getName1 = model.getName().toString();
                         getCode1 = model.getPasscode().toString();
+                        sumText1 = model.getPasscode().toString() + " " + model.getName().toString();
+
                         // set text to text view
                         String sumText = model.getPasscode().toString() + " " + model.getName().toString();
 
@@ -392,6 +400,7 @@ public class SubjectListSearchActivity2 extends AppCompatActivity {
                         // set value to variable
                         getName2 = model.getName().toString();
                         getCode2 = model.getPasscode().toString();
+                        sumText2 = model.getPasscode().toString() + " " + model.getName().toString();
 
                         // set text to text view
                         String sumText = model.getPasscode().toString() + " " + model.getName().toString();
@@ -510,6 +519,8 @@ public class SubjectListSearchActivity2 extends AppCompatActivity {
                         // set value to variable
                         getName3 = model.getName().toString();
                         getCode3 = model.getPasscode().toString();
+                        sumText3 = model.getPasscode().toString() + " " + model.getName().toString();
+
                         // set text to text view
                         String sumText = model.getPasscode().toString() + " " + model.getName().toString();
 
@@ -625,6 +636,7 @@ public class SubjectListSearchActivity2 extends AppCompatActivity {
                         // set value to variable
                         getName4 = model.getName().toString();
                         getCode4 = model.getPasscode().toString();
+                        sumText4 = model.getPasscode().toString() + " " + model.getName().toString();
 
                         // set text to text view
                         String sumText = model.getPasscode().toString() + " " + model.getName().toString();
@@ -742,6 +754,7 @@ public class SubjectListSearchActivity2 extends AppCompatActivity {
                         // set value to variable
                         getName5 = model.getName().toString();
                         getCode5 = model.getPasscode().toString();
+                        sumText5 = model.getPasscode().toString() + " " + model.getName().toString();
 
                         // set text to text view
                         String sumText = model.getPasscode().toString() + " " + model.getName().toString();
@@ -761,6 +774,21 @@ public class SubjectListSearchActivity2 extends AppCompatActivity {
             }
         });
 
+    }
+    private boolean checkAddSubject() {
+        String getSumText1 = sumText1;
+        String getSumText2 = sumText2;
+        String getSumText3 = sumText3;
+        String getSumText4 = sumText4;
+        String getSumText5 = sumText5;
+        if (getSumText2.equals(getSumText1) || getSumText2.equals(getSumText3) || getSumText2.equals(getSumText4) || getSumText2.equals(getSumText5) || getSumText3.equals(getSumText1) || getSumText3.equals(getSumText4) || getSumText3.equals(getSumText5) || getSumText4.equals(getSumText1) || getSumText4.equals(getSumText5) || getSumText5.equals(getSumText1)  )
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 
     private void pullRankingSubject(String s) {
@@ -793,6 +821,9 @@ public class SubjectListSearchActivity2 extends AppCompatActivity {
                             add_subjectBox1.setText("วิชาที่ 1: " + subjectNameModel.getName1());
                             add_subjectBox2.setText("วิชาที่ 2: " + subjectNameModel.getName2());
                             add_subjectBox3.setText("วิชาที่ 3: " + subjectNameModel.getName3());
+                            sumText1 = subjectNameModel.getName1();
+                            sumText2= subjectNameModel.getName2();
+                            sumText3 = subjectNameModel.getName3();
 
                             arrJectData.clear();
 
@@ -811,6 +842,7 @@ public class SubjectListSearchActivity2 extends AppCompatActivity {
                                 add_subjectBox4.setText("วิชาที่ 4: " + subjectNameModel.getName4());
                                 arrJectData.add(subjectNameModel.getName4());
                                 nameModel.setName4(subjectNameModel.getName4());
+                                sumText4 = subjectNameModel.getName4();
                             }
 
                             // check if data number 5 is not have in firebase
@@ -820,6 +852,7 @@ public class SubjectListSearchActivity2 extends AppCompatActivity {
                                 add_subjectBox5.setText("วิชาที่ 5: " + subjectNameModel.getName5());
                                 arrJectData.add(subjectNameModel.getName5());
                                 nameModel.setName5(subjectNameModel.getName5());
+                                sumText5 = subjectNameModel.getName5();
                             }
 
 
@@ -886,7 +919,13 @@ public class SubjectListSearchActivity2 extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     //Close AlertDialog
-                    getUserData();
+                    if (!checkAddSubject()) {
+                        builder.dismiss();
+                        Toast.makeText(SubjectListSearchActivity2.this, "ไม่สามารถเลือกรายวิชาซ้ำกันได้", Toast.LENGTH_SHORT).show();
+                        return;
+                    } else {
+                        getUserData();
+                    }
                     builder.dismiss();
                     finish();
                 } // oN click

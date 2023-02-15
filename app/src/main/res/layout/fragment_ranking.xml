@@ -9,461 +9,513 @@
     android:id="@+id/rankingFragment"
     tools:context=".Activities.subjectListActivity">
 
-    <!-- Header -->
-    <RelativeLayout
-        android:id="@+id/CV_BackSubjectList"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="110dp"
-        android:layout_marginTop="-10dp"
-        android:layout_centerHorizontal="true">
-
-        <!-- BTN BACK -->
-        <ImageView
-            android:id="@+id/Btn_BackRanking"
-            android:layout_centerVertical="true"
-            android:layout_width="40dp"
-            android:layout_height="34dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="28dp"
-            android:src="@drawable/back_circle_button" />
+        android:layout_height="wrap_content">
 
         <RelativeLayout
-            android:id="@+id/LayoutFont"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@id/Btn_BackRanking">
+            android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/imgManagePost"
+            <!-- Header -->
+            <RelativeLayout
+                android:id="@+id/CV_BackSubjectList"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:layout_marginTop="-10dp"
+                android:layout_centerHorizontal="true">
+
+                <!-- BTN BACK -->
+                <ImageView
+                    android:id="@+id/Btn_BackRanking"
+                    android:layout_centerVertical="true"
+                    android:layout_width="40dp"
+                    android:layout_height="34dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="28dp"
+                    android:src="@drawable/back_circle_button" />
+
+                <RelativeLayout
+                    android:id="@+id/LayoutFont"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/Btn_BackRanking">
+
+                    <TextView
+                        android:id="@+id/imgRankingSubject"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginStart="25dp"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/mitr_regular"
+                        android:textSize="24dp"
+                        android:text="รายวิชายอดนิยมในสาขาวิชา"/>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+
+
+            <RelativeLayout
+                android:layout_below="@+id/CV_BackSubjectList"
+                android:visibility="gone"
+                android:background="@drawable/custom_filter"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/layoutFilterSubject"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:layout_marginStart="25dp"
-                android:textColor="@color/white"
-                android:fontFamily="@font/mitr_regular"
-                android:textSize="24dp"
-                android:text="Ranking Subject"/>
+                android:layout_height="30dp">
 
-        </RelativeLayout>
-
-    </RelativeLayout>
-
-    <!-- first box -->
-    <RelativeLayout
-        android:id="@+id/box_subject_1"
-        android:layout_below="@+id/CV_BackSubjectList"
-        android:layout_centerHorizontal="true"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content" >
-
-        <RelativeLayout
-            android:id="@+id/background_subject_group1"
-            android:layout_width="match_parent"
-            android:layout_height="260dp"
-            android:background="@drawable/custom_rectangle_subject">
-
-            <RelativeLayout
-                android:visibility="visible"
-                android:id="@+id/subject_background_default1"
-                android:layout_width="match_parent"
-                android:layout_height="260dp">
-
-                <TextView
-                    android:id="@+id/subject_background_txt1"
-                    android:layout_width="280dp"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="70dp"
-                    android:alpha="1"
-                    android:fontFamily="@font/mitr_light"
+                <Spinner
+                    android:id="@+id/spinner_faculty"
                     android:textAlignment="textStart"
-                    android:text="1st 1101040 ชุดวิชาแอนดรอย"
-                    android:textColor="@color/white"
-                    android:textSize="16dp" />
-
-                <TextView
-                    android:id="@+id/subject_background_txt1_2"
-                    android:layout_below="@+id/subject_background_txt1"
-                    android:layout_width="280dp"
+                    android:layout_centerVertical="true"
+                    android:layout_width="350dp"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
-                    android:alpha="1"
-                    android:fontFamily="@font/mitr_light"
-                    android:textAlignment="textStart"
-                    android:text="2nd 1101011 เทคโนโลยีดิจิทัลเบื้องต้น"
-                    android:textColor="@color/white"
-                    android:textSize="16dp" />
-
-                <TextView
-                    android:id="@+id/subject_background_txt1_3"
-                    android:layout_below="@+id/subject_background_txt1_2"
-                    android:layout_width="280dp"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
-                    android:alpha="1"
-                    android:fontFamily="@font/mitr_light"
-                    android:textAlignment="textStart"
-                    android:text="3rd 1101101 การโปรแกรมภาษาสคริปต์"
-                    android:textColor="@color/white"
-                    android:textSize="16dp" />
-
-                <TextView
-                    android:id="@+id/subject_background_txt1_4"
-                    android:layout_below="@+id/subject_background_txt1_3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
-                    android:alpha="1"
-                    android:fontFamily="@font/mitr_light"
-                    android:textAlignment="textStart"
-                    android:text="4th 1101131 การพัฒนาโปรแกรมประยุก..."
-                    android:textColor="@color/white"
-                    android:textSize="16dp" />
-
-                <TextView
-                    android:id="@+id/subject_background_txt1_5"
-                    android:layout_below="@+id/subject_background_txt1_4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
-                    android:alpha="1"
-                    android:fontFamily="@font/mitr_light"
-                    android:textAlignment="textStart"
-                    android:text="5th 1101911 โครงงานเทคโนโลยีดิจิทัล 1"
-                    android:textColor="@color/white"
-                    android:textSize="16dp" />
-
+                    android:spinnerMode="dropdown" />
 
             </RelativeLayout>
 
+            <!-- first box -->
             <RelativeLayout
-                android:visibility="gone"
-                android:id="@+id/subject_txt_list1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/subject_list_inbox_1"
-                    android:layout_width="310dp"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/mitr_light"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="80dp"
-                    android:text="1st 1101040 ชุดวิชาแอนดรอย"
-                    android:textColor="@color/white"
-                    android:textSize="16dp" />
-
-                <TextView
-                    android:layout_below="@+id/subject_list_inbox_1"
-                    android:id="@+id/subject_list_inbox_2"
-                    android:layout_width="310dp"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/mitr_light"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
-                    android:text="1st 1101040 ชุดวิชาแอนดรอย"
-                    android:textColor="@color/white"
-                    android:textSize="16dp" />
-
-                <TextView
-                    android:layout_below="@+id/subject_list_inbox_2"
-                    android:id="@+id/subject_list_inbox_3"
-                    android:layout_width="310dp"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/mitr_light"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
-                    android:text="1st 1101040 ชุดวิชาแอนดรอย"
-                    android:textColor="@color/white"
-                    android:textSize="16dp" />
-
-                <TextView
-                    android:layout_below="@+id/subject_list_inbox_3"
-                    android:id="@+id/subject_list_inbox_4"
-                    android:layout_width="310dp"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/mitr_light"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
-                    android:text="1st 1101040 ชุดวิชาแอนดรอย"
-                    android:textColor="@color/white"
-                    android:textSize="16dp" />
-
-                <TextView
-                    android:layout_below="@+id/subject_list_inbox_4"
-                    android:id="@+id/subject_list_inbox_5"
-                    android:layout_width="310dp"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/mitr_light"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
-                    android:text="1st 1101040 ชุดวิชาแอนดรอย"
-                    android:textColor="@color/white"
-                    android:textSize="16dp" />
-
-
-
-
-            </RelativeLayout>
-
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/header_subject_group1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <View
-                android:id="@+id/subject_header_rectangle1"
+                android:layout_marginTop="30dp"
+                android:id="@+id/box_subject_1"
+                android:layout_below="@+id/layoutFilterSubject"
+                android:layout_centerHorizontal="true"
                 android:layout_width="350dp"
-                android:layout_height="50dp"
-                android:background="@drawable/custom_button_white" />
+                android:layout_height="wrap_content" >
 
-            <TextView
-                android:visibility="visible"
-                android:id="@+id/subject_txt1"
-                android:layout_width="310dp"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:fontFamily="@font/mitr_medium"
-                android:textSize="16dp"
-                android:textColor="@color/nav_color"
-                android:text="วิชาที่พัฒนาทักษะในสาขาวิชาของคุณ" />
+                <RelativeLayout
+                    android:id="@+id/background_subject_group1"
+                    android:layout_width="match_parent"
+                    android:layout_height="260dp"
+                    android:background="@drawable/custom_rectangle_subject">
 
-            <TextView
-                android:visibility="gone"
-                android:drawableRight="@drawable/ic_round_editer_color_24"
-                android:drawableTint="@color/nav_color"
-                android:id="@+id/subject_edit_btn"
-                android:layout_width="310dp"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:fontFamily="@font/mitr_medium"
-                android:textSize="16dp"
-                android:textColor="@color/nav_color"
-                android:text="วิชาที่พัฒนาทักษะในสาขาวิชาของคุณ" />
+                    <RelativeLayout
+                        android:visibility="visible"
+                        android:id="@+id/subject_background_default1"
+                        android:layout_width="match_parent"
+                        android:layout_height="260dp">
 
-        </RelativeLayout>
+                        <TextView
+                            android:maxLines="1"
+                            android:id="@+id/faculty_text1"
+                            android:layout_width="280dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="70dp"
+                            android:alpha="1"
+                            android:fontFamily="@font/mitr_regular"
+                            android:textAlignment="textStart"
+                            android:text="1st -"
+                            android:textColor="@color/yellow"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:maxLines="1"
+                            android:id="@+id/faculty_text2"
+                            android:layout_below="@+id/faculty_text1"
+                            android:layout_width="280dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
+                            android:alpha="1"
+                            android:fontFamily="@font/mitr_light"
+                            android:textAlignment="textStart"
+                            android:text="2nd -"
+                            android:textColor="@color/white"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:maxLines="1"
+                            android:id="@+id/faculty_text3"
+                            android:layout_below="@+id/faculty_text2"
+                            android:layout_width="280dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
+                            android:alpha="1"
+                            android:fontFamily="@font/mitr_light"
+                            android:textAlignment="textStart"
+                            android:text="3rd -"
+                            android:textColor="@color/white"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:maxLines="1"
+
+                            android:id="@+id/faculty_text4"
+                            android:layout_below="@+id/faculty_text3"
+                            android:layout_width="280dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
+                            android:alpha="1"
+                            android:fontFamily="@font/mitr_light"
+                            android:textAlignment="textStart"
+                            android:text="4th -"
+                            android:textColor="@color/white"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:maxLines="1"
+                            android:id="@+id/faculty_text5"
+                            android:layout_below="@+id/faculty_text4"
+                            android:layout_width="280dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
+                            android:alpha="1"
+                            android:fontFamily="@font/mitr_light"
+                            android:textAlignment="textStart"
+                            android:text="5th -"
+                            android:textColor="@color/white"
+                            android:textSize="16dp" />
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:visibility="gone"
+                        android:id="@+id/subject_txt_list1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:maxLines="1"
+                            android:id="@+id/subject_list_inbox_1"
+                            android:layout_width="310dp"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/mitr_light"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="80dp"
+                            android:text="1st -"
+                            android:textColor="@color/white"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:maxLines="1"
+                            android:layout_below="@+id/subject_list_inbox_1"
+                            android:id="@+id/subject_list_inbox_2"
+                            android:layout_width="310dp"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/mitr_light"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
+                            android:text="1st 1101040 ชุดวิชาแอนดรอย"
+                            android:textColor="@color/white"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:layout_below="@+id/subject_list_inbox_2"
+                            android:id="@+id/subject_list_inbox_3"
+                            android:layout_width="310dp"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/mitr_light"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
+                            android:text="1st 1101040 ชุดวิชาแอนดรอย"
+                            android:textColor="@color/white"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:layout_below="@+id/subject_list_inbox_3"
+                            android:id="@+id/subject_list_inbox_4"
+                            android:layout_width="310dp"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/mitr_light"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
+                            android:text="1st 1101040 ชุดวิชาแอนดรอย"
+                            android:textColor="@color/white"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:layout_below="@+id/subject_list_inbox_4"
+                            android:id="@+id/subject_list_inbox_5"
+                            android:layout_width="310dp"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/mitr_light"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
+                            android:text="1st 1101040 ชุดวิชาแอนดรอย"
+                            android:textColor="@color/white"
+                            android:textSize="16dp" />
 
 
 
-    </RelativeLayout>
 
-    <!-- second box -->
-    <RelativeLayout
-        android:layout_marginTop="20dp"
-        android:id="@+id/box_subject_2"
-        android:layout_below="@+id/box_subject_1"
-        android:layout_centerHorizontal="true"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content" >
+                    </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/background_subject_group2"
-            android:layout_width="match_parent"
-            android:layout_height="260dp"
-            android:background="@drawable/custom_rectangle_subject">
 
-            <RelativeLayout
-                android:visibility="visible"
-                android:id="@+id/subject_background_default2"
-                android:layout_width="match_parent"
-                android:layout_height="260dp">
+                </RelativeLayout>
 
-                <TextView
-                    android:id="@+id/subject_background_txt2"
-                    android:layout_width="280dp"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="70dp"
-                    android:alpha="1"
-                    android:fontFamily="@font/mitr_light"
-                    android:textAlignment="textStart"
-                    android:text="1st IST20 2002 มนุษย์กับเศรษฐกิจ..."
-                    android:textColor="@color/white"
-                    android:textSize="16dp" />
+                <RelativeLayout
+                    android:id="@+id/header_subject_group1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
 
-                <TextView
-                    android:id="@+id/subject_background_txt2_2"
-                    android:layout_below="@+id/subject_background_txt2"
-                    android:layout_width="280dp"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
-                    android:alpha="1"
-                    android:fontFamily="@font/mitr_light"
-                    android:textAlignment="textStart"
-                    android:text="2nd IST20 1504 กฎหมายในชีวิตประ..."
-                    android:textColor="@color/white"
-                    android:textSize="16dp" />
+                    <View
+                        android:id="@+id/subject_header_rectangle1"
+                        android:layout_width="350dp"
+                        android:layout_height="50dp"
+                        android:background="@drawable/custom_button_white" />
 
-                <TextView
-                    android:id="@+id/subject_background_txt2_3"
-                    android:layout_below="@+id/subject_background_txt2_2"
-                    android:layout_width="280dp"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
-                    android:alpha="1"
-                    android:fontFamily="@font/mitr_light"
-                    android:textAlignment="textStart"
-                    android:text="3rd IST20 2503 อาเซียนศึกษา"
-                    android:textColor="@color/white"
-                    android:textSize="16dp" />
+                    <TextView
+                        android:visibility="visible"
+                        android:id="@+id/subject_txt1"
+                        android:layout_width="310dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"
+                        android:fontFamily="@font/mitr_medium"
+                        android:textSize="16dp"
+                        android:textColor="@color/nav_color"
+                        android:text="วิชาที่พัฒนาทักษะในสาขาวิชาของคุณ" />
 
-                <TextView
-                    android:id="@+id/subject_background_txt2_4"
-                    android:layout_below="@+id/subject_background_txt2_3"
-                    android:layout_width="280dp"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
-                    android:alpha="1"
-                    android:fontFamily="@font/mitr_light"
-                    android:textAlignment="textStart"
-                    android:text="4th IST20 2504 การคิดเชิงออกแบบ"
-                    android:textColor="@color/white"
-                    android:textSize="16dp" />
+                    <TextView
+                        android:visibility="gone"
+                        android:drawableRight="@drawable/ic_round_editer_color_24"
+                        android:drawableTint="@color/nav_color"
+                        android:id="@+id/subject_edit_btn"
+                        android:layout_width="310dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"
+                        android:fontFamily="@font/mitr_medium"
+                        android:textSize="16dp"
+                        android:textColor="@color/nav_color"
+                        android:text="วิชาที่พัฒนาทักษะในสาขาวิชาของคุณ" />
 
-                <TextView
-                    android:id="@+id/subject_background_txt2_5"
-                    android:layout_below="@+id/subject_background_txt2_4"
-                    android:layout_width="280dp"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
-                    android:alpha="1"
-                    android:fontFamily="@font/mitr_light"
-                    android:textAlignment="textStart"
-                    android:text="5th IST20 2505 ฮักเจ้าของ"
-                    android:textColor="@color/white"
-                    android:textSize="16dp" />
+                </RelativeLayout>
+
 
 
             </RelativeLayout>
 
+            <!-- second box -->
             <RelativeLayout
-                android:visibility="gone"
-                android:id="@+id/subject_txt_list2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/subject_list_inbox_1_2"
-                    android:layout_width="310dp"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/mitr_light"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="80dp"
-                    android:text="1st 1101040 ชุดวิชาแอนดรอย"
-                    android:textColor="@color/white"
-                    android:textSize="16dp" />
-
-                <TextView
-                    android:layout_below="@+id/subject_list_inbox_1_2"
-                    android:id="@+id/subject_list_inbox_2_2"
-                    android:layout_width="310dp"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/mitr_light"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
-                    android:text="1st 1101040 ชุดวิชาแอนดรอย"
-                    android:textColor="@color/white"
-                    android:textSize="16dp" />
-
-                <TextView
-                    android:layout_below="@+id/subject_list_inbox_2_2"
-                    android:id="@+id/subject_list_inbox_3_2"
-                    android:layout_width="310dp"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/mitr_light"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
-                    android:text="1st 1101040 ชุดวิชาแอนดรอย"
-                    android:textColor="@color/white"
-                    android:textSize="16dp" />
-
-                <TextView
-                    android:layout_below="@+id/subject_list_inbox_3_2"
-                    android:id="@+id/subject_list_inbox_4_2"
-                    android:layout_width="310dp"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/mitr_light"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
-                    android:text="1st 1101040 ชุดวิชาแอนดรอย"
-                    android:textColor="@color/white"
-                    android:textSize="16dp" />
-
-                <TextView
-                    android:layout_below="@+id/subject_list_inbox_4_2"
-                    android:id="@+id/subject_list_inbox_5_2"
-                    android:layout_width="310dp"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/mitr_light"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
-                    android:text="1st 1101040 ชุดวิชาแอนดรอย"
-                    android:textColor="@color/white"
-                    android:textSize="16dp" />
-
-
-
-
-            </RelativeLayout>
-
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/header_subject_group2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <View
-                android:id="@+id/subject_header_rectangle2"
+                android:layout_marginTop="20dp"
+                android:id="@+id/box_subject_2"
+                android:layout_below="@+id/box_subject_1"
+                android:layout_centerHorizontal="true"
                 android:layout_width="350dp"
-                android:layout_height="50dp"
-                android:background="@drawable/custom_button_white" />
+                android:layout_height="wrap_content" >
 
-            <TextView
-                android:visibility="visible"
-                android:id="@+id/subject_txt2"
-                android:layout_width="310dp"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:fontFamily="@font/mitr_medium"
-                android:textSize="16dp"
-                android:textColor="@color/nav_color"
-                android:text="วิชาเสรีสำหรับสายชิลล์" />
+                <RelativeLayout
+                    android:id="@+id/background_subject_group2"
+                    android:layout_width="match_parent"
+                    android:layout_height="260dp"
+                    android:background="@drawable/custom_rectangle_subject"
+                    android:layout_marginBottom="50dp">
 
-            <TextView
-                android:visibility="gone"
-                android:drawableRight="@drawable/ic_round_editer_color_24"
-                android:drawableTint="@color/nav_color"
-                android:id="@+id/subject_edit_btn2"
-                android:layout_width="310dp"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:fontFamily="@font/mitr_medium"
-                android:textSize="16dp"
-                android:textColor="@color/nav_color"
-                android:text="วิชาที่พัฒนาทักษะในสาขาวิชาของคุณ" />
+                    <RelativeLayout
+                        android:visibility="visible"
+                        android:id="@+id/subject_background_default2"
+                        android:layout_width="match_parent"
+                        android:layout_height="260dp">
+
+                        <TextView
+                            android:maxLines="1"
+                            android:id="@+id/ge_text1"
+                            android:layout_width="280dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="70dp"
+                            android:alpha="1"
+                            android:fontFamily="@font/mitr_regular"
+                            android:textAlignment="textStart"
+                            android:text="1st -"
+                            android:textColor="@color/yellow"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:maxLines="1"
+                            android:id="@+id/ge_text2"
+                            android:layout_below="@+id/ge_text1"
+                            android:layout_width="280dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
+                            android:alpha="1"
+                            android:fontFamily="@font/mitr_light"
+                            android:textAlignment="textStart"
+                            android:text="2nd -"
+                            android:textColor="@color/white"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:maxLines="1"
+                            android:id="@+id/ge_text3"
+                            android:layout_below="@+id/ge_text2"
+                            android:layout_width="280dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
+                            android:alpha="1"
+                            android:fontFamily="@font/mitr_light"
+                            android:textAlignment="textStart"
+                            android:text="3rd -"
+                            android:textColor="@color/white"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:maxLines="1"
+                            android:id="@+id/ge_text4"
+                            android:layout_below="@+id/ge_text3"
+                            android:layout_width="280dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
+                            android:alpha="1"
+                            android:fontFamily="@font/mitr_light"
+                            android:textAlignment="textStart"
+                            android:text="4th -"
+                            android:textColor="@color/white"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:maxLines="1"
+                            android:id="@+id/ge_text5"
+                            android:layout_below="@+id/ge_text4"
+                            android:layout_width="280dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
+                            android:alpha="1"
+                            android:fontFamily="@font/mitr_light"
+                            android:textAlignment="textStart"
+                            android:text="5th -"
+                            android:textColor="@color/white"
+                            android:textSize="16dp" />
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:visibility="gone"
+                        android:id="@+id/subject_txt_list2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/subject_list_inbox_1_2"
+                            android:layout_width="310dp"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/mitr_light"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="80dp"
+                            android:text="1st 1101040 ชุดวิชาแอนดรอย"
+                            android:textColor="@color/white"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:layout_below="@+id/subject_list_inbox_1_2"
+                            android:id="@+id/subject_list_inbox_2_2"
+                            android:layout_width="310dp"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/mitr_light"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
+                            android:text="1st 1101040 ชุดวิชาแอนดรอย"
+                            android:textColor="@color/white"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:layout_below="@+id/subject_list_inbox_2_2"
+                            android:id="@+id/subject_list_inbox_3_2"
+                            android:layout_width="310dp"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/mitr_light"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
+                            android:text="1st 1101040 ชุดวิชาแอนดรอย"
+                            android:textColor="@color/white"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:layout_below="@+id/subject_list_inbox_3_2"
+                            android:id="@+id/subject_list_inbox_4_2"
+                            android:layout_width="310dp"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/mitr_light"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
+                            android:text="1st 1101040 ชุดวิชาแอนดรอย"
+                            android:textColor="@color/white"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:layout_below="@+id/subject_list_inbox_4_2"
+                            android:id="@+id/subject_list_inbox_5_2"
+                            android:layout_width="310dp"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/mitr_light"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
+                            android:text="1st 1101040 ชุดวิชาแอนดรอย"
+                            android:textColor="@color/white"
+                            android:textSize="16dp" />
+
+
+
+
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/header_subject_group2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <View
+                        android:id="@+id/subject_header_rectangle2"
+                        android:layout_width="350dp"
+                        android:layout_height="50dp"
+                        android:background="@drawable/custom_button_white" />
+
+                    <TextView
+                        android:visibility="visible"
+                        android:id="@+id/subject_txt2"
+                        android:layout_width="310dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"
+                        android:fontFamily="@font/mitr_medium"
+                        android:textSize="16dp"
+                        android:textColor="@color/nav_color"
+                        android:text="วิชาเสรีสำหรับสายชิลล์" />
+
+                    <TextView
+                        android:visibility="gone"
+                        android:drawableRight="@drawable/ic_round_editer_color_24"
+                        android:drawableTint="@color/nav_color"
+                        android:id="@+id/subject_edit_btn2"
+                        android:layout_width="310dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"
+                        android:fontFamily="@font/mitr_medium"
+                        android:textSize="16dp"
+                        android:textColor="@color/nav_color"
+                        android:text="วิชาที่พัฒนาทักษะในสาขาวิชาของคุณ" />
+
+                </RelativeLayout>
+
+
+
+            </RelativeLayout>
 
         </RelativeLayout>
 
+    </ScrollView>
 
 
-    </RelativeLayout>
 
 </RelativeLayout>

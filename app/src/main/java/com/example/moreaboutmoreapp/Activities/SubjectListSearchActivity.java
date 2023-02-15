@@ -38,7 +38,9 @@ import com.google.gson.Gson;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SubjectListSearchActivity extends AppCompatActivity {
 
@@ -74,6 +76,12 @@ public class SubjectListSearchActivity extends AppCompatActivity {
     public static int position3;
     public static int position4;
     public static int position5;
+
+    public String sumText1;
+    public String sumText2;
+    public String sumText3;
+    public String sumText4;
+    public String sumText5;
 
 
 
@@ -162,10 +170,6 @@ public class SubjectListSearchActivity extends AppCompatActivity {
         add_subjectBox1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(getApplicationContext(), SearchNewPageActivity.class);
-//                startActivity(intent);
-
-                //bottomSheet
 
                 // set bottom sheet
                 bottomSheetDialog = new BottomSheetDialog(SubjectListSearchActivity.this, R.style.BottomSheetDialog);
@@ -219,9 +223,6 @@ public class SubjectListSearchActivity extends AppCompatActivity {
                 // Fetching some data, data has now returned
                 // If data was JSON, convert to ArrayList of User objects.
 
-                // set adapter
-//                subjectLV.setAdapter(new ArrayAdapter<SubjectModel>(getApplicationContext(), R.layout.list_sample_view, subjectModels));
-
                 // make search suggestion function
                 searchBox.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                     @Override
@@ -272,12 +273,14 @@ public class SubjectListSearchActivity extends AppCompatActivity {
                         getName1 = model.getName().toString();
                         getCode1 = model.getPasscode().toString();
                         // set text to text view
-                        String sumText = model.getPasscode().toString() + " " + model.getName().toString();
+                        sumText1 = model.getPasscode().toString() + " " + model.getName().toString();
+
+
 
                         add_subjectBox1.setTextColor(getResources().getColor(R.color.darknight));
-                        add_subjectBox1.setText("วิชาที่ 1: " + sumText);
-                        arrJectData.add(sumText);
-                        nameModel.setName1(sumText);
+                        add_subjectBox1.setText("วิชาที่ 1: " + sumText1);
+                        arrJectData.add(sumText1);
+                        nameModel.setName1(sumText1);
                         bottomSheetDialog.dismiss();
                     }
                 });
@@ -395,12 +398,12 @@ public class SubjectListSearchActivity extends AppCompatActivity {
                         getCode2 = model.getPasscode().toString();
 
                         // set text to text view
-                        String sumText = model.getPasscode().toString() + " " + model.getName().toString();
+                        sumText2 = model.getPasscode().toString() + " " + model.getName().toString();
 
                         add_subjectBox2.setTextColor(getResources().getColor(R.color.darknight));
-                        add_subjectBox2.setText("วิชาที่ 2: " + sumText);
-                        arrJectData.add(sumText);
-                        nameModel.setName2(sumText);
+                        add_subjectBox2.setText("วิชาที่ 2: " + sumText2);
+                        arrJectData.add(sumText2);
+                        nameModel.setName2(sumText2);
                         // reset this value from arrayList
                         // items.remove(position);
 
@@ -512,12 +515,12 @@ public class SubjectListSearchActivity extends AppCompatActivity {
                         getName3 = model.getName().toString();
                         getCode3 = model.getPasscode().toString();
                         // set text to text view
-                        String sumText = model.getPasscode().toString() + " " + model.getName().toString();
+                        sumText3 = model.getPasscode().toString() + " " + model.getName().toString();
 
                         add_subjectBox3.setTextColor(getResources().getColor(R.color.darknight));
-                        add_subjectBox3.setText("วิชาที่ 3: " + sumText);
-                        arrJectData.add(sumText);
-                        nameModel.setName3(sumText);
+                        add_subjectBox3.setText("วิชาที่ 3: " + sumText3);
+                        arrJectData.add(sumText3);
+                        nameModel.setName3(sumText3);
                         bottomSheetDialog.dismiss();
                     }
                 });
@@ -628,12 +631,12 @@ public class SubjectListSearchActivity extends AppCompatActivity {
                         getCode4 = model.getPasscode().toString();
 
                         // set text to text view
-                        String sumText = model.getPasscode().toString() + " " + model.getName().toString();
+                        sumText4 = model.getPasscode().toString() + " " + model.getName().toString();
 
                         add_subjectBox4.setTextColor(getResources().getColor(R.color.darknight));
-                        add_subjectBox4.setText("วิชาที่ 4: " + sumText);
-                        arrJectData.add(sumText);
-                        nameModel.setName4(sumText);
+                        add_subjectBox4.setText("วิชาที่ 4: " + sumText4);
+                        arrJectData.add(sumText4);
+                        nameModel.setName4(sumText4);
                         bottomSheetDialog.dismiss();
                     }
                 });
@@ -745,12 +748,12 @@ public class SubjectListSearchActivity extends AppCompatActivity {
                         getCode5 = model.getPasscode().toString();
 
                         // set text to text view
-                        String sumText = model.getPasscode().toString() + " " + model.getName().toString();
+                        sumText5 = model.getPasscode().toString() + " " + model.getName().toString();
 
                         add_subjectBox5.setTextColor(getResources().getColor(R.color.darknight));
-                        add_subjectBox5.setText("วิชาที่ 5: " + sumText);
-                        arrJectData.add(sumText);
-                        nameModel.setName5(sumText);
+                        add_subjectBox5.setText("วิชาที่ 5: " + sumText5);
+                        arrJectData.add(sumText5);
+                        nameModel.setName5(sumText5);
                         bottomSheetDialog.dismiss();
                     }
                 });
@@ -762,6 +765,24 @@ public class SubjectListSearchActivity extends AppCompatActivity {
             }
         });
 
+//        checkAddSubject(sumText1,sumText2,sumText3,sumText4,sumText5);
+
+    }
+
+    private boolean checkAddSubject() {
+        String getSumText1 = sumText1;
+        String getSumText2 = sumText2;
+        String getSumText3 = sumText3;
+        String getSumText4 = sumText4;
+        String getSumText5 = sumText5;
+        if (getSumText2.equals(getSumText1) || getSumText2.equals(getSumText3) || getSumText2.equals(getSumText4) || getSumText2.equals(getSumText5) || getSumText3.equals(getSumText1) || getSumText3.equals(getSumText4) || getSumText3.equals(getSumText5) || getSumText4.equals(getSumText1) || getSumText4.equals(getSumText5) || getSumText5.equals(getSumText1)  )
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 
     private void pullRankingSubject(String s) {
@@ -805,6 +826,10 @@ public class SubjectListSearchActivity extends AppCompatActivity {
                             nameModel.setName2(subjectNameModel.getName2());
                             nameModel.setName3(subjectNameModel.getName3());
 
+                            sumText1 = subjectNameModel.getName1();
+                            sumText2 = subjectNameModel.getName2();
+                            sumText3 = subjectNameModel.getName3();
+
                             // check if data number 4 is not have in firebase
                             if (subjectNameModel.getName4().equals("none")) {
 
@@ -812,6 +837,7 @@ public class SubjectListSearchActivity extends AppCompatActivity {
                                 add_subjectBox4.setText("วิชาที่ 4: " + subjectNameModel.getName4());
                                 arrJectData.add(subjectNameModel.getName4());
                                 nameModel.setName4(subjectNameModel.getName4());
+                                sumText4 = subjectNameModel.getName4();
                             }
 
                             // check if data number 5 is not have in firebase
@@ -821,6 +847,8 @@ public class SubjectListSearchActivity extends AppCompatActivity {
                                 add_subjectBox5.setText("วิชาที่ 5: " + subjectNameModel.getName5());
                                 arrJectData.add(subjectNameModel.getName5());
                                 nameModel.setName5(subjectNameModel.getName5());
+                                sumText5 = subjectNameModel.getName5();
+
                             }
 
 
@@ -887,7 +915,15 @@ public class SubjectListSearchActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     //Close AlertDialog
-                    getUserData();
+//                    getUserData();
+//                    checkAddSubject();
+                    if (!checkAddSubject()) {
+                        builder.dismiss();
+                        Toast.makeText(SubjectListSearchActivity.this, "ไม่สามารถเลือกรายวิชาซ้ำกันได้", Toast.LENGTH_SHORT).show();
+                        return;
+                    } else {
+                        getUserData();
+                    }
                     builder.dismiss();
                     finish();
                 } // oN click
@@ -964,6 +1000,41 @@ public class SubjectListSearchActivity extends AppCompatActivity {
                         .child(user.getUserId());
 
                 ref.setValue(nameModel);
+
+                // declaration of ref
+
+//                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("allSubject/")
+//                        .child("MajorSkillBranch")
+//                        .child(user.getMajor())
+//                        .child(user.getSubMajor())
+//                        .child("allUser");
+//
+//                // create map uid
+//                Map<String, Boolean> subject = new HashMap<>();
+//                subject.put(FirebaseAuth.getInstance().getUid(), true);
+//
+//                DatabaseReference sub1 = reference.child(nameModel.getName1());
+//                DatabaseReference sub2 = reference.child(nameModel.getName2());
+//                DatabaseReference sub3 = reference.child(nameModel.getName3());
+//
+//                // checking for 4 and 5
+//                if (nameModel.getName4().isEmpty()){} else {
+//                    DatabaseReference sub4 = reference.child(nameModel.getName4());
+//                    sub4.setValue(subject);
+//                }
+//
+//                if (nameModel.getName5().isEmpty()){} else {
+//                    DatabaseReference sub5 = reference.child(nameModel.getName5());
+//                    sub5.setValue(subject);
+//                }
+//
+//                DatabaseReference sub5 = reference.child(nameModel.getName5());
+//
+//                sub1.setValue(subject);
+//                sub2.setValue(subject);
+//                sub3.setValue(subject);
+
+
 
                 // auto generate id
 //                DatabaseReference newRef = ref.push();
