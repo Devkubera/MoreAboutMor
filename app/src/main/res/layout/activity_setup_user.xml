@@ -111,7 +111,9 @@
                 android:hint="ชื่อเล่น"
                 android:inputType="textPersonName"
                 android:textColor="@color/black"
-                android:textSize="14dp"></com.google.android.material.textfield.TextInputEditText>
+                android:textSize="14dp">
+
+            </com.google.android.material.textfield.TextInputEditText>
 
         </com.google.android.material.textfield.TextInputLayout>
 

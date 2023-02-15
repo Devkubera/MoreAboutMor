@@ -35,6 +35,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.moreaboutmoreapp.Models.Comment;
+import com.example.moreaboutmoreapp.Models.User;
 import com.example.moreaboutmoreapp.R;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -795,14 +796,44 @@ public class ProfileActivity extends AppCompatActivity {
             saveMajorButton.setVisibility(INVISIBLE);
             progressBarMB.setVisibility(View.VISIBLE);
 
+            DatabaseReference ref = firebaseDatabase.getReference("userData").child(currentUser.getUid());
+            ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    User user = snapshot.getValue(User.class);
+                    deleteRankingSubject(user);
+                }
+
+                private void deleteRankingSubject(User user) {
+                    DatabaseReference geRef = firebaseDatabase.getReference("allSubject")
+                            .child("GeRelax")
+                            .child(user.getMajor())
+                            .child(user.getSubMajor())
+                            .child(user.userId);
+                    geRef.removeValue();
+                    DatabaseReference majorRef = firebaseDatabase.getReference("allSubject")
+                            .child("MajorSkillBranch")
+                            .child(user.getMajor())
+                            .child(user.getSubMajor())
+                            .child(user.userId);
+                    majorRef.removeValue();
+                    Log.d("GeRelax", "deleteRankingSubject: " + geRef);
+                    Log.d("MajorSkillBranch", "deleteRankingSubject: " + majorRef);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
             DatabaseReference updateUserDataRef = firebaseDatabase.getReference("userData").child(currentUser.getUid());
             updateUserDataRef.child("major").setValue(itemSelectGroup);
             updateUserDataRef.child("subMajor").setValue(itemSelectBranch);
 
             showMessage("แก้ไขสำนักวิชา และสาขาวิชาเรียบร้อย");
+
             bottomSheetDialog.dismiss();
-
-
 
         }
 

@@ -920,10 +920,10 @@ public class HomeFragment extends Fragment implements BackKeyPressedListener {
         nameRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.d("SHOW UID value is ", snapshot.getValue().toString());
+                // Log.d("SHOW UID value is ", snapshot.getValue().toString());
                 String name = snapshot.getValue().toString();
 
-                if(name.equals("default")) {
+                if(name.equals("")) {
                     showMessage(name);
                     Intent setupUserActivity = new Intent(getActivity(), SetupUserActivity.class);
                     startActivity(setupUserActivity);

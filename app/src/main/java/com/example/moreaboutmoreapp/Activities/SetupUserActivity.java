@@ -76,7 +76,6 @@ public class SetupUserActivity extends AppCompatActivity {
         // finally change the color
         window.setStatusBarColor(getResources().getColor(R.color.nav_color));
 
-
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
@@ -85,6 +84,8 @@ public class SetupUserActivity extends AppCompatActivity {
         setName = findViewById(R.id.setName);
         imageSetup = findViewById(R.id.imageSetup);
         loadingProgress = findViewById(R.id.progressBar);
+
+
 
         //Step View
         stepView = findViewById(R.id.step_view);
