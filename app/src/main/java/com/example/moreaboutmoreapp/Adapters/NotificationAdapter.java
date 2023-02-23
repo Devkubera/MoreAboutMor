@@ -251,6 +251,14 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
                 } // oN click
             });
+
+            Button click_cancel = view.findViewById(R.id.Btn_noty_cancel);
+            click_cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    builder.dismiss();
+                }
+            });
         }
     }
 }

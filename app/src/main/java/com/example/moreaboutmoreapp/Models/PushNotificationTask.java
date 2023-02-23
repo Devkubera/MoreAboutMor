@@ -35,7 +35,7 @@ public class PushNotificationTask extends AsyncTask<String, Void, String> {
             title = title + mtype;
 
             // make body...
-            String body = "testing in message";
+            String body = "";
 
             Log.d("TITLE IS ", "doInBackground: " + title);
             URL url = new URL("https://fcm.googleapis.com/fcm/send");
