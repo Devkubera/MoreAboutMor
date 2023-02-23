@@ -66,7 +66,7 @@
                     android:drawableTint="@color/dark_font"
                     android:background="@drawable/custom_button_white"
                     android:textColor="@color/dark_font"
-                    android:text=" Subject list"
+                    android:text=" Ranking Subject"
                     android:textSize="17dp"
                     android:textAllCaps="false"
                     android:fontFamily="@font/mitr_regular"/>
