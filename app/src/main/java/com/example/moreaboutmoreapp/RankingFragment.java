@@ -227,97 +227,6 @@ public class RankingFragment extends Fragment implements BackKeyPressedListener 
                 DatabaseReference facultyGeRef = FirebaseDatabase.getInstance().getReference("allSubject").child("GeRelax").child(user.getMajor());
                 DatabaseReference branchGeRef = facultyGeRef.child(user.getSubMajor());
 
-
-                // section : Faculty Skill
-//                facultySkillRef.addValueEventListener(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                        if (snapshot.exists()) {
-//                            //waitForFetch(model);
-//                            Log.d("facultySkillRef", "onDataChange: " + snapshot.getValue());
-//
-////                        String[] item;
-//                            ArrayList<String> arr = new ArrayList<>();
-//                            for (DataSnapshot subjectSnapshot : snapshot.getChildren()) {
-//                                String name1 = subjectSnapshot.child("name1").getValue(String.class);
-//                                String name2 = subjectSnapshot.child("name2").getValue(String.class);
-//                                String name3 = subjectSnapshot.child("name3").getValue(String.class);
-//                                String name4 = subjectSnapshot.child("name4").getValue(String.class);
-//                                String name5 = subjectSnapshot.child("name5").getValue(String.class);
-//
-//                            System.out.println(name1);
-//                            System.out.println(name2);
-//                            System.out.println(name3);
-//                            System.out.println(name4);
-//                            System.out.println(name5);
-//
-//                                arr.add(name1);
-//                                arr.add(name2);
-//                                arr.add(name3);
-//                                arr.add(name4);
-//                                arr.add(name5);
-//                            } // end of for
-//
-//                            rankingModel = new RankingModelTest();
-//                            rankingModel.setRankingModelTests(arr);
-//
-//                            ArrayList<String> rankingData = new ArrayList<>();
-//                            rankingData = rankingModel.getRankingModelTests();
-//
-//                            ArrayList<ArrayList<String>> sumArr = new ArrayList<>();
-//                            sumArr.add(rankingData);
-//                            rankingModel.setMajorModel(sumArr);
-//
-//                            ArrayList<ArrayList<String>> newSumArr = new ArrayList<>();
-//                            newSumArr = rankingModel.getMajorModel();
-//
-//                            // unit test fetch data is great result
-//                            System.out.println("HERE IS A RANKING MODEL");
-//
-//                        for (int i=0; i< newSumArr.size(); i++) {
-//                            System.out.println(newSumArr.get(i).toString());
-//                        }
-//
-////                            // find a top 5 subject high score
-////                            Map<String, Integer> subjectCounts = new HashMap<>();
-////                            for (String subject : rankingData) {
-////                                int count = subjectCounts.getOrDefault(subject, 0);
-////                                subjectCounts.put(subject, count + 1);
-////                            }
-////
-////                            // Get the top 5 subjects with the highest counts
-////                            List<Map.Entry<String, Integer>> sortedSubjects = new ArrayList<>(subjectCounts.entrySet());
-////                            Collections.sort(sortedSubjects, new Comparator<Map.Entry<String, Integer>>() {
-////                                @Override
-////                                public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
-////                                    return o2.getValue().compareTo(o1.getValue());
-////                                }
-////                            });
-////                            for (int i = 0; i < Math.min(5, sortedSubjects.size()); i++) {
-////                                Map.Entry<String, Integer> subject = sortedSubjects.get(i);
-////                                System.out.println(subject.getKey() + ": " + subject.getValue());
-////
-////                                /** Importanting !!! This is a place for set faculty skill text */
-////                                if (i==0)
-////                                    text_major1.setText(subject.getKey());
-////                                if (i==1)
-////                                    text_major2.setText(subject.getKey());
-////                                if (i==2)
-////                                    text_major3.setText(subject.getKey());
-////                                if (i==3)
-////                                    text_major4.setText(subject.getKey());
-////                                if (i==4)
-////                                    text_major5.setText(subject.getKey());
-////                            }
-//                        } // end if
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError error) {
-//                        Log.e("facultySkillRef", "onCancelled: " + error);
-//                    }
-//                });
-
                 // section : Branch Skill
                 branchSkillRef.addValueEventListener(new ValueEventListener() {
                     @Override
@@ -335,12 +244,6 @@ public class RankingFragment extends Fragment implements BackKeyPressedListener 
                                 String name4 = subjectSnapshot.child("name4").getValue(String.class);
                                 String name5 = subjectSnapshot.child("name5").getValue(String.class);
 
-//                            System.out.println(name1);
-//                            System.out.println(name2);
-//                            System.out.println(name3);
-//                            System.out.println(name4);
-//                            System.out.println(name5);
-
                                 arr.add(name1);
                                 arr.add(name2);
                                 arr.add(name3);
@@ -355,9 +258,6 @@ public class RankingFragment extends Fragment implements BackKeyPressedListener 
                             System.out.println("HERE IS A RANKING MODEL");
                             List<String> rankingData = new ArrayList<>();
                             rankingData = rankingModel.getRankingModelTests();
-//                        for (int i=0; i< rankingData.size(); i++) {
-//                            System.out.println(rankingData.get(i).toString());
-//                        }
 
                             // find a top 5 subject high score
                             Map<String, Integer> subjectCounts = new HashMap<>();
@@ -416,12 +316,6 @@ public class RankingFragment extends Fragment implements BackKeyPressedListener 
                                 String name4 = subjectSnapshot.child("name4").getValue(String.class);
                                 String name5 = subjectSnapshot.child("name5").getValue(String.class);
 
-//                            System.out.println(name1);
-//                            System.out.println(name2);
-//                            System.out.println(name3);
-//                            System.out.println(name4);
-//                            System.out.println(name5);
-
                                 arr.add(name1);
                                 arr.add(name2);
                                 arr.add(name3);
@@ -436,9 +330,6 @@ public class RankingFragment extends Fragment implements BackKeyPressedListener 
                             System.out.println("HERE IS A RANKING MODEL");
                             List<String> rankingData = new ArrayList<>();
                             rankingData = rankingModel.getRankingModelTests();
-//                        for (int i=0; i< rankingData.size(); i++) {
-//                            System.out.println(rankingData.get(i).toString());
-//                        }
 
                             // find a top 5 subject high score
                             Map<String, Integer> subjectCounts = new HashMap<>();
@@ -479,40 +370,12 @@ public class RankingFragment extends Fragment implements BackKeyPressedListener 
                         Log.e("branchSkillRef", "onCancelled: " + error);
                     }
                 });
-
-
-
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError error) { }
         });
 
-
-
-    }
-
-    private void waitForFetch(subjectNameModel model) {
-        Log.d("waitForFetch", "waitForFetch:1 " + model.getName1());
-
-//        subjectNameModel skillModel;
-//        subjectNameModel geModel;
-//        if (model1 != null) {
-//            skillModel = model1;
-//            ArrayList<subjectNameModel> data = new ArrayList<>();
-//            data.add(model1);
-//            for (int i=0; i<data.size(); i++ ) {
-//                Log.d("waitForFetch", "waitForFetch:1 " + model1.getName1());
-//                Log.d("waitForFetch", "waitForFetch:2 " + model1.getName2());
-//                Log.d("waitForFetch", "waitForFetch:3 " + model1.getName3());
-//                Log.d("waitForFetch", "array " + data.get(i).getName1());
-//            }
-//        }
-//        if (model2 != null) {
-//            geModel = model2;
-//        }
 
 
     }

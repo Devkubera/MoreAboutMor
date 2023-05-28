@@ -86,21 +86,11 @@ public class ManagePostAdapter extends RecyclerView.Adapter<ManagePostAdapter.My
 
         //Set Comment
         String comments = mData.get(position).getDetailComments();
-         /*if (holder.textComments.getLineCount() > 3){
-            //comments = comments.substring(0,20) + " ...";
 
-        }*/
         if (comments.length() > 155) {
             comments = comments.substring(0,155) + " ...";
             holder.textPost.setText(comments);
             holder.textViewMore.setVisibility(View.VISIBLE);
-
-           /*holder.textViewMore.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View view) {
-                   Toast.makeText(mContext, "Click", Toast.LENGTH_SHORT).show();
-               }
-           });*/
 
         } else {
             holder.textViewMore.setVisibility(View.INVISIBLE);

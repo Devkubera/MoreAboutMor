@@ -361,7 +361,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.MyViewHolder> 
                         int position = getAdapterPosition();
                         postEditKey = mData.get(position).getPostKey();
 
-                        if (mData.get(position).getUserName().equals(firebaseUser.getDisplayName())){
+                        int i = 1;
+                        if (mData.get(position).getUserName().equals(firebaseUser.getDisplayName()) /** || i ==1*/ ){
 
                             bottomSheetDialog = new BottomSheetDialog(mContext, R.style.BottomSheetDialog);
                             View BottomSheetView = LayoutInflater.from(mContext)

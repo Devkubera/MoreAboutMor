@@ -119,6 +119,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_below="@+id/fromTextMail"
                     android:inputType="textEmailAddress"
+                    android:text="b6301170@g.sut.ac.th"
                     android:hint="กรุณากรอกอีเมลของคุณ"
                     android:textSize="13dp"
                     android:textColorHint="@color/dark_gray"
@@ -139,6 +140,7 @@
                     android:inputType="textPassword"
                     android:hint="กรุณากรอกรหัสผ่านของคุณ"
                     android:textSize="13dp"
+                    android:text="12345678"
                     android:textColorHint="@color/dark_gray"
                     android:fontFamily="@font/mitr_light"/>
 
