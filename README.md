@@ -1,6 +1,5 @@
 # MoreAboutMor
-This is an Educational Project.
-This is a list of my function I developed
+This is an Educational Project. Here is a list of my function I developed
 - Manage Post Function
 - Search Function
 - Notification Function
